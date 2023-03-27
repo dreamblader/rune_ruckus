@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://runes/player_rune_script.gd" type="Script" id=1]
+[ext_resource path="res://runes/red/red_active.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://runes/outline_shader.gdshader" type="Shader" id=3]
+[ext_resource path="res://runes/blue/blue_active.tres" type="SpriteFrames" id=4]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 3 )
+shader_param/color = Color( 1, 1, 1, 1 )
+shader_param/width = 1.0
+shader_param/pattern = 1
+shader_param/inside = false
+shader_param/add_margins = true
+shader_param/speed = 2.5
+shader_param/active = true
+
+[node name="PlayerRune" type="Node2D"]
+scale = Vector2( 2, 2 )
+script = ExtResource( 1 )
+red_animation = ExtResource( 2 )
+blue_animation = ExtResource( 4 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = SubResource( 1 )
+position = Vector2( 20, 20 )
+frames = ExtResource( 2 )
+frame = 1
+playing = true
