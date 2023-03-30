@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Rune",
 "language": "GDScript",
-"path": "res://runes/red/rune_script.gd"
+"path": "res://runes/rune_script.gd"
 } ]
 _global_script_class_icons={
 "Game": "",

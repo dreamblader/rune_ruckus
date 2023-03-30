@@ -7,47 +7,48 @@ onready var collision: CollisionShape2D = $CollisionShape2D
 onready var side_rune = $SideRune
 onready var pivot_rune= $PivotRune
 
+var rune_size = 80
+var tween: SceneTreeTween 
 var side_position: int = SidePosition.TOP
 var tick_time: float = 1.0
 var tick_move: float
 var move: float
 
+signal place_runes(insta_position, pivot_rune, side_rune)
+
 
 func _ready() -> void:
-	#pivot_rune.active = true
-	#side_rune.active = true
-	#side_rune.toggle_border(false)
-	timer.wait_time = tick_time
+	visible = false
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_left"):
-		move_horizontal(-1)
+	if visible:
+		if event.is_action_pressed("ui_left"):
+			move_horizontal(-1)
+			
+		if event.is_action_pressed("ui_right"):
+			move_horizontal(1)
 		
-	if event.is_action_pressed("ui_right"):
-		move_horizontal(1)
-	
-	if event.is_action_pressed("ui_down"):
-		move_down()
-	
-	if event.is_action_pressed("rotate_r"):
-		rotate_runes(1)
-	
-	if event.is_action_pressed("rotate_l"):
-		rotate_runes(-1)
-
-
-func _process(delta: float) -> void:
-	pass
-	#side_rune.position = pivot_rune.position
+		if event.is_action_pressed("ui_down"):
+			move_down()
+		
+		if event.is_action_pressed("rotate_r"):
+			rotate_runes(1)
+		
+		if event.is_action_pressed("rotate_l"):
+			rotate_runes(-1)
 
 
 func move_horizontal(direction:int) -> void:
-	move_and_collide(Vector2(move*direction, 0.0))
+	var snapshot_position_x = position.x
+	var collision = move_and_collide(Vector2(move*direction, 0.0))
+	if collision != null:
+		position.x = snapshot_position_x
+	snap_position()
 
 
 func rotate_runes(direction:int) -> void:
-	var tween = get_tree().create_tween()
+	tween = get_tree().create_tween()
 	var move_rune_to = Vector2()
 	var move_collision_to = Vector2()
 	var new_position = (side_position+direction)%SidePosition.size()
@@ -71,19 +72,62 @@ func rotate_runes(direction:int) -> void:
 	collision.position = move_collision_to
 	tween.tween_property(side_rune, "position", move_rune_to, 0.25).set_trans(Tween.TRANS_QUAD)
 	move_and_slide(Vector2())
-	print(collision.position + position)
+	if is_on_wall():
+		wall_bounce()
 	snap_position()
 
 
 func move_down() -> void:
 	var pivot_collide = move_and_collide(Vector2(0.0, tick_move))
+	if pivot_collide != null:
+		place_runes()
 	timer.wait_time = tick_time
 
 
+func wall_bounce() -> void:
+	var bounce_add = rune_size/2
+	match side_position:
+		SidePosition.RIGHT:
+			position.x -= bounce_add
+		SidePosition.BOTTOM:
+			position.y -= rune_size
+		SidePosition.LEFT:
+			position.x += bounce_add
+		SidePosition.TOP:
+			position.y += rune_size
+
+
 func snap_position() -> void:
-	position = Vector2(floor(position.x), floor(position.y))
-	#print(collision.position + position)
+	var snap_x = round(position.x/rune_size) * rune_size
+	var snap_y = round(position.y/(rune_size*0.5)) * (rune_size*0.5)
+	position = Vector2(snap_x, snap_y)
 
 
 func _on_Timer_timeout() -> void:
 	move_down()
+
+
+func place_runes() -> void:
+	if visible && (tween == null || !tween.is_running()):
+		snap_position()
+		timer.stop()
+		collision.disabled = true
+		visible = false
+		emit_signal("place_runes", position, pivot_rune, side_rune)
+
+
+func respawn(pivot_rune_color: int, side_rune_color: int) -> void:
+	visible = true
+	position = Vector2(160,-40)
+	reset_rotation()
+	pivot_rune.color = pivot_rune_color
+	side_rune.color = side_rune_color
+	collision.disabled = false
+	timer.start(tick_time)
+
+
+func reset_rotation() -> void:
+	side_position = SidePosition.TOP
+	collision.rotation = 0
+	collision.position = Vector2(40, 0)
+	side_rune.position = Vector2(0, -80)

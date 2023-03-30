@@ -3,7 +3,7 @@ class_name Rune
 
 enum COLOR { RED, YELLOW, BLUE, GREEN , PURPLE, ORANGE, NONE}
 
-export (COLOR) var color
+export (COLOR) var color = COLOR.RED
 
 var gravity: float
 
@@ -17,16 +17,20 @@ signal explode
 
 func _ready() -> void:
 	sprite.frame = 0
+	move_and_slide(Vector2(), Vector2(0,-1))
+	snap_position()
 
 
 func _process(delta: float) -> void:
-		var collide: KinematicCollision2D = move_and_collide(Vector2(0, gravity))
-		if collide != null:
-			check_collision(collide)
+	if visible && !is_on_floor():
+		move_and_slide(Vector2(0, gravity), Vector2(0,-1)) #slide is creating weird bugs
+		snap_position()
 
 
-func check_collision(collide: KinematicCollision2D) -> void:
-	var collide_class: String = collide.get_class()
+func snap_position() -> void:
+	var snap_size: float = 80.0
+	var snap_x = round(position.x/snap_size) * snap_size
+	position = Vector2(snap_x, position.y)
 
 
 func get_power() -> float:
