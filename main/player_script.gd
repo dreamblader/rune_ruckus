@@ -77,9 +77,10 @@ func rotate_runes(direction:int) -> void:
 		collision.position = move_collision_to
 		tween.tween_property(side_rune, "position", move_rune_to, 0.25).set_trans(Tween.TRANS_QUAD)
 		var collide = move_and_collide(Vector2())
-		prints("Colission:", collide)
+		
 		if collide != null:
-			wall_bounce()
+			prints("Colission:", collide.collider.position)
+			wall_bounce(collide.collider.position)
 		snap_position()
 
 
@@ -92,17 +93,22 @@ func move_down() -> void:
 	timer.wait_time = tick_time
 
 
-func wall_bounce() -> void:
+func wall_bounce(collider_position) -> void:
 	#TODO BOUNCE ADD IS NO REPELING SIDE RUNES
 	var bounce_add = rune_size/4
 	match side_position:
 		SidePosition.RIGHT:
-			position.x -= bounce_add
+			prints("before:", position.x, "colliders:", collider_position)
+			position.x = (round(collider_position.x/rune_size)-2) * rune_size
+			prints("after:", position.x)
 		SidePosition.BOTTOM:
-			var snap_y = floor(position.y/rune_size) * rune_size
-			position.y = snap_y
+			prints("before:", position.y, "colliders:", collider_position)
+			position.y = (round(collider_position.y/rune_size)-2) * rune_size
+			prints("after:", position.y)
 		SidePosition.LEFT:
-			position.x += bounce_add
+			prints("before:", position.x,  "colliders:", collider_position)
+			position.x = (round(collider_position.x/rune_size)+2) * rune_size
+			prints("after:", position.x)
 		SidePosition.TOP:
 			position.y += rune_size
 
