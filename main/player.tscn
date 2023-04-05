@@ -46,7 +46,3 @@ __meta__ = {
 shape = SubResource( 2 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
-[connection signal="body_entered" from="Areas/R_Area" to="." method="_on_R_Area_body_entered"]
-[connection signal="body_exited" from="Areas/R_Area" to="." method="_on_R_Area_body_exited"]
-[connection signal="body_entered" from="Areas/L_Area" to="." method="_on_L_Area_body_entered"]
-[connection signal="body_exited" from="Areas/L_Area" to="." method="_on_L_Area_body_exited"]

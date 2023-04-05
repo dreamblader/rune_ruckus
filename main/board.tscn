@@ -17,10 +17,6 @@ script = ExtResource( 2 )
 red_rune = ExtResource( 1 )
 blue_rune = ExtResource( 4 )
 
-[node name="TileMap" type="TileMap" parent="."]
-cell_size = Vector2( 80, 80 )
-format = 1
-
 [node name="WallLeft" type="StaticBody2D" parent="."]
 position = Vector2( -80, 0 )
 __meta__ = {

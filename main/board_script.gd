@@ -8,6 +8,7 @@ var GAME_SIZE:Vector2 = Vector2(6.0, 12.0)
 var TICK_MOVE: float = GRID_SIZE.y/2
 
 var pause: bool = false
+var on_wait: bool = false
 
 var unlocked_colors: Array = [Rune.COLOR.RED, Rune.COLOR.BLUE]
 var next_runes: Array = []
@@ -45,7 +46,10 @@ func spawn_player() -> void:
 
 
 func solve() -> void:
-	#ENTIRE CHAIN ALGORITHM GOES HERE
+	var runes = get_tree().get_nodes_in_group("Rune")
+	for rune in runes:
+		rune.check_edges()
+	#ENTIRE CHAIN ALGORITHM GOES HERE (DEPTH-FIRST)
 	#AFTER ALL CHAIN ANIMATIONS END CALL RESPAWN
 	spawn_player()
 
@@ -53,14 +57,14 @@ func solve() -> void:
 func _on_Player_place_runes(insta_position, pivot_rune, side_rune) -> void:
 	var new_rune_from_pivot = get_rune_instance(pivot_rune)
 	var new_rune_from_side = get_rune_instance(side_rune)
+	new_rune_from_pivot.add_to_group("Rune")
+	new_rune_from_side.add_to_group("Rune")
 	new_rune_from_pivot.position = insta_position + pivot_rune.position
 	new_rune_from_side.position = insta_position + side_rune.position
 	new_rune_from_pivot.gravity = GRAVITY
 	new_rune_from_side.gravity = GRAVITY
 	add_child(new_rune_from_pivot)
 	add_child(new_rune_from_side)
-	#PIVOT sometimes is spawning off?
-	prints("pivot:", new_rune_from_pivot.position,"side:", new_rune_from_side.position, "player:", insta_position)
 	solve()
 
 

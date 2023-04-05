@@ -94,21 +94,13 @@ func move_down() -> void:
 
 
 func wall_bounce(collider_position) -> void:
-	#TODO BOUNCE ADD IS NO REPELING SIDE RUNES
-	var bounce_add = rune_size/4
 	match side_position:
 		SidePosition.RIGHT:
-			prints("before:", position.x, "colliders:", collider_position)
 			position.x = (round(collider_position.x/rune_size)-2) * rune_size
-			prints("after:", position.x)
 		SidePosition.BOTTOM:
-			prints("before:", position.y, "colliders:", collider_position)
 			position.y = (round(collider_position.y/rune_size)-2) * rune_size
-			prints("after:", position.y)
 		SidePosition.LEFT:
-			prints("before:", position.x,  "colliders:", collider_position)
 			position.x = (round(collider_position.x/rune_size)+2) * rune_size
-			prints("after:", position.x)
 		SidePosition.TOP:
 			position.y += rune_size
 
