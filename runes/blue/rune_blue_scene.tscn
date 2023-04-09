@@ -52,13 +52,6 @@ shape = SubResource( 17 )
 position = Vector2( 40, 0 )
 rotation = 3.14159
 
-[node name="DetectDown" type="RayCast2D" parent="."]
-position = Vector2( 40, 80 )
-
 [node name="DetectRigth" type="RayCast2D" parent="."]
 position = Vector2( 80, 40 )
 rotation = -1.5708
-
-[node name="DetectLeft" type="RayCast2D" parent="."]
-position = Vector2( 0, 40 )
-rotation = 1.5708
