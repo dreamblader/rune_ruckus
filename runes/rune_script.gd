@@ -20,6 +20,7 @@ onready var detectors: Array = [ $DetectUp, $DetectRigth ]
 
 signal explode
 signal touch_the_ground
+signal chain_check_finish
 
 
 func _ready() -> void:
@@ -41,25 +42,26 @@ func _process(delta: float) -> void:
 func init_chain_check() -> void:
 	for side in SIDE.values():
 		check_chain(side, [self])
+	prints(self, "FINISH")
+	emit_signal("chain_check_finish")
 
 
 func check_chain(at_side:int, chain:Array) -> Array:
 	var my_chain: Array = chains[at_side]
-	
+	#prints(self," STEP 1 --->", my_chain)
 	if my_chain.empty():
 		my_chain.append_array(chain)
 		var collider = detect_body(at_side)
+		#prints(self," STEP 2A --->", my_chain)
 		#modulate = Color(my_chain.size()/6, my_chain.size()/6, my_chain.size()/6) # VISUAL TEST (REMOVE AFTER)
 		if is_chainable_rune(collider):
 			var next_rune = collider as Rune
-			while next_rune != null && !next_rune.is_on_floor(): #Check if rune is floating 'phantom runes'
-				yield(next_rune, "touch_the_ground")
-				var real_collider: Object = detect_body(at_side)
-				next_rune = real_collider as Rune if is_chainable_rune(real_collider) else null
-			if next_rune != null:
-				my_chain.append(next_rune)
-				my_chain = next_rune.check_chain(at_side, my_chain)
+			my_chain.append(next_rune)
+			#prints(self," STEP 3A --->", my_chain)
+			my_chain = next_rune.check_chain(at_side, my_chain)
+			#prints(self," STEP 4A --->", my_chain)
 	else:
+		#prints(self," STEP 2B --->", my_chain)
 		var root = chain[0]
 		if !my_chain.has(root):
 			my_chain.pop_front() #remove duplicate member
@@ -68,8 +70,9 @@ func check_chain(at_side:int, chain:Array) -> Array:
 			for rune in my_chain: #Update all old members of chain
 				rune.update_chain(at_side, updated_chain)
 			my_chain = updated_chain
+			#prints(self," STEP 3B --->", my_chain)
 	
-	prints("I AM ", self, "MY CHAIN IS:", my_chain, "AT SIDE:", at_side)
+	prints("I AM ", self, "MY CHAIN IS:", my_chain, "AT SIDE:", at_side, "MY POS:", position)
 	return my_chain
 
 
@@ -84,7 +87,9 @@ func is_chainable_rune(body) -> bool:
 
 
 func update_chain(at_side:int, new_chain:Array) -> void:
+	prints(self," UPDATED BEFORE --->", chains[at_side])
 	chains[at_side] = new_chain
+	prints(self," UPDATED LATER --->", chains[at_side])
 
 
 func snap_position() -> void:
@@ -95,6 +100,7 @@ func snap_position() -> void:
 
 func explode() -> void:
 	var power = max(chains[SIDE.VERTICAL].size(), chains[SIDE.HORIZONTAL].size())
+	prints("I AM ", self, "MY CHAIN IS:", chains, "GOING TO EXPLODE")
 	sprite.frame = min(power-1, max_power-1)
 	
 	if power >= max_power:
