@@ -46,20 +46,23 @@ func spawn_player() -> void:
 
 
 func solve() -> void:
+	var chain_count:int = 1
+	var continue_chain = true
 	var runes = get_tree().get_nodes_in_group("Rune")
 	yield(wait_runes_touch_the_ground(runes), "completed")
 	for rune in runes:
 		rune.init_chain_check()
-	#TODO WAIT ALL INIT CHAIN CALL
+		prints("I AM ", rune, "MY CHAIN IS:", rune.chains, "MY POS:", rune.position)
+	
 	get_tree().call_group("Rune", "explode")
-	print("NEXT----STEP! ==================================================>")
-	#ENTIRE CHAIN ALGORITHM GOES HERE (DEPTH-FIRST)
+	# NEED TO ADD A LOOP FOR MORE CHAINS
 	#AFTER ALL CHAIN ANIMATIONS END CALL RESPAWN
 	spawn_player()
 
 
 func wait_runes_touch_the_ground(runes) -> void:
 	for rune in runes:
+		rune.poke()
 		yield(rune, "touch_the_ground")
 
 
