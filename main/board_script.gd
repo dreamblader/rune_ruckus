@@ -52,7 +52,6 @@ func solve() -> void:
 	yield(wait_runes_touch_the_ground(runes), "completed")
 	for rune in runes:
 		rune.init_chain_check()
-		prints("I AM ", rune, "MY CHAIN IS:", rune.chains, "MY POS:", rune.position)
 	
 	get_tree().call_group("Rune", "explode")
 	# NEED TO ADD A LOOP FOR MORE CHAINS

@@ -67,13 +67,13 @@ func check_chain(at_side:int, chain:Array) -> Array:
 	else:
 		var root = chain[0]
 		if !my_chain.has(root):
-			#TODO PROBABLY THIS PART IS NOT WORKING
-			my_chain.pop_front() 
+			var need_to_update:Array = []
+			need_to_update.append_array(my_chain)
+			chain.pop_back()
 			chain.append_array(my_chain)
-			var updated_chain = chain
-			for rune in my_chain:
-				rune.update_chain(at_side, updated_chain)
-			update_chain(at_side, updated_chain)
+			
+			for rune in need_to_update:
+				rune.update_chain(at_side, chain)
 	
 	return my_chain
 
@@ -89,8 +89,13 @@ func is_chainable_rune(body) -> bool:
 
 
 func update_chain(at_side:int, new_chain:Array) -> void:
-	chains[at_side].clear()
-	chains[at_side].append_array(new_chain)
+	var my_chain = chains[at_side]
+	my_chain.clear()
+	my_chain.append_array(new_chain)
+	if at_side == SIDE.VERTICAL:
+		v_power = my_chain.size()
+	elif at_side == SIDE.HORIZONTAL:
+		h_power = my_chain.size()
 
 
 func snap_position() -> void:
@@ -101,7 +106,6 @@ func snap_position() -> void:
 
 func explode() -> void:
 	var power = max(v_power, h_power)
-	prints("I AM ", self, "MY CHAIN IS:", chains, "GOING TO EXPLODE")
 	sprite.frame = min(power-1, max_power-1)
 	
 	if power >= max_power:

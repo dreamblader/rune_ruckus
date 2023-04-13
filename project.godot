@@ -27,7 +27,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Rune Ruckus"
-run/main_scene="res://main/board.tscn"
+run/main_scene="res://game_scene.tscn"
 config/icon="res://icon.png"
 
 [display]
