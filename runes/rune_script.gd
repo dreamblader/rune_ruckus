@@ -18,12 +18,13 @@ var v_power:int = 1
 var h_power:int = 1
 var max_power:int = 4
 
+var tween:SceneTreeTween
+
 onready var sprite: AnimatedSprite = $AnimatedSprite
 onready var detectors: Array = [ $DetectUp, $DetectRigth ]
 
-signal explode
+signal explode(rune)
 signal touch_the_ground
-signal chain_check_finish
 
 
 func _ready() -> void:
@@ -51,6 +52,7 @@ func init_chain_check() -> void:
 		check_chain(side, [self])
 	v_power = chains[SIDE.VERTICAL].size()
 	h_power = chains[SIDE.HORIZONTAL].size()
+	update_sprite()
 
 
 func check_chain(at_side:int, chain:Array) -> Array:
@@ -96,6 +98,7 @@ func update_chain(at_side:int, new_chain:Array) -> void:
 		v_power = my_chain.size()
 	elif at_side == SIDE.HORIZONTAL:
 		h_power = my_chain.size()
+	update_sprite()
 
 
 func snap_position() -> void:
@@ -104,17 +107,24 @@ func snap_position() -> void:
 	position = Vector2(snap_x, position.y)
 
 
+func update_sprite() -> void:
+	sprite.frame = min(get_power()-1, max_power-2)
+
+
 func explode() -> void:
-	var power = max(v_power, h_power)
-	sprite.frame = min(power-1, max_power-1)
-	
-	if power >= max_power:
-		var tween = get_tree().create_tween()
+	if get_power() >= max_power:
+		sprite.frame = max_power-1
+		tween = get_tree().create_tween()
 		tween.tween_property(self, "modulate:a", 0, fade_time).set_trans(Tween.TRANS_SINE)
 		tween.connect("finished", self, "gone")
-		emit_signal("explode")
+	else:
+		emit_signal("explode", null)
 	
 	reset_chains()
+
+
+func get_power() -> float:
+	return max(v_power, h_power)
 
 
 func reset_chains() -> void:
@@ -125,5 +135,7 @@ func reset_chains() -> void:
 func get_class() -> String:
 	return my_class
 
+
 func gone() -> void:
+	emit_signal("explode", null)
 	queue_free()

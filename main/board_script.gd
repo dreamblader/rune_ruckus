@@ -9,6 +9,7 @@ var TICK_MOVE: float = GRID_SIZE.y/2
 
 var pause: bool = false
 var on_wait: bool = false
+var continue_chain = false
 
 var unlocked_colors: Array = [Rune.COLOR.RED, Rune.COLOR.BLUE]
 var next_runes: Array = []
@@ -19,6 +20,7 @@ export (PackedScene) var blue_rune
 
 onready var player = $Player
 
+signal emit_orb(at_position)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
@@ -45,17 +47,16 @@ func spawn_player() -> void:
 	generate_runes()
 
 
-func solve() -> void:
-	var chain_count:int = 1
-	var continue_chain = true
+func solve(chain_count_start:int) -> void:
 	var runes = get_tree().get_nodes_in_group("Rune")
-	yield(wait_runes_touch_the_ground(runes), "completed")
-	for rune in runes:
-		rune.init_chain_check()
-	
-	get_tree().call_group("Rune", "explode")
-	# NEED TO ADD A LOOP FOR MORE CHAINS
-	#AFTER ALL CHAIN ANIMATIONS END CALL RESPAWN
+	if !runes.empty():
+		yield(wait_runes_touch_the_ground(runes), "completed")
+		check_runes(runes)
+		yield(get_tree(), "idle_frame")
+		wait_runes_explode(runes)
+		if continue_chain:
+			#TODO NEED TO WAIT EVERYTHING EXPLDOE BEFORE THIS CALL
+			solve(chain_count_start+1)
 	spawn_player()
 
 
@@ -63,6 +64,19 @@ func wait_runes_touch_the_ground(runes) -> void:
 	for rune in runes:
 		rune.poke()
 		yield(rune, "touch_the_ground")
+
+
+func check_runes(runes) -> void:
+	for rune in runes:
+		rune.init_chain_check()
+
+
+func wait_runes_explode(runes) -> void:
+	continue_chain = false
+	for rune in runes:
+		rune.explode()
+		if rune.tween != null:
+			continue_chain = true
 
 
 func _on_Player_place_runes(insta_position, pivot_rune, side_rune) -> void:
@@ -76,7 +90,7 @@ func _on_Player_place_runes(insta_position, pivot_rune, side_rune) -> void:
 	new_rune_from_side.gravity = GRAVITY
 	add_child(new_rune_from_pivot)
 	add_child(new_rune_from_side)
-	solve()
+	solve(1)
 
 
 func get_rune_instance(rune) -> Node:
