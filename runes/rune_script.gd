@@ -10,7 +10,7 @@ export (COLOR) var color = COLOR.RED
 
 var chains: Array = [[],[]]
 
-var fade_time:float = 0.35
+var fade_time:float
 var gravity: float
 var column_pos: float
 

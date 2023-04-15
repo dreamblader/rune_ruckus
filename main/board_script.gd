@@ -2,10 +2,11 @@ extends Node2D
 class_name Game
 
 #GLOBALS
-var GRAVITY:float = 500
+var GRAVITY:float = 700
 var GRID_SIZE:Vector2 = Vector2(80.0, 80.0)
 var GAME_SIZE:Vector2 = Vector2(6.0, 12.0)
 var TICK_MOVE: float = GRID_SIZE.y/2
+var FADE_TIME: float = 0.35
 
 var pause: bool = false
 var on_wait: bool = false
@@ -43,11 +44,13 @@ func generate_runes() -> void:
 
 
 func spawn_player() -> void:
+	#TODO this is actually calling before chain resolve
 	player.respawn(next_runes.pop_front(), next_runes.pop_front())
 	generate_runes()
 
 
 func solve(chain_count_start:int) -> void:
+	var extra_padding_time: float = 0.1
 	var runes = get_tree().get_nodes_in_group("Rune")
 	if !runes.empty():
 		yield(wait_runes_touch_the_ground(runes), "completed")
@@ -55,28 +58,31 @@ func solve(chain_count_start:int) -> void:
 		yield(get_tree(), "idle_frame")
 		wait_runes_explode(runes)
 		if continue_chain:
-			#TODO NEED TO WAIT EVERYTHING EXPLDOE BEFORE THIS CALL
+			yield(get_tree().create_timer(FADE_TIME+extra_padding_time, false), "timeout")
 			solve(chain_count_start+1)
 	spawn_player()
 
 
 func wait_runes_touch_the_ground(runes) -> void:
 	for rune in runes:
-		rune.poke()
-		yield(rune, "touch_the_ground")
+		if rune != null:
+			rune.poke()
+			yield(rune, "touch_the_ground")
 
 
 func check_runes(runes) -> void:
 	for rune in runes:
-		rune.init_chain_check()
+		if rune != null:
+			rune.init_chain_check()
 
 
 func wait_runes_explode(runes) -> void:
 	continue_chain = false
 	for rune in runes:
-		rune.explode()
-		if rune.tween != null:
-			continue_chain = true
+		if rune != null:
+			rune.explode()
+			if rune.tween != null:
+				continue_chain = true
 
 
 func _on_Player_place_runes(insta_position, pivot_rune, side_rune) -> void:
@@ -88,6 +94,8 @@ func _on_Player_place_runes(insta_position, pivot_rune, side_rune) -> void:
 	new_rune_from_side.position = insta_position + side_rune.position
 	new_rune_from_pivot.gravity = GRAVITY
 	new_rune_from_side.gravity = GRAVITY
+	new_rune_from_pivot.fade_time = FADE_TIME
+	new_rune_from_side.fade_time = FADE_TIME
 	add_child(new_rune_from_pivot)
 	add_child(new_rune_from_side)
 	solve(1)
