@@ -2,7 +2,7 @@ extends Node2D
 class_name Game
 
 #GLOBALS
-var GRAVITY:float = 700
+var GRAVITY:float = 900
 var GRID_SIZE:Vector2 = Vector2(80.0, 80.0)
 var GAME_SIZE:Vector2 = Vector2(6.0, 12.0)
 var TICK_MOVE: float = GRID_SIZE.y/2
@@ -12,16 +12,18 @@ var pause: bool = false
 var on_wait: bool = false
 var continue_chain = false
 
-var unlocked_colors: Array = [Rune.COLOR.RED, Rune.COLOR.BLUE]
+var unlocked_colors: Array = [Rune.COLOR.RED, Rune.COLOR.YELLOW, Rune.COLOR.BLUE]
 var next_runes: Array = []
 var rng = RandomNumberGenerator.new()
 
 export (PackedScene) var red_rune
 export (PackedScene) var blue_rune
+export (PackedScene) var yellow_rune
 
 onready var player = $Player
 
 signal emit_orb(at_position)
+
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
@@ -44,7 +46,6 @@ func generate_runes() -> void:
 
 
 func spawn_player() -> void:
-	#TODO this is actually calling before chain resolve
 	player.respawn(next_runes.pop_front(), next_runes.pop_front())
 	generate_runes()
 
@@ -60,6 +61,7 @@ func solve(chain_count_start:int) -> void:
 		if continue_chain:
 			yield(get_tree().create_timer(FADE_TIME+extra_padding_time, false), "timeout")
 			solve(chain_count_start+1)
+			return
 	spawn_player()
 
 
@@ -88,23 +90,25 @@ func wait_runes_explode(runes) -> void:
 func _on_Player_place_runes(insta_position, pivot_rune, side_rune) -> void:
 	var new_rune_from_pivot = get_rune_instance(pivot_rune)
 	var new_rune_from_side = get_rune_instance(side_rune)
-	new_rune_from_pivot.add_to_group("Rune")
-	new_rune_from_side.add_to_group("Rune")
-	new_rune_from_pivot.position = insta_position + pivot_rune.position
-	new_rune_from_side.position = insta_position + side_rune.position
-	new_rune_from_pivot.gravity = GRAVITY
-	new_rune_from_side.gravity = GRAVITY
-	new_rune_from_pivot.fade_time = FADE_TIME
-	new_rune_from_side.fade_time = FADE_TIME
-	add_child(new_rune_from_pivot)
-	add_child(new_rune_from_side)
+	put_new_rune(insta_position + pivot_rune.position, new_rune_from_pivot)
+	put_new_rune(insta_position + side_rune.position, new_rune_from_side)
 	solve(1)
+
+
+func put_new_rune(rune_position, new_rune) -> void:
+	new_rune.add_to_group("Rune")
+	new_rune.position = rune_position
+	new_rune.gravity = GRAVITY
+	new_rune.fade_time = FADE_TIME
+	add_child(new_rune)
 
 
 func get_rune_instance(rune) -> Node:
 	match rune.color:
 		rune.COLOR.RED:
 			return red_rune.instance()
+		rune.COLOR.YELLOW:
+			return yellow_rune.instance()
 		rune.COLOR.BLUE:
 			return blue_rune.instance()
 		_:

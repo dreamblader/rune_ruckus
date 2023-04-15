@@ -38,7 +38,7 @@ func _ready() -> void:
 func poke() -> void:
 	move_and_slide(Vector2(), Vector2(0,-1))
 
-
+#TODO is on floor sometimes on a cascade does not help and stuck runes in air
 func _process(delta: float) -> void:
 	if visible && !is_on_floor():
 		move_and_slide(Vector2(0, gravity), Vector2(0,-1))

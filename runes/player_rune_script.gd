@@ -5,6 +5,7 @@ enum COLOR { RED, YELLOW, BLUE, GREEN , PURPLE, ORANGE, NONE}
 export (COLOR) var color setget change_color
 export (SpriteFrames) var red_animation
 export (SpriteFrames) var blue_animation
+export (SpriteFrames) var yellow_animation
 export (bool) var pivot = false
 
 onready var sprite = $AnimatedSprite
@@ -24,7 +25,7 @@ func change_color(new_color:int) -> void:
 		COLOR.RED:
 			sprite.frames = red_animation
 		COLOR.YELLOW:
-			pass
+			sprite.frames = yellow_animation
 		COLOR.BLUE:
 			sprite.frames = blue_animation
 		_: #NONE
