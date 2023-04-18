@@ -23,6 +23,8 @@ var tween:SceneTreeTween
 onready var sprite: AnimatedSprite = $AnimatedSprite
 onready var detectors: Array = [ $DetectUp, $DetectRigth ]
 
+var start_time
+
 signal explode(rune)
 signal touch_the_ground
 
@@ -53,6 +55,7 @@ func init_chain_check() -> void:
 	v_power = chains[SIDE.VERTICAL].size()
 	h_power = chains[SIDE.HORIZONTAL].size()
 	update_sprite()
+	
 
 
 func check_chain(at_side:int, chain:Array) -> Array:

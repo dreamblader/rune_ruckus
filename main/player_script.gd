@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 enum SidePosition {TOP, RIGHT, BOTTOM, LEFT}
+enum InputFlag {LEFT, RIGHT, DOWN}
 
 onready var timer: Timer = $Timer
 onready var collision: CollisionShape2D = $CollisionShape2D
@@ -12,8 +13,12 @@ var rune_size = 80
 var tween: SceneTreeTween 
 var side_position: int = SidePosition.TOP
 var tick_time: float = 1.0
+var input_press_cooldown: float = 0.5
 var tick_move: float
 var move: float
+var input_timer:SceneTreeTimer
+var last_input_flag: int
+var is_holding:bool = false
 
 signal place_runes(insta_position, pivot_rune, side_rune)
 
@@ -26,18 +31,61 @@ func _input(event: InputEvent) -> void:
 	if visible:
 		if event.is_action_pressed("ui_left"):
 			move_horizontal(-1)
+			hold_movement(InputFlag.LEFT)
+		elif event.is_action_released("ui_left"):
+			kill_holding(InputFlag.LEFT)
 			
 		if event.is_action_pressed("ui_right"):
 			move_horizontal(1)
+			hold_movement(InputFlag.RIGHT)
+		elif event.is_action_released("ui_right"):
+			kill_holding(InputFlag.RIGHT)
 		
 		if event.is_action_pressed("ui_down"):
 			move_down()
+			hold_movement(InputFlag.DOWN)
+		elif event.is_action_released("ui_down"):
+			kill_holding(InputFlag.DOWN)
 		
 		if event.is_action_pressed("rotate_r"):
 			rotate_runes(1)
 		
 		if event.is_action_pressed("rotate_l"):
 			rotate_runes(-1)
+		
+		if event.is_action_pressed("drop"):
+			drop()
+
+
+func hold_movement(my_flag:int) -> void:
+	input_timer = get_tree().create_timer(input_press_cooldown, false)
+	input_timer.connect("timeout", self, "hold")
+	last_input_flag = my_flag
+
+
+func kill_holding(my_flag:int) -> void:
+	if last_input_flag == my_flag:
+		if input_timer != null:
+			input_timer.disconnect("timeout", self, "hold")
+			input_timer = null
+		if is_holding:
+			is_holding = false
+		last_input_flag = -1
+
+
+func hold() -> void:
+	is_holding = true
+
+#HOLDING is not working sometimes(the game freezes?)
+#func _process(delta: float) -> void:
+	if is_holding:
+		match(last_input_flag):
+			InputFlag.LEFT:
+				move_horizontal(-1)
+			InputFlag.RIGHT:
+				move_horizontal(1)
+			InputFlag.DOWN:
+				move_down()
 
 
 func move_horizontal(direction:int) -> void:
@@ -83,6 +131,11 @@ func rotate_runes(direction:int) -> void:
 		snap_position()
 
 
+func drop() -> void:
+	move_and_collide(Vector2(0.0, 980.0))
+	place_runes()
+
+
 func move_down() -> void:
 	var snapshot_position_y = position.y
 	var pivot_collide = move_and_collide(Vector2(0.0, tick_move))
@@ -124,6 +177,7 @@ func place_runes() -> void:
 
 
 func respawn(pivot_rune_color: int, side_rune_color: int) -> void:
+	kill_holding(last_input_flag)
 	visible = true
 	position = Vector2(160,-40)
 	reset_rotation()
