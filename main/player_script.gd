@@ -76,8 +76,8 @@ func kill_holding(my_flag:int) -> void:
 func hold() -> void:
 	is_holding = true
 
-#HOLDING is not working sometimes(the game freezes?)
-#func _process(delta: float) -> void:
+
+func _process(delta: float) -> void:
 	if is_holding:
 		match(last_input_flag):
 			InputFlag.LEFT:

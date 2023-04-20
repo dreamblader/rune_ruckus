@@ -13,6 +13,8 @@ var chains: Array = [[],[]]
 var fade_time:float
 var gravity: float
 var column_pos: float
+var is_floating:bool = true
+var does_exist:bool = true
 
 var v_power:int = 1
 var h_power:int = 1
@@ -34,19 +36,23 @@ func _ready() -> void:
 	var snap_x = round(position.x/snap_size) * snap_size
 	sprite.frame = 0
 	column_pos = snap_x
-	poke()
 
 
-func poke() -> void:
-	move_and_slide(Vector2(), Vector2(0,-1))
-
-#TODO is on floor sometimes on a cascade does not help and stuck runes in air
 func _process(delta: float) -> void:
-	if visible && !is_on_floor():
-		move_and_slide(Vector2(0, gravity), Vector2(0,-1))
+	if does_exist && is_floating:
+		var collision = move_and_collide(Vector2(0, gravity))
 		position.x = column_pos
-	elif visible && is_on_floor():
+		if collision != null:
+			collision_check(collision.collider)
+	elif does_exist && !is_floating:
 		emit_signal("touch_the_ground")
+
+
+func collision_check(collider:Object) -> void:
+	if collider.get_class() == my_class && collider.does_exist:
+		is_floating = collider.is_floating
+	elif collider.get_class() == "StaticBody2D":
+		is_floating = false
 
 
 func init_chain_check() -> void:
@@ -116,13 +122,14 @@ func update_sprite() -> void:
 
 func explode() -> void:
 	if get_power() >= max_power:
+		does_exist = false
 		sprite.frame = max_power-1
 		tween = get_tree().create_tween()
 		tween.tween_property(self, "modulate:a", 0, fade_time).set_trans(Tween.TRANS_SINE)
 		tween.connect("finished", self, "gone")
 	else:
+		is_floating = true
 		emit_signal("explode", null)
-	
 	reset_chains()
 
 

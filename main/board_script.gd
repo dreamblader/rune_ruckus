@@ -2,7 +2,7 @@ extends Node2D
 class_name Game
 
 #GLOBALS
-var GRAVITY:float = 900
+var GRAVITY:float = 15
 var GRID_SIZE:Vector2 = Vector2(80.0, 80.0)
 var GAME_SIZE:Vector2 = Vector2(6.0, 12.0)
 var TICK_MOVE: float = GRID_SIZE.y/2
@@ -65,21 +65,16 @@ func solve(chain_count_start:int) -> void:
 
 
 func wait_runes_touch_the_ground(runes) -> void:
-	#TODO THIS IS KILLING THE TIMER SOMEHOW
-	var start_time = OS.get_system_time_msecs()
 	for rune in runes:
-		if rune != null:
-			rune.poke()
+		if rune != null && rune.is_floating:
 			yield(rune, "touch_the_ground")
-	prints("RUNES ALL GROUNDER TIME MS:", OS.get_system_time_msecs()-start_time)
+	yield(get_tree(), "idle_frame")
 
 
 func check_runes(runes) -> void:
-	var start_time = OS.get_system_time_msecs()
 	for rune in runes:
 		if rune != null:
 			rune.init_chain_check()
-	prints("RUNES ALL CHECKED TIME MS:", OS.get_system_time_msecs()-start_time)
 
 
 func wait_runes_explode(runes) -> void:
