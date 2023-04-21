@@ -6,7 +6,11 @@ var my_class = "Rune"
 enum COLOR { RED, YELLOW, BLUE, GREEN , PURPLE, ORANGE, NONE}
 enum SIDE {VERTICAL, HORIZONTAL}
 
-export (COLOR) var color = COLOR.RED
+export (SpriteFrames) var red_rune
+export (SpriteFrames) var yellow_rune
+export (SpriteFrames) var blue_rune
+
+export (COLOR) var color = COLOR.RED setget set_color
 
 var chains: Array = [[],[]]
 
@@ -36,6 +40,7 @@ func _ready() -> void:
 	var snap_x = round(position.x/snap_size) * snap_size
 	sprite.frame = 0
 	column_pos = snap_x
+	set_color(color)
 
 
 func _process(delta: float) -> void:
@@ -46,6 +51,19 @@ func _process(delta: float) -> void:
 			collision_check(collision.collider)
 	elif does_exist && !is_floating:
 		emit_signal("touch_the_ground")
+
+
+func set_color(color_value: int) -> void:
+	color = color_value
+	match color_value:
+		COLOR.RED:
+			sprite.frames = red_rune
+		COLOR.YELLOW:
+			sprite.frames = yellow_rune
+		COLOR.BLUE:
+			sprite.frames = blue_rune
+		_:
+			push_error("INCORRECT SET COLOR EXCEPTION") #TODO
 
 
 func collision_check(collider:Object) -> void:

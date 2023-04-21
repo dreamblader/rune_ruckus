@@ -16,9 +16,7 @@ var unlocked_colors: Array = [Rune.COLOR.RED, Rune.COLOR.YELLOW, Rune.COLOR.BLUE
 var next_runes: Array = []
 var rng = RandomNumberGenerator.new()
 
-export (PackedScene) var red_rune
-export (PackedScene) var blue_rune
-export (PackedScene) var yellow_rune
+export (PackedScene) var rune_scene
 
 onready var player = $Player
 
@@ -87,28 +85,16 @@ func wait_runes_explode(runes) -> void:
 
 
 func _on_Player_place_runes(insta_position, pivot_rune, side_rune) -> void:
-	var new_rune_from_pivot = get_rune_instance(pivot_rune)
-	var new_rune_from_side = get_rune_instance(side_rune)
-	put_new_rune(insta_position + pivot_rune.position, new_rune_from_pivot)
-	put_new_rune(insta_position + side_rune.position, new_rune_from_side)
+	put_new_rune(insta_position + pivot_rune.position, pivot_rune)
+	put_new_rune(insta_position + side_rune.position, side_rune)
 	solve(1)
 
 
-func put_new_rune(rune_position, new_rune) -> void:
+func put_new_rune(rune_position, old_rune) -> void:
+	var new_rune = rune_scene.instance()
 	new_rune.add_to_group("Rune")
 	new_rune.position = rune_position
 	new_rune.gravity = GRAVITY
 	new_rune.fade_time = FADE_TIME
 	add_child(new_rune)
-
-
-func get_rune_instance(rune) -> Node:
-	match rune.color:
-		rune.COLOR.RED:
-			return red_rune.instance()
-		rune.COLOR.YELLOW:
-			return yellow_rune.instance()
-		rune.COLOR.BLUE:
-			return blue_rune.instance()
-		_:
-			return red_rune.instance()
+	new_rune.color = old_rune.color
