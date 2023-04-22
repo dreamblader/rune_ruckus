@@ -14,6 +14,7 @@ var continue_chain = false
 
 var unlocked_colors: Array = [Rune.COLOR.RED, Rune.COLOR.YELLOW, Rune.COLOR.BLUE]
 var next_runes: Array = []
+var color_chain: Array = []
 var rng = RandomNumberGenerator.new()
 
 export (PackedScene) var rune_scene
@@ -21,6 +22,8 @@ export (PackedScene) var rune_scene
 onready var player = $Player
 
 signal emit_orb(at_position)
+signal emit_score(value)
+signal emit_chain(value)
 
 
 func _input(event: InputEvent) -> void:
@@ -60,6 +63,8 @@ func solve(chain_count_start:int) -> void:
 			solve(chain_count_start+1)
 			return
 	spawn_player()
+	emit_signal("emit_chain", chain_count_start+get_color_chain_score())
+	color_chain.clear()
 
 
 func wait_runes_touch_the_ground(runes) -> void:
@@ -98,3 +103,16 @@ func put_new_rune(rune_position, old_rune) -> void:
 	new_rune.fade_time = FADE_TIME
 	add_child(new_rune)
 	new_rune.color = old_rune.color
+	new_rune.connect("explode", self, "_on_Rune_explode")
+
+
+func get_color_chain_score() -> int:
+	if !color_chain.empty():
+		return (color_chain.size()-1)*2
+	else:
+		return 0
+
+
+func _on_Rune_explode(explode_position) -> void:
+	emit_signal("emit_score", 1)
+	emit_signal("emit_orb", explode_position)

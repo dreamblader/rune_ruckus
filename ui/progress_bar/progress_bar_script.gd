@@ -1,11 +1,9 @@
 extends Control
 
-enum COLOR { RED, YELLOW, BLUE, GREEN , PURPLE, ORANGE}
-
 export (StreamTexture) var red_symbol
 export (StreamTexture) var blue_symbol
 export (StreamTexture) var yellow_symbol
-export (COLOR) var my_color
+export (Rune.COLOR) var my_color
 export (float) var fill_time = 0.35
 export (float) var glow_time = 0.15
 
@@ -23,11 +21,11 @@ func _ready() -> void:
 
 func colorize() -> void:
 	match my_color:
-		COLOR.RED:
+		Rune.COLOR.RED:
 			apply_color(red_symbol, Color(1.0, 0.19 , 0.0))
-		COLOR.BLUE:
+		Rune.COLOR.BLUE:
 			apply_color(blue_symbol, Color(0.0, 0.19 , 1.0))
-		COLOR.YELLOW:
+		Rune.COLOR.YELLOW:
 			apply_color(yellow_symbol, Color(1.0, 1.0 , 0.0))
 
 
@@ -62,11 +60,11 @@ func reset_glow() -> void:
 
 func get_glow_color() -> Color:
 		match my_color:
-			COLOR.RED:
+			Rune.COLOR.RED:
 				return Color(3.0, 1.0 , 1.0)
-			COLOR.BLUE:
+			Rune.COLOR.BLUE:
 				return Color(1.0, 1.0 , 3.0)
-			COLOR.YELLOW:
+			Rune.COLOR.YELLOW:
 				return Color(3.0, 3.0 , 1.0)
 			_:
 				return Color(1.0, 1.0, 1.0)

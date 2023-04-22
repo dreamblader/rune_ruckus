@@ -147,7 +147,6 @@ func explode() -> void:
 		tween.connect("finished", self, "gone")
 	else:
 		is_floating = true
-		emit_signal("explode", null)
 	reset_chains()
 
 
@@ -165,5 +164,5 @@ func get_class() -> String:
 
 
 func gone() -> void:
-	emit_signal("explode", null)
+	emit_signal("explode", position)
 	queue_free()

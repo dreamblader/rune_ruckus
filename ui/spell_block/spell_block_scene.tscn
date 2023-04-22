@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://ui/spell_block/spell_block_script.gd" type="Script" id=1]
+[ext_resource path="res://ui/margin_block_box.tres" type="StyleBox" id=2]
+[ext_resource path="res://ui/symbols/b_symbol.png" type="Texture" id=3]
+[ext_resource path="res://ui/symbols/r_symbol.png" type="Texture" id=4]
+[ext_resource path="res://ui/symbols/y_symbol.png" type="Texture" id=5]
+
+[node name="SpellBlock" type="MarginContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+red_symbol = ExtResource( 4 )
+blue_symbol = ExtResource( 3 )
+yellow_symbol = ExtResource( 5 )
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 120.0
+margin_bottom = 120.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="Label" type="TextureRect" parent="."]
+margin_right = 120.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 120, 120 )
+expand = true

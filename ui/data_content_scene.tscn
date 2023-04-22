@@ -1,18 +1,108 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://ui/progress_bar/progress_bar_scene.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ui/data_script.gd" type="Script" id=2]
+[ext_resource path="res://ui/spell_block/spell_block_scene.tscn" type="PackedScene" id=3]
 
 [node name="DataContent" type="Control"]
 margin_right = 1020.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 1020, 1080 )
+script = ExtResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1020.0
 margin_bottom = 1080.0
+color = Color( 0, 0, 0, 0.0980392 )
 
-[node name="RedProgress" parent="." instance=ExtResource( 1 )]
-margin_top = -60.0
-margin_right = 1020.0
-margin_bottom = 1560.0
+[node name="BarContainer" type="HBoxContainer" parent="."]
+margin_left = 120.0
+margin_top = 480.0
+margin_right = 920.0
+margin_bottom = 1080.0
+
+[node name="RedProgress" parent="BarContainer" instance=ExtResource( 1 )]
+anchor_top = 0.0
+anchor_bottom = 0.0
+margin_top = 0.0
+margin_bottom = 600.0
 rect_scale = Vector2( 1, 1 )
+
+[node name="BlueProgress" parent="BarContainer" instance=ExtResource( 1 )]
+anchor_top = 0.0
+anchor_bottom = 0.0
+margin_left = 124.0
+margin_top = 0.0
+margin_right = 244.0
+margin_bottom = 600.0
+rect_scale = Vector2( 1, 1 )
+my_color = 2
+
+[node name="YellowProgress" parent="BarContainer" instance=ExtResource( 1 )]
+anchor_top = 0.0
+anchor_bottom = 0.0
+margin_left = 248.0
+margin_top = 0.0
+margin_right = 368.0
+margin_bottom = 600.0
+rect_scale = Vector2( 1, 1 )
+my_color = 1
+
+[node name="OrangeProgress" parent="BarContainer" instance=ExtResource( 1 )]
+visible = false
+anchor_top = 0.0
+anchor_bottom = 0.0
+margin_left = 372.0
+margin_top = 0.0
+margin_right = 492.0
+margin_bottom = 600.0
+rect_scale = Vector2( 1, 1 )
+my_color = 5
+
+[node name="GreenProgress" parent="BarContainer" instance=ExtResource( 1 )]
+visible = false
+anchor_top = 0.0
+anchor_bottom = 0.0
+margin_left = 496.0
+margin_top = 0.0
+margin_right = 616.0
+margin_bottom = 600.0
+rect_scale = Vector2( 1, 1 )
+my_color = 3
+
+[node name="PurpleProgress" parent="BarContainer" instance=ExtResource( 1 )]
+visible = false
+anchor_top = 0.0
+anchor_bottom = 0.0
+margin_left = 620.0
+margin_top = 0.0
+margin_right = 740.0
+margin_bottom = 600.0
+rect_scale = Vector2( 1, 1 )
+my_color = 3
+
+[node name="SpeelContainer" type="HBoxContainer" parent="."]
+margin_left = 120.0
+margin_top = 320.0
+margin_right = 840.0
+margin_bottom = 440.0
+custom_constants/separation = 40
+
+[node name="SpellBlock" parent="SpeelContainer" instance=ExtResource( 3 )]
+margin_right = 120.0
+margin_bottom = 120.0
+
+[node name="SpellBlock2" parent="SpeelContainer" instance=ExtResource( 3 )]
+margin_left = 160.0
+margin_right = 280.0
+margin_bottom = 120.0
+
+[node name="SpellBlock3" parent="SpeelContainer" instance=ExtResource( 3 )]
+margin_left = 320.0
+margin_right = 440.0
+margin_bottom = 120.0
+
+[node name="SpellBlock4" parent="SpeelContainer" instance=ExtResource( 3 )]
+margin_left = 480.0
+margin_right = 600.0
+margin_bottom = 120.0
