@@ -164,5 +164,5 @@ func get_class() -> String:
 
 
 func gone() -> void:
-	emit_signal("explode", position)
+	emit_signal("explode", position, color)
 	queue_free()

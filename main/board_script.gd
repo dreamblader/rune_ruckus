@@ -113,6 +113,6 @@ func get_color_chain_score() -> int:
 		return 0
 
 
-func _on_Rune_explode(explode_position) -> void:
+func _on_Rune_explode(explode_position, explode_color) -> void:
 	emit_signal("emit_score", 1)
-	emit_signal("emit_orb", explode_position)
+	emit_signal("emit_orb", explode_position, explode_color)

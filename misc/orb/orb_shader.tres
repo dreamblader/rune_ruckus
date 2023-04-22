@@ -1,0 +1,17 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform vec4 recolor: hint_color; 
+
+void fragment() {
+	vec4 oldColor = texture(TEXTURE, UV);
+	vec4 newColor = oldColor * recolor;
+	
+	if (oldColor != vec4(1,1,1,1)){
+		COLOR = mix(oldColor, newColor, oldColor.a);
+	} else {
+		COLOR = oldColor;
+	}
+}"

@@ -5,6 +5,9 @@ onready var red_progress = $BarContainer/RedProgress
 onready var blue_progress = $BarContainer/BlueProgress
 onready var yellow_progress = $BarContainer/YellowProgress
 
+func _ready() -> void:
+	pass
+
 
 func color_up(value:int, color_index:int) -> void:
 	match color_index:
@@ -16,3 +19,16 @@ func color_up(value:int, color_index:int) -> void:
 			blue_progress.add_points(value)
 		_:
 			push_error("Invalid color_index in color_up() call")
+
+
+func get_bar_position(color_index:int) -> Vector2:
+	match color_index:
+		Rune.COLOR.RED:
+			return red_progress.rect_global_position
+		Rune.COLOR.YELLOW:
+			return yellow_progress.rect_global_position
+		Rune.COLOR.BLUE:
+			return blue_progress.rect_global_position
+		_:
+			push_error("Invalid color_index in get_bar_position() call")
+			return Vector2()
