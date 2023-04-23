@@ -1,8 +1,23 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://ui/progress_bar/progress_bar_scene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ui/data_script.gd" type="Script" id=2]
 [ext_resource path="res://ui/spell_block/spell_block_scene.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ui/score_label/score_label_scene.tscn" type="PackedScene" id=4]
+[ext_resource path="res://font/Stick-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://ui/preview_panel/preview_panel_scene.tscn" type="PackedScene" id=6]
+
+[sub_resource type="DynamicFont" id=3]
+size = 45
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 60
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 35
+font_data = ExtResource( 5 )
 
 [node name="DataContent" type="Control"]
 margin_right = 1020.0
@@ -15,11 +30,20 @@ margin_right = 1020.0
 margin_bottom = 1080.0
 color = Color( 0, 0, 0, 0.0980392 )
 
+[node name="Label2" type="Label" parent="."]
+margin_left = 20.0
+margin_top = 40.0
+margin_right = 260.0
+margin_bottom = 128.0
+custom_fonts/font = SubResource( 3 )
+text = "NEXT"
+
 [node name="BarContainer" type="HBoxContainer" parent="."]
-margin_left = 120.0
+margin_left = 280.0
 margin_top = 480.0
-margin_right = 920.0
+margin_right = 1080.0
 margin_bottom = 1080.0
+custom_constants/separation = 0
 
 [node name="RedProgress" parent="BarContainer" instance=ExtResource( 1 )]
 anchor_top = 0.0
@@ -31,9 +55,9 @@ rect_scale = Vector2( 1, 1 )
 [node name="BlueProgress" parent="BarContainer" instance=ExtResource( 1 )]
 anchor_top = 0.0
 anchor_bottom = 0.0
-margin_left = 124.0
+margin_left = 120.0
 margin_top = 0.0
-margin_right = 244.0
+margin_right = 240.0
 margin_bottom = 600.0
 rect_scale = Vector2( 1, 1 )
 my_color = 2
@@ -41,9 +65,9 @@ my_color = 2
 [node name="YellowProgress" parent="BarContainer" instance=ExtResource( 1 )]
 anchor_top = 0.0
 anchor_bottom = 0.0
-margin_left = 248.0
+margin_left = 240.0
 margin_top = 0.0
-margin_right = 368.0
+margin_right = 360.0
 margin_bottom = 600.0
 rect_scale = Vector2( 1, 1 )
 my_color = 1
@@ -52,9 +76,9 @@ my_color = 1
 visible = false
 anchor_top = 0.0
 anchor_bottom = 0.0
-margin_left = 372.0
+margin_left = 360.0
 margin_top = 0.0
-margin_right = 492.0
+margin_right = 480.0
 margin_bottom = 600.0
 rect_scale = Vector2( 1, 1 )
 my_color = 5
@@ -63,9 +87,9 @@ my_color = 5
 visible = false
 anchor_top = 0.0
 anchor_bottom = 0.0
-margin_left = 496.0
+margin_left = 480.0
 margin_top = 0.0
-margin_right = 616.0
+margin_right = 600.0
 margin_bottom = 600.0
 rect_scale = Vector2( 1, 1 )
 my_color = 3
@@ -74,18 +98,26 @@ my_color = 3
 visible = false
 anchor_top = 0.0
 anchor_bottom = 0.0
-margin_left = 620.0
+margin_left = 600.0
 margin_top = 0.0
-margin_right = 740.0
+margin_right = 720.0
 margin_bottom = 600.0
 rect_scale = Vector2( 1, 1 )
 my_color = 3
 
+[node name="Label" type="Label" parent="."]
+margin_left = 160.0
+margin_top = 260.0
+margin_right = 400.0
+margin_bottom = 348.0
+custom_fonts/font = SubResource( 1 )
+text = "SPELL"
+
 [node name="SpeelContainer" type="HBoxContainer" parent="."]
-margin_left = 120.0
-margin_top = 320.0
-margin_right = 840.0
-margin_bottom = 440.0
+margin_left = 160.0
+margin_top = 340.0
+margin_right = 880.0
+margin_bottom = 460.0
 custom_constants/separation = 40
 
 [node name="SpellBlock" parent="SpeelContainer" instance=ExtResource( 3 )]
@@ -106,3 +138,32 @@ margin_bottom = 120.0
 margin_left = 480.0
 margin_right = 600.0
 margin_bottom = 120.0
+
+[node name="ScoreContainer" type="VBoxContainer" parent="."]
+margin_left = 20.0
+margin_top = 710.0
+margin_right = 260.0
+margin_bottom = 1022.0
+
+[node name="Label" type="Label" parent="ScoreContainer"]
+margin_right = 240.0
+margin_bottom = 88.0
+custom_fonts/font = SubResource( 1 )
+text = "SCORE"
+
+[node name="Score" parent="ScoreContainer" instance=ExtResource( 4 )]
+margin_top = 92.0
+margin_bottom = 172.0
+
+[node name="Label2" type="Label" parent="ScoreContainer"]
+margin_top = 176.0
+margin_right = 240.0
+margin_bottom = 228.0
+custom_fonts/font = SubResource( 2 )
+text = "HIGH SCORE"
+
+[node name="HighScore" parent="ScoreContainer" instance=ExtResource( 4 )]
+margin_top = 232.0
+margin_bottom = 312.0
+
+[node name="Panel" parent="." instance=ExtResource( 6 )]
