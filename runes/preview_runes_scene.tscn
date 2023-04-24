@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://runes/red/rune_r_sprite_sheet.png" type="Texture" id=1]
+[ext_resource path="res://runes/yellow/rune_y_sprite_sheet.png" type="Texture" id=2]
+[ext_resource path="res://runes/blue/rune_b_sprite_sheet.png" type="Texture" id=3]
+[ext_resource path="res://runes/preview_runes_script.gd" type="Script" id=4]
+
+[node name="PreviewRunes" type="Node2D"]
+script = ExtResource( 4 )
+red_rune = ExtResource( 1 )
+blue_rune = ExtResource( 3 )
+yellow_rune = ExtResource( 2 )
+
+[node name="SidePreview" type="Sprite" parent="."]
+hframes = 4
+
+[node name="PivotPreview" type="Sprite" parent="."]
+position = Vector2( 0, 40 )
+hframes = 4

@@ -38,6 +38,8 @@ margin_bottom = 128.0
 custom_fonts/font = SubResource( 3 )
 text = "NEXT"
 
+[node name="PreviewPanel" parent="." instance=ExtResource( 6 )]
+
 [node name="BarContainer" type="HBoxContainer" parent="."]
 margin_left = 280.0
 margin_top = 480.0
@@ -165,5 +167,3 @@ text = "HIGH SCORE"
 [node name="HighScore" parent="ScoreContainer" instance=ExtResource( 4 )]
 margin_top = 232.0
 margin_bottom = 312.0
-
-[node name="Panel" parent="." instance=ExtResource( 6 )]
