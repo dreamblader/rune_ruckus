@@ -114,7 +114,11 @@ func detect_body(at_side:int) -> Object:
 
 
 func is_chainable_rune(body) -> bool:
-	return body != null && body.get_class() == my_class && body.color == self.color
+	return is_rune(body) && body.color == self.color
+
+
+func is_rune(body) -> bool:
+	return body != null && body.get_class() == my_class
 
 
 func update_chain(at_side:int, new_chain:Array) -> void:
@@ -141,13 +145,19 @@ func update_sprite() -> void:
 func explode() -> void:
 	if get_power() >= max_power:
 		does_exist = false
+		gravity_call()
 		sprite.frame = max_power-1
 		tween = get_tree().create_tween()
 		tween.tween_property(self, "modulate:a", 0, fade_time).set_trans(Tween.TRANS_SINE)
 		tween.connect("finished", self, "gone")
-	else:
-		is_floating = true
 	reset_chains()
+
+
+func gravity_call() -> void:
+	is_floating = true
+	var possible_rune = detect_body(0)
+	if is_rune(possible_rune):
+		possible_rune.gravity_call()
 
 
 func get_power() -> float:

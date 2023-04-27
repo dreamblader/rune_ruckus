@@ -22,6 +22,7 @@ export (PackedScene) var rune_scene
 onready var player = $Player
 
 signal emit_orb(at_position)
+signal emit_preview_runes(preview_runes)
 signal emit_score(value)
 signal emit_chain(value)
 
@@ -33,6 +34,11 @@ func _input(event: InputEvent) -> void:
 
 
 func _ready():
+	yield(self, "ready")
+	start()
+
+
+func start():
 	rng.randomize()
 	generate_runes()
 	player.tick_move = TICK_MOVE
@@ -44,6 +50,7 @@ func generate_runes() -> void:
 	while next_runes.size() < 4:
 		var random_color_index = rng.randi_range(0, unlocked_colors.size()-1)
 		next_runes.append(unlocked_colors[random_color_index])
+	emit_signal("emit_preview_runes", next_runes)
 
 
 func spawn_player() -> void:
@@ -68,16 +75,21 @@ func solve(chain_count_start:int) -> void:
 
 
 func wait_runes_touch_the_ground(runes) -> void:
+	var start_time = OS.get_system_time_msecs()
 	for rune in runes:
 		if rune != null && rune.is_floating:
 			yield(rune, "touch_the_ground")
 	yield(get_tree(), "idle_frame")
+	prints("TIME TO WAIT: ", OS.get_system_time_msecs()-start_time)
 
 
 func check_runes(runes) -> void:
+	var start_time = OS.get_system_time_msecs()
 	for rune in runes:
 		if rune != null:
 			rune.init_chain_check()
+	
+	prints("TIME TO CHECK: ", OS.get_system_time_msecs()-start_time)
 
 
 func wait_runes_explode(runes) -> void:

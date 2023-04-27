@@ -1,9 +1,11 @@
 extends Control
 
 
+onready var preview_runes = $PreviewPanel
 onready var red_progress = $BarContainer/RedProgress
 onready var blue_progress = $BarContainer/BlueProgress
 onready var yellow_progress = $BarContainer/YellowProgress
+
 
 func _ready() -> void:
 	pass
@@ -32,3 +34,7 @@ func get_bar_position(color_index:int) -> Vector2:
 		_:
 			push_error("Invalid color_index in get_bar_position() call")
 			return Vector2()
+
+
+func set_preview(next_preview_runes_color:Array) -> void:
+	preview_runes.set_preview(next_preview_runes_color)

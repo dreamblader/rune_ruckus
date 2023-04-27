@@ -51,3 +51,10 @@ func _on_Board_emit_score(value) -> void:
 
 func _on_Board_emit_chain(value) -> void:
 	pass # Replace with function body.
+
+
+func _on_Board_emit_preview_runes(preview_runes:Array) -> void:
+	if data == null:
+		yield($Content/RightContainer/DataContent, "ready")
+		data = $Content/RightContainer/DataContent
+	data.set_preview(preview_runes)

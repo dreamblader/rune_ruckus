@@ -4,16 +4,8 @@ export (Texture) var red_rune
 export (Texture) var blue_rune
 export (Texture) var yellow_rune
 
-export (Rune.COLOR) var side_preview_color setget set_side_color
-export (Rune.COLOR) var pivot_preview_color setget set_pivot_color
-
 onready var side_preview = $SidePreview
 onready var pivot_preview = $PivotPreview
-
-
-func _ready() -> void:
-	set_side_color(side_preview_color)
-	set_pivot_color(pivot_preview_color)
 
 
 func set_side_color(color_index:int) -> void:

@@ -84,4 +84,5 @@ custom_constants/margin_bottom = 0
 
 [connection signal="emit_chain" from="Content/MidContainer/Control/ViewportContainer/Viewport/Board" to="." method="_on_Board_emit_chain"]
 [connection signal="emit_orb" from="Content/MidContainer/Control/ViewportContainer/Viewport/Board" to="." method="_on_Board_emit_orb"]
+[connection signal="emit_preview_runes" from="Content/MidContainer/Control/ViewportContainer/Viewport/Board" to="." method="_on_Board_emit_preview_runes"]
 [connection signal="emit_score" from="Content/MidContainer/Control/ViewportContainer/Viewport/Board" to="." method="_on_Board_emit_score"]
