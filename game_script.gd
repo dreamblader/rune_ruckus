@@ -3,26 +3,40 @@ extends Control
 export (PackedScene) var orb_scene
 
 onready var data = $Content/RightContainer/DataContent
-onready var board = $Content/MidContainer/Control/ViewportContainer/Viewport/Board
+onready var board = $Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board
 onready var left_panel = $Content/LeftPadding
 
-var orb_travel_time:float = 0.5
+var orb_travel_time:float = 0.65
+var multiplier: int = 1
+var explode_point: int = 50
+var gravity_point: int = 1 #per 40 pixels traveled
+
+var current_rune_score = 0
+var current_rune_chain = 1
 
 var score:int = 0
 var high_score:int = 10000
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#TODO GET HIGHSCORE DATA SET SCORE TO 0
-	pass # Replace with function body.
+	score = 0
+	update_score()
+	update_high_score()
 
 
-func get_color_position(to_color: int) -> Vector2:
-	match to_color:
-		Rune.COLOR.RED:
-			return Vector2()
-		_:
-			return Vector2()
+func update_score() -> void:
+	data.set_score(str("%08d" % score))
+	if score > high_score:
+		high_score = score
+		update_high_score()
+
+
+func update_high_score() -> void:
+	data.set_highscore(str("%08d" % high_score))
+
+
+func set_score_temp() -> void:
+	data.set_score(str(current_rune_chain)+" x "+str(current_rune_score))
 
 
 func _on_Board_emit_orb(at_position, to_color) -> void:
@@ -46,11 +60,13 @@ func orb_reached_goal(orb, color_index:int) -> void:
 
 
 func _on_Board_emit_score(value) -> void:
-	pass # Replace with function body.
+	current_rune_score += value * explode_point
+	set_score_temp()
 
 
 func _on_Board_emit_chain(value) -> void:
-	pass # Replace with function body.
+	current_rune_chain = max(1, value)
+	set_score_temp()
 
 
 func _on_Board_emit_preview_runes(preview_runes:Array) -> void:
@@ -58,3 +74,11 @@ func _on_Board_emit_preview_runes(preview_runes:Array) -> void:
 		yield($Content/RightContainer/DataContent, "ready")
 		data = $Content/RightContainer/DataContent
 	data.set_preview(preview_runes)
+
+
+func _on_Board_submit_score() -> void:
+	score += current_rune_chain*current_rune_score
+	current_rune_score = 0
+	current_rune_chain = 0
+	update_score()
+	

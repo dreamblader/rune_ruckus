@@ -1,13 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://font/game_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://ui/margin_block_box.tres" type="StyleBox" id=2]
+[ext_resource path="res://ui/score_label/score_label_script.gd" type="Script" id=3]
 
 [node name="Score" type="Panel"]
 margin_right = 240.0
 margin_bottom = 80.0
 rect_min_size = Vector2( 240, 80 )
 custom_styles/panel = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0

@@ -7,6 +7,8 @@ var GRID_SIZE:Vector2 = Vector2(80.0, 80.0)
 var GAME_SIZE:Vector2 = Vector2(6.0, 12.0)
 var TICK_MOVE: float = GRID_SIZE.y/2
 var FADE_TIME: float = 0.35
+var COLOR_MULT: int = 6 #increase +1 per extra color (starts at 2 colors)
+var CHAIN_MULT: int = 4
 
 var pause: bool = false
 var on_wait: bool = false
@@ -25,6 +27,7 @@ signal emit_orb(at_position)
 signal emit_preview_runes(preview_runes)
 signal emit_score(value)
 signal emit_chain(value)
+signal submit_score()
 
 
 func _input(event: InputEvent) -> void:
@@ -34,7 +37,6 @@ func _input(event: InputEvent) -> void:
 
 
 func _ready():
-	yield(self, "ready")
 	start()
 
 
@@ -66,30 +68,26 @@ func solve(chain_count_start:int) -> void:
 		check_runes(runes)
 		wait_runes_explode(runes)
 		if continue_chain:
+			emit_signal("emit_chain", chain_count_start+get_color_chain_score())
 			yield(get_tree().create_timer(FADE_TIME+extra_padding_time, false), "timeout")
-			solve(chain_count_start+1)
+			solve(chain_count_start+CHAIN_MULT)
 			return
 	spawn_player()
-	emit_signal("emit_chain", chain_count_start+get_color_chain_score())
 	color_chain.clear()
+	emit_signal("submit_score")
 
 
 func wait_runes_touch_the_ground(runes) -> void:
-	var start_time = OS.get_system_time_msecs()
 	for rune in runes:
 		if rune != null && rune.is_floating:
 			yield(rune, "touch_the_ground")
 	yield(get_tree(), "idle_frame")
-	prints("TIME TO WAIT: ", OS.get_system_time_msecs()-start_time)
 
 
 func check_runes(runes) -> void:
-	var start_time = OS.get_system_time_msecs()
 	for rune in runes:
 		if rune != null:
 			rune.init_chain_check()
-	
-	prints("TIME TO CHECK: ", OS.get_system_time_msecs()-start_time)
 
 
 func wait_runes_explode(runes) -> void:
@@ -98,13 +96,16 @@ func wait_runes_explode(runes) -> void:
 		if rune != null:
 			rune.explode()
 			if rune.tween != null:
+				if !color_chain.has(rune.color):
+					color_chain.append(rune.color)
+				emit_signal("emit_score", 1)
 				continue_chain = true
 
 
 func _on_Player_place_runes(insta_position, pivot_rune, side_rune) -> void:
 	put_new_rune(insta_position + pivot_rune.position, pivot_rune)
 	put_new_rune(insta_position + side_rune.position, side_rune)
-	solve(1)
+	solve(0)
 
 
 func put_new_rune(rune_position, old_rune) -> void:
@@ -119,12 +120,14 @@ func put_new_rune(rune_position, old_rune) -> void:
 
 
 func get_color_chain_score() -> int:
-	if !color_chain.empty():
-		return (color_chain.size()-1)*2
+	if color_chain.size() > 1:
+		var chain_power = 0
+		for i in range(color_chain.size()-1):
+			chain_power +=  COLOR_MULT+i
+		return chain_power
 	else:
 		return 0
 
 
 func _on_Rune_explode(explode_position, explode_color) -> void:
-	emit_signal("emit_score", 1)
 	emit_signal("emit_orb", explode_position, explode_color)

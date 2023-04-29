@@ -6,9 +6,8 @@ onready var red_progress = $BarContainer/RedProgress
 onready var blue_progress = $BarContainer/BlueProgress
 onready var yellow_progress = $BarContainer/YellowProgress
 
-
-func _ready() -> void:
-	pass
+onready var score = $ScoreContainer/Score
+onready var highscore = $ScoreContainer/HighScore
 
 
 func color_up(value:int, color_index:int) -> void:
@@ -38,3 +37,11 @@ func get_bar_position(color_index:int) -> Vector2:
 
 func set_preview(next_preview_runes_color:Array) -> void:
 	preview_runes.set_preview(next_preview_runes_color)
+
+
+func set_score(value:String) -> void:
+	score.set_text(value)
+
+
+func set_highscore(value:String) -> void:
+	highscore.set_text(value)
