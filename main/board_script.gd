@@ -15,6 +15,7 @@ var on_wait: bool = false
 var continue_chain = false
 
 var unlocked_colors: Array = [Rune.COLOR.RED, Rune.COLOR.YELLOW, Rune.COLOR.BLUE]
+var locked_colors: Array = [Rune.COLOR.GREEN, Rune.COLOR.PURPLE, Rune.COLOR.ORANGE]
 var next_runes: Array = []
 var color_chain: Array = []
 var rng = RandomNumberGenerator.new()
@@ -127,6 +128,16 @@ func get_color_chain_score() -> int:
 		return chain_power
 	else:
 		return 0
+
+
+func unlock_color(color_index:int) -> bool:
+	var locked_index = locked_colors.find(color_index)
+	if locked_index >= 0:
+		locked_colors.remove(color_index)
+		unlocked_colors.append(color_index)
+		return true
+	else:
+		return false
 
 
 func _on_Rune_explode(explode_position, explode_color) -> void:

@@ -3,6 +3,9 @@ extends Control
 export (StreamTexture) var red_symbol
 export (StreamTexture) var blue_symbol
 export (StreamTexture) var yellow_symbol
+export (StreamTexture) var green_symbol
+export (StreamTexture) var purple_symbol
+export (StreamTexture) var orange_symbol
 export (Rune.COLOR) var my_color
 export (float) var fill_time = 0.35
 export (float) var glow_time = 0.15
@@ -12,7 +15,7 @@ onready var bar = $ProgressBar
 
 var points:float
 
-signal bar_complete(color)
+signal bar_complete()
 
 func _ready() -> void:
 	colorize()
@@ -22,11 +25,17 @@ func _ready() -> void:
 func colorize() -> void:
 	match my_color:
 		Rune.COLOR.RED:
-			apply_color(red_symbol, Color(1.0, 0.19 , 0.0))
+			apply_color(red_symbol, Color(1.0, 0.0 , 0.0))
 		Rune.COLOR.BLUE:
-			apply_color(blue_symbol, Color(0.0, 0.19 , 1.0))
+			apply_color(blue_symbol, Color(0.0, 0.0 , 1.0))
 		Rune.COLOR.YELLOW:
 			apply_color(yellow_symbol, Color(1.0, 1.0 , 0.0))
+		Rune.COLOR.GREEN:
+			apply_color(green_symbol, Color(0.0, 1.0 , 0.0))
+		Rune.COLOR.PURPLE:
+			apply_color(purple_symbol, Color(1.0, 0.0 , 1.0))
+		Rune.COLOR.ORANGE:
+			apply_color(orange_symbol, Color(1.0, 0.33 , 0.0))
 
 
 func apply_color(new_symbol:StreamTexture, tint:Color) -> void:
@@ -50,7 +59,7 @@ func check_complete() -> void:
 	if points >= bar.max_value:
 		points -= bar.max_value
 		create_tween().tween_property(symbol, "modulate", get_glow_color(), glow_time).set_trans(Tween.TRANS_LINEAR).connect("finished", self, "reset_glow")
-		emit_signal("bar_complete", my_color)
+		emit_signal("bar_complete")
 		fill_bar()
 
 
@@ -66,5 +75,11 @@ func get_glow_color() -> Color:
 				return Color(1.0, 1.0 , 3.0)
 			Rune.COLOR.YELLOW:
 				return Color(3.0, 3.0 , 1.0)
+			Rune.COLOR.GREEN:
+				return Color(1.0, 3.0, 1.0)
+			Rune.COLOR.PURPLE:
+				return Color(3.0, 1.0 , 3.0)
+			Rune.COLOR.ORANGE:
+				return Color(3.0, 2.33 , 1.0)
 			_:
 				return Color(1.0, 1.0, 1.0)

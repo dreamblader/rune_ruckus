@@ -105,7 +105,7 @@ margin_top = 0.0
 margin_right = 720.0
 margin_bottom = 600.0
 rect_scale = Vector2( 1, 1 )
-my_color = 3
+my_color = 4
 
 [node name="Label" type="Label" parent="."]
 margin_left = 160.0
@@ -130,16 +130,19 @@ margin_bottom = 120.0
 margin_left = 160.0
 margin_right = 280.0
 margin_bottom = 120.0
+my_lock = 1
 
 [node name="SpellBlock3" parent="SpeelContainer" instance=ExtResource( 3 )]
 margin_left = 320.0
 margin_right = 440.0
 margin_bottom = 120.0
+my_lock = 3
 
 [node name="SpellBlock4" parent="SpeelContainer" instance=ExtResource( 3 )]
 margin_left = 480.0
 margin_right = 600.0
 margin_bottom = 120.0
+my_lock = 2
 
 [node name="ScoreContainer" type="VBoxContainer" parent="."]
 margin_left = 20.0
@@ -167,3 +170,10 @@ text = "HIGH SCORE"
 [node name="HighScore" parent="ScoreContainer" instance=ExtResource( 4 )]
 margin_top = 232.0
 margin_bottom = 312.0
+
+[connection signal="bar_complete" from="BarContainer/RedProgress" to="." method="_on_RedProgress_bar_complete"]
+[connection signal="bar_complete" from="BarContainer/BlueProgress" to="." method="_on_BlueProgress_bar_complete"]
+[connection signal="bar_complete" from="BarContainer/YellowProgress" to="." method="_on_YellowProgress_bar_complete"]
+[connection signal="bar_complete" from="BarContainer/OrangeProgress" to="." method="_on_OrangeProgress_bar_complete"]
+[connection signal="bar_complete" from="BarContainer/GreenProgress" to="." method="_on_GreenProgress_bar_complete"]
+[connection signal="bar_complete" from="BarContainer/PurpleProgress" to="." method="_on_PurpleProgress_bar_complete"]

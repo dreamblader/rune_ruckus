@@ -1,10 +1,13 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://runes/player_rune_script.gd" type="Script" id=1]
 [ext_resource path="res://runes/red/red_active.tres" type="SpriteFrames" id=2]
 [ext_resource path="res://runes/outline_shader.gdshader" type="Shader" id=3]
 [ext_resource path="res://runes/blue/blue_active.tres" type="SpriteFrames" id=4]
 [ext_resource path="res://runes/yellow/yellow_active.tres" type="SpriteFrames" id=5]
+[ext_resource path="res://runes/green/green_active.tres" type="SpriteFrames" id=6]
+[ext_resource path="res://runes/orange/orange_active.tres" type="SpriteFrames" id=7]
+[ext_resource path="res://runes/purple/purple_active.tres" type="SpriteFrames" id=8]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -23,6 +26,9 @@ script = ExtResource( 1 )
 red_animation = ExtResource( 2 )
 blue_animation = ExtResource( 4 )
 yellow_animation = ExtResource( 5 )
+green_animation = ExtResource( 6 )
+purple_animation = ExtResource( 8 )
+orange_animation = ExtResource( 7 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = SubResource( 1 )

@@ -9,6 +9,9 @@ enum SIDE {VERTICAL, HORIZONTAL}
 export (SpriteFrames) var red_rune
 export (SpriteFrames) var yellow_rune
 export (SpriteFrames) var blue_rune
+export (SpriteFrames) var green_rune
+export (SpriteFrames) var purple_rune
+export (SpriteFrames) var orange_rune
 
 export (COLOR) var color = COLOR.RED setget set_color
 
@@ -62,8 +65,14 @@ func set_color(color_value: int) -> void:
 			sprite.frames = yellow_rune
 		COLOR.BLUE:
 			sprite.frames = blue_rune
+		COLOR.GREEN:
+			sprite.frames = green_rune
+		COLOR.PURPLE:
+			sprite.frames = purple_rune
+		COLOR.ORANGE:
+			sprite.frames = orange_rune
 		_:
-			push_error("INCORRECT SET COLOR EXCEPTION") #TODO
+			push_error("INCORRECT SET COLOR EXCEPTION @ Rune")
 
 
 func collision_check(collider:Object) -> void:

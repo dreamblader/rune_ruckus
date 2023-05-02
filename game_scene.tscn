@@ -97,3 +97,4 @@ custom_constants/margin_bottom = 0
 [connection signal="emit_preview_runes" from="Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board" to="." method="_on_Board_emit_preview_runes"]
 [connection signal="emit_score" from="Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board" to="." method="_on_Board_emit_score"]
 [connection signal="submit_score" from="Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board" to="." method="_on_Board_submit_score"]
+[connection signal="bar_complete" from="Content/RightContainer/DataContent" to="." method="_on_DataContent_bar_complete"]

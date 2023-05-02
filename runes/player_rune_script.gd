@@ -6,6 +6,9 @@ export (COLOR) var color setget change_color
 export (SpriteFrames) var red_animation
 export (SpriteFrames) var blue_animation
 export (SpriteFrames) var yellow_animation
+export (SpriteFrames) var green_animation
+export (SpriteFrames) var purple_animation
+export (SpriteFrames) var orange_animation
 export (bool) var pivot = false
 
 onready var sprite = $AnimatedSprite
@@ -28,8 +31,14 @@ func change_color(new_color:int) -> void:
 			sprite.frames = yellow_animation
 		COLOR.BLUE:
 			sprite.frames = blue_animation
+		COLOR.GREEN:
+			sprite.frames = green_animation
+		COLOR.PURPLE:
+			sprite.frames = purple_animation
+		COLOR.ORANGE:
+			sprite.frames = orange_animation
 		_: #NONE
-			pass
+			push_error("INCORRECT SET COLOR EXCEPTION @ PlayerRune")
 	color = new_color
 
 
