@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
+[ext_resource path="res://misc/backgrounds/board_backdrop.png" type="Texture" id=1]
 [ext_resource path="res://main/board_script.gd" type="Script" id=2]
 [ext_resource path="res://main/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://main/death_tile.tscn" type="PackedScene" id=4]
 [ext_resource path="res://runes/rune_scene.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -14,6 +16,16 @@ extents = Vector2( 300, 40 )
 pause_mode = 2
 script = ExtResource( 2 )
 rune_scene = ExtResource( 5 )
+
+[node name="Background" type="TextureRect" parent="."]
+margin_right = 240.0
+margin_bottom = 480.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+stretch_mode = 2
+
+[node name="DeathTile" parent="." instance=ExtResource( 4 )]
+position = Vector2( 200, 40 )
 
 [node name="WallLeft" type="StaticBody2D" parent="."]
 position = Vector2( -80, 0 )
