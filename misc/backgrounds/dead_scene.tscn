@@ -97,7 +97,7 @@ nodes/TimeScale/position = Vector2( 80, 100 )
 "nodes/TimeScale 2/node" = SubResource( 10 )
 "nodes/TimeScale 2/position" = Vector2( 80, 260 )
 nodes/output/position = Vector2( 460, 160 )
-node_connections = [ "Blend2", 0, "TimeScale", "Blend2", 1, "TimeScale 2", "TimeScale 2", 0, "Animation 2", "TimeScale", 0, "Animation", "output", 0, "Blend2" ]
+node_connections = [ "Blend2", 0, "TimeScale", "Blend2", 1, "TimeScale 2", "TimeScale", 0, "Animation", "TimeScale 2", 0, "Animation 2", "output", 0, "Blend2" ]
 
 [node name="Death" type="Node2D"]
 __meta__ = {

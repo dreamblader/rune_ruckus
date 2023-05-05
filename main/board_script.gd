@@ -9,8 +9,10 @@ var TICK_MOVE: float = GRID_SIZE.y/2
 var FADE_TIME: float = 0.35
 var COLOR_MULT: int = 6 #increase +1 per extra color (starts at 2 colors)
 var CHAIN_MULT: int = 4
+var LEVEL: int = 1
 
 var pause: bool = false
+var is_over:bool = false
 var on_wait: bool = false
 var continue_chain = false
 
@@ -20,22 +22,29 @@ var next_runes: Array = []
 var color_chain: Array = []
 var rng = RandomNumberGenerator.new()
 
+var death_tween:SceneTreeTween
+var death_final_position = Vector2(280, 400)
+var death_final_scale = Vector2(4, 4)
+
 export (PackedScene) var rune_scene
 
 onready var player = $Player
 onready var death_tile = $DeathTile
 onready var death = $Death
+onready var death_label = $UDiedLabel/CenterContainer
 
 signal emit_orb(at_position)
 signal emit_preview_runes(preview_runes)
 signal emit_score(value)
 signal emit_chain(value)
 signal submit_score()
-signal game_over()
+signal game_over(menu_flag)
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept"):
+	if is_over && event.is_action_pressed("ui_accept"):
+		skip_death_animation()
+	elif death_tween == null && event.is_action_pressed("ui_accept"):
 		pause = !pause
 		get_tree().paused = pause
 
@@ -61,20 +70,52 @@ func generate_runes() -> void:
 
 func spawn_player() -> void:
 	if death_tile.did_u_died():
-		game_over()
+		start_game_over()
 	else:
 		player.respawn(next_runes.pop_front(), next_runes.pop_front())
 		generate_runes()
 
 
-func game_over() -> void:
-	emit_signal("game_over")
+func start_game_over() -> void:
+	emit_signal("game_over", false)
 	next_runes.clear()
-	death_tile.visible = false
-	death.visible = true
+	awake_death_icon()
+	LEVEL = 1
 	var runes = get_tree().get_nodes_in_group("Rune")
 	for rune in runes:
 		rune.end()
+
+
+func awake_death_icon() -> void:
+	death_tween = get_tree().create_tween()
+	var death_animation_time = 3.0
+	var death_animation_delay = 2.0
+	var death_label_show_time = 0.5
+	death_tile.visible = false
+	death.visible = true
+	death_tween.set_trans(Tween.TRANS_SINE)
+	death_tween.set_ease(Tween.EASE_OUT)
+	death_tween.tween_callback(self, "set_is_over", [true]).set_delay(death_animation_delay)
+	death_tween.parallel().tween_property(death, "position", death_final_position, death_animation_time).set_delay(death_animation_delay)
+	death_tween.parallel().tween_property(death, "scale", death_final_scale, death_animation_time).set_delay(death_animation_delay) 
+	death_tween.tween_callback(death_label, "appear" , [death_label_show_time])
+	death_tween.tween_callback(self, "emit_signal", ["game_over", true]).set_delay(death_label_show_time)
+
+
+func set_is_over(flag:bool) -> void:
+	is_over = flag
+
+
+func skip_death_animation() -> void:
+	if death_tween != null:
+		death_tween.kill()
+		death_tween = null
+		death_tile.visible = false
+		death.visible = true
+		death.position = death_final_position
+		death.scale = death_final_scale
+		death_label.force_appear()
+		emit_signal("game_over", true)
 
 
 func solve(chain_count_start:int) -> void:

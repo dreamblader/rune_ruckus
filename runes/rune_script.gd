@@ -46,7 +46,7 @@ func _ready() -> void:
 	set_color(color)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if does_exist && is_floating:
 		var collision = move_and_collide(Vector2(0, gravity))
 		position.x = column_pos

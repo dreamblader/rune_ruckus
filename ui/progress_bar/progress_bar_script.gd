@@ -58,18 +58,31 @@ func fill_bar() -> void:
 func check_complete() -> void:
 	if points >= bar.max_value:
 		points -= bar.max_value
-		create_tween().tween_property(symbol, "modulate", get_glow_color(), glow_time).set_trans(Tween.TRANS_LINEAR).connect("finished", self, "reset_glow")
+		var tween = create_tween()
+		tween.set_trans(Tween.TRANS_LINEAR)
+		tween.tween_property(symbol, "modulate", get_glow_color(), glow_time)
+		tween.connect("finished", self, "reset_glow")
 		emit_signal("bar_complete")
 		fill_bar()
 
 
 func reset_glow() -> void:
-	create_tween().tween_property(symbol, "modulate", Color(1.0, 1.0, 1.0), glow_time).set_trans(Tween.TRANS_LINEAR)
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_LINEAR)
+	tween.tween_property(symbol, "modulate", Color(1.0, 1.0, 1.0), glow_time)
+	
 
 
 func appear() -> void:
-	#TODO: Call tween to animate it appearing
+	var animation_time:float = 0.5
+	bar.rect_size.y = 0
+	symbol.modulate.a = 0
 	visible = true
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(bar, "rect_size:y", 200, animation_time)
+	tween.tween_property(symbol, "modulate:a", 1, animation_time)
 
 
 func get_glow_color() -> Color:

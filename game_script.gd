@@ -58,7 +58,6 @@ func _on_Board_emit_orb(at_position, to_color) -> void:
 
 
 func orb_reached_goal(orb, color_index:int) -> void:
-	var tween = create_tween()
 	data.color_up(1, color_index)
 	orb.queue_free()
 
@@ -152,5 +151,10 @@ func is_a_orange_mix(color_check:int) -> bool:
 	return color_check == Rune.COLOR.RED || color_check == Rune.COLOR.YELLOW
 
 
-func _on_Board_game_over() -> void:
-	board_viewport.material.set_shader_param("enabled", true)
+func _on_Board_game_over(menu_flag) -> void:
+	if menu_flag:
+		print("MENU - HERE")
+		#TODO open menu that reset game here
+		pass
+	else:
+		board_viewport.material.set_shader_param("enabled", true)
