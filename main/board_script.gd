@@ -24,6 +24,7 @@ export (PackedScene) var rune_scene
 
 onready var player = $Player
 onready var death_tile = $DeathTile
+onready var death = $Death
 
 signal emit_orb(at_position)
 signal emit_preview_runes(preview_runes)
@@ -67,7 +68,13 @@ func spawn_player() -> void:
 
 
 func game_over() -> void:
+	emit_signal("game_over")
 	next_runes.clear()
+	death_tile.visible = false
+	death.visible = true
+	var runes = get_tree().get_nodes_in_group("Rune")
+	for rune in runes:
+		rune.end()
 
 
 func solve(chain_count_start:int) -> void:

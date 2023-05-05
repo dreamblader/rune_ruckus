@@ -3,6 +3,7 @@ extends Control
 export (PackedScene) var orb_scene
 
 onready var data = $Content/RightContainer/DataContent
+onready var board_viewport = $Content/MidContainer/Control/ViewPortBorder/ViewportContainer
 onready var board = $Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board
 onready var left_panel = $Content/LeftPadding
 
@@ -149,3 +150,7 @@ func is_a_green_mix(color_check:int) -> bool:
 
 func is_a_orange_mix(color_check:int) -> bool:
 	return color_check == Rune.COLOR.RED || color_check == Rune.COLOR.YELLOW
+
+
+func _on_Board_game_over() -> void:
+	board_viewport.material.set_shader_param("enabled", true)

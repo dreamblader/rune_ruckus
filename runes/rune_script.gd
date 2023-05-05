@@ -182,6 +182,10 @@ func get_class() -> String:
 	return my_class
 
 
+func end() -> void:
+	sprite.frame = 2
+
+
 func gone() -> void:
 	emit_signal("explode", position, color)
 	queue_free()

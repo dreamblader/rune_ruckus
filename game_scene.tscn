@@ -103,5 +103,6 @@ margin_right = 1020.0
 [connection signal="emit_orb" from="Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board" to="." method="_on_Board_emit_orb"]
 [connection signal="emit_preview_runes" from="Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board" to="." method="_on_Board_emit_preview_runes"]
 [connection signal="emit_score" from="Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board" to="." method="_on_Board_emit_score"]
+[connection signal="game_over" from="Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board" to="." method="_on_Board_game_over"]
 [connection signal="submit_score" from="Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board" to="." method="_on_Board_submit_score"]
 [connection signal="bar_complete" from="Content/RightContainer/DataContent" to="." method="_on_DataContent_bar_complete"]
