@@ -67,6 +67,11 @@ func reset_glow() -> void:
 	create_tween().tween_property(symbol, "modulate", Color(1.0, 1.0, 1.0), glow_time).set_trans(Tween.TRANS_LINEAR)
 
 
+func appear() -> void:
+	#TODO: Call tween to animate it appearing
+	visible = true
+
+
 func get_glow_color() -> Color:
 		match my_color:
 			Rune.COLOR.RED:

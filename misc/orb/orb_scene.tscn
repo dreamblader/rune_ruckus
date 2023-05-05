@@ -7,7 +7,7 @@
 [sub_resource type="ShaderMaterial" id=3]
 resource_local_to_scene = true
 shader = ExtResource( 3 )
-shader_param/recolor = Color( 1, 0, 0, 1 )
+shader_param/recolor = Color( 1, 1, 1, 1 )
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -46,6 +46,7 @@ tracks/0/keys = {
 script = ExtResource( 2 )
 
 [node name="OrbSprite" type="Sprite" parent="."]
+show_behind_parent = true
 material = SubResource( 3 )
 texture = ExtResource( 1 )
 

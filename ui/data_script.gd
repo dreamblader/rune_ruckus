@@ -54,11 +54,11 @@ func get_bar_position(color_index:int) -> Vector2:
 func unlock_color_bar(color_index:int) -> void:
 	match color_index:
 		Rune.COLOR.GREEN:
-			green_progress.visible = true
+			green_progress.appear()
 		Rune.COLOR.PURPLE:
-			purple_progress.visible = true
+			purple_progress.appear()
 		Rune.COLOR.ORANGE:
-			orange_progress.visible = true
+			orange_progress.appear()
 
 
 func set_preview(next_preview_runes_color:Array) -> void:

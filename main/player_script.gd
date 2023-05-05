@@ -179,7 +179,7 @@ func place_runes() -> void:
 func respawn(pivot_rune_color: int, side_rune_color: int) -> void:
 	kill_holding(last_input_flag)
 	visible = true
-	position = Vector2(160,-40)
+	position = Vector2(240,-40)
 	reset_rotation()
 	pivot_rune.color = pivot_rune_color
 	side_rune.color = side_rune_color

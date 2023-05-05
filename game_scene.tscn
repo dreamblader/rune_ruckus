@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://main/board.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ui/data_content_scene.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game_script.gd" type="Script" id=3]
 [ext_resource path="res://misc/backgrounds/wall.jpg" type="Texture" id=4]
 [ext_resource path="res://misc/orb/orb_scene.tscn" type="PackedScene" id=5]
+[ext_resource path="res://misc/backgrounds/death_shader.tres" type="Shader" id=7]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -19,6 +20,10 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color( 0.2, 0.2, 0.2, 1 )
 
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 7 )
+shader_param/enabled = false
+
 [node name="Game" type="Control"]
 pause_mode = 2
 anchor_right = 1.0
@@ -30,7 +35,7 @@ orb_scene = ExtResource( 5 )
 environment = SubResource( 1 )
 
 [node name="Background" type="TextureRect" parent="."]
-modulate = Color( 0.305882, 0.286275, 0.286275, 1 )
+modulate = Color( 0.1512, 0.1512, 0.27, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 4 )
@@ -42,22 +47,22 @@ anchor_bottom = 1.0
 custom_constants/separation = 0
 
 [node name="LeftPadding" type="MarginContainer" parent="Content"]
-margin_right = 420.0
+margin_right = 340.0
 margin_bottom = 1080.0
-rect_min_size = Vector2( 420, 0 )
+rect_min_size = Vector2( 340, 0 )
 custom_constants/margin_right = 0
 custom_constants/margin_top = 0
 custom_constants/margin_left = 0
 custom_constants/margin_bottom = 0
 
 [node name="MidContainer" type="MarginContainer" parent="Content"]
-margin_left = 420.0
+margin_left = 340.0
 margin_right = 900.0
 margin_bottom = 1080.0
-rect_min_size = Vector2( 480, 0 )
+rect_min_size = Vector2( 560, 0 )
 
 [node name="Control" type="Control" parent="Content/MidContainer"]
-margin_right = 480.0
+margin_right = 560.0
 margin_bottom = 1080.0
 
 [node name="ViewPortBorder" type="PanelContainer" parent="Content/MidContainer/Control"]
@@ -67,14 +72,15 @@ margin_bottom = 1023.0
 custom_styles/panel = SubResource( 2 )
 
 [node name="ViewportContainer" type="ViewportContainer" parent="Content/MidContainer/Control/ViewPortBorder"]
+material = SubResource( 3 )
 margin_left = 3.0
 margin_top = 3.0
-margin_right = 483.0
+margin_right = 563.0
 margin_bottom = 963.0
-rect_min_size = Vector2( 480, 960 )
+rect_min_size = Vector2( 560, 960 )
 
 [node name="Viewport" type="Viewport" parent="Content/MidContainer/Control/ViewPortBorder/ViewportContainer"]
-size = Vector2( 480, 960 )
+size = Vector2( 560, 960 )
 handle_input_locally = false
 render_target_update_mode = 3
 
@@ -91,6 +97,7 @@ custom_constants/margin_left = 0
 custom_constants/margin_bottom = 0
 
 [node name="DataContent" parent="Content/RightContainer" instance=ExtResource( 2 )]
+margin_right = 1020.0
 
 [connection signal="emit_chain" from="Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board" to="." method="_on_Board_emit_chain"]
 [connection signal="emit_orb" from="Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board" to="." method="_on_Board_emit_orb"]

@@ -23,12 +23,14 @@ var rng = RandomNumberGenerator.new()
 export (PackedScene) var rune_scene
 
 onready var player = $Player
+onready var death_tile = $DeathTile
 
 signal emit_orb(at_position)
 signal emit_preview_runes(preview_runes)
 signal emit_score(value)
 signal emit_chain(value)
 signal submit_score()
+signal game_over()
 
 
 func _input(event: InputEvent) -> void:
@@ -57,8 +59,15 @@ func generate_runes() -> void:
 
 
 func spawn_player() -> void:
-	player.respawn(next_runes.pop_front(), next_runes.pop_front())
-	generate_runes()
+	if death_tile.did_u_died():
+		game_over()
+	else:
+		player.respawn(next_runes.pop_front(), next_runes.pop_front())
+		generate_runes()
+
+
+func game_over() -> void:
+	next_runes.clear()
 
 
 func solve(chain_count_start:int) -> void:

@@ -1,0 +1,25 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform bool enabled = false;
+
+void fragment(){ 
+	vec4 old_color = texture(TEXTURE, UV);
+	vec4 background_color = vec4(0.3,0.3,0.3,1);
+	
+	if(enabled){
+		if(length(old_color) > 1.15) {
+			old_color.a = 0.0;
+			COLOR = old_color;
+		}
+		else if(distance(background_color, old_color) < 0.15){
+			COLOR = vec4(0,0,0,1);
+		} else {
+			COLOR = vec4(1,1,1,1);
+		}	
+	} else {
+		COLOR = old_color;
+	}
+}"
