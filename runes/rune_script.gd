@@ -13,7 +13,7 @@ export (SpriteFrames) var green_rune
 export (SpriteFrames) var purple_rune
 export (SpriteFrames) var orange_rune
 
-export (COLOR) var color = COLOR.RED #setget set_color
+export (COLOR) var color = COLOR.RED setget set_color
 
 var chains: Array = [[],[]]
 
