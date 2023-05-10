@@ -12,6 +12,7 @@ export (SpriteFrames) var blue_rune
 export (SpriteFrames) var green_rune
 export (SpriteFrames) var purple_rune
 export (SpriteFrames) var orange_rune
+export (SpriteFrames) var none_rune
 
 export (COLOR) var color = COLOR.RED setget set_color
 
@@ -149,6 +150,17 @@ func snap_position() -> void:
 
 func update_sprite() -> void:
 	sprite.frame = min(get_power()-1, max_power-2)
+
+
+func mask_rune(mask_index:int) -> void:
+	if get_power() < max_power:
+		sprite.frames = none_rune
+		sprite.frame = mask_index
+
+
+func unmask_rune() -> void:
+	set_color(color)
+	update_sprite()
 
 
 func explode() -> void:

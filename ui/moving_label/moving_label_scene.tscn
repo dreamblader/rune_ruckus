@@ -1,12 +1,12 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://font/Anton-Regular.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://ui/moving_label/game_over_script.gd" type="Script" id=2]
+[ext_resource path="res://ui/moving_label/moving_label_script.gd" type="Script" id=1]
+[ext_resource path="res://font/Anton-Regular.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="DynamicFont" id=4]
 size = 50
 outline_size = 5
-font_data = ExtResource( 1 )
+font_data = ExtResource( 2 )
 
 [sub_resource type="Animation" id=5]
 length = 0.001
@@ -20,7 +20,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -40, 480 ) ]
+"values": [ Vector2( 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -37,29 +37,29 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2, 3, 4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -40, 480 ), Vector2( -40, 475 ), Vector2( -40, 480 ), Vector2( -40, 485 ), Vector2( -40, 480 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 0, -5 ), Vector2( 0, 0 ), Vector2( 0, 5 ), Vector2( 0, 0 ) ]
 }
 
-[node name="CenterContainer" type="CenterContainer"]
-margin_left = -40.0
-margin_top = 480.0
-margin_right = 600.0
-margin_bottom = 560.0
-script = ExtResource( 2 )
+[node name="MovingLabel" type="Control"]
+anchor_right = 0.0520833
+anchor_bottom = 0.0740741
+rect_min_size = Vector2( 100, 80 )
+script = ExtResource( 1 )
 __meta__ = {
-"_edit_group_": true
+"_edit_group_": true,
+"_edit_use_anchors_": true
 }
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-margin_left = 60.0
-margin_right = 580.0
-margin_bottom = 80.0
-rect_min_size = Vector2( 520, 80 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 100, 80 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 custom_fonts/normal_font = SubResource( 4 )
 visible_characters = 0
 percent_visible = 0.0
-text = " YOU ANGERED THE SPIRITS! "
 scroll_active = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

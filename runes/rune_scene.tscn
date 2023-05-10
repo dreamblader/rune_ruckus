@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://runes/yellow/yellow_rune.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://runes/rune_script.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://runes/green/green_rune.tres" type="SpriteFrames" id=5]
 [ext_resource path="res://runes/purple/purple_rune.tres" type="SpriteFrames" id=6]
 [ext_resource path="res://runes/orange/orange_rune.tres" type="SpriteFrames" id=7]
+[ext_resource path="res://runes/none/none_rune.tres" type="SpriteFrames" id=8]
 
 [sub_resource type="RectangleShape2D" id=18]
 extents = Vector2( 20, 40 )
@@ -19,6 +20,7 @@ blue_rune = ExtResource( 4 )
 green_rune = ExtResource( 5 )
 purple_rune = ExtResource( 6 )
 orange_rune = ExtResource( 7 )
+none_rune = ExtResource( 8 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 40, 40 )

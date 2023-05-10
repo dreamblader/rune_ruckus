@@ -31,7 +31,8 @@ export (PackedScene) var rune_scene
 onready var player = $Player
 onready var death_tile = $DeathTile
 onready var death = $Death
-onready var death_label = $UDiedLabel/CenterContainer
+onready var death_label = $UDiedLabel/MovingLabel
+onready var pause_label = $PauseLabel/MovingLabel
 
 signal emit_orb(at_position)
 signal emit_preview_runes(preview_runes)
@@ -45,8 +46,7 @@ func _input(event: InputEvent) -> void:
 	if is_over && event.is_action_pressed("ui_accept"):
 		skip_death_animation()
 	elif death_tween == null && event.is_action_pressed("ui_accept"):
-		pause = !pause
-		get_tree().paused = pause
+		pause()
 
 
 func _ready():
@@ -59,6 +59,25 @@ func start():
 	player.tick_move = TICK_MOVE
 	player.move = GRID_SIZE.x
 	spawn_player()
+
+
+func pause():
+	pause = !pause
+	get_tree().paused = pause
+	toggle_runes_mask(pause)
+	if pause:
+		pause_label.appear()
+	else:
+		pause_label.disappear()
+
+
+func toggle_runes_mask(flag:bool) -> void:
+	var runes = get_tree().get_nodes_in_group("Rune")
+	for rune in runes:
+		if flag:
+			rune.mask_rune(rng.randi_range(0, 8))
+		else:
+			rune.unmask_rune()
 
 
 func generate_runes() -> void:
@@ -90,7 +109,6 @@ func awake_death_icon() -> void:
 	death_tween = get_tree().create_tween()
 	var death_animation_time = 3.0
 	var death_animation_delay = 2.0
-	var death_label_show_time = 0.5
 	death_tile.visible = false
 	death.visible = true
 	death_tween.set_trans(Tween.TRANS_SINE)
@@ -98,8 +116,8 @@ func awake_death_icon() -> void:
 	death_tween.tween_callback(self, "set_is_over", [true]).set_delay(death_animation_delay)
 	death_tween.parallel().tween_property(death, "position", death_final_position, death_animation_time).set_delay(death_animation_delay)
 	death_tween.parallel().tween_property(death, "scale", death_final_scale, death_animation_time).set_delay(death_animation_delay) 
-	death_tween.tween_callback(death_label, "appear" , [death_label_show_time])
-	death_tween.tween_callback(self, "emit_signal", ["game_over", true]).set_delay(death_label_show_time)
+	death_tween.tween_callback(death_label, "appear")
+	death_tween.tween_callback(self, "emit_signal", ["game_over", true]).set_delay(0.5)
 
 
 func set_is_over(flag:bool) -> void:
