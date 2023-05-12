@@ -13,7 +13,6 @@ export (bool) var pivot = false
 
 onready var sprite = $AnimatedSprite
 
-
 func _ready() -> void:
 	toggle_border(pivot)
 

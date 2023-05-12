@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/rune_rotate_sfx.mp3-440ad8821c3c9c8eeb47ffa8555995e9.mp3str"
+
+[deps]
+
+source_file="res://runes/rune_rotate_sfx.mp3"
+dest_files=[ "res://.import/rune_rotate_sfx.mp3-440ad8821c3c9c8eeb47ffa8555995e9.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

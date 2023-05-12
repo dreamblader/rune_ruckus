@@ -43,6 +43,8 @@ tracks/0/keys = {
 [node name="MovingLabel" type="Control"]
 anchor_right = 0.0520833
 anchor_bottom = 0.0740741
+margin_right = 100.0
+margin_bottom = 80.0
 rect_min_size = Vector2( 100, 80 )
 script = ExtResource( 1 )
 __meta__ = {

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://main/player_script.gd" type="Script" id=1]
 [ext_resource path="res://runes/player_rune.tscn" type="PackedScene" id=2]
+[ext_resource path="res://runes/rune_rotate_sfx.mp3" type="AudioStream" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20, 79.5 )
@@ -44,5 +45,11 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/L_Area"]
 shape = SubResource( 2 )
+
+[node name="RotateSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 40, 0 )
+stream = ExtResource( 3 )
+volume_db = -15.0
+pitch_scale = 0.75
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

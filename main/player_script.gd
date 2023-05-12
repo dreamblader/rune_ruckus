@@ -4,6 +4,7 @@ enum SidePosition {TOP, RIGHT, BOTTOM, LEFT}
 enum InputFlag {LEFT, RIGHT, DOWN}
 
 onready var timer: Timer = $Timer
+onready var rotate_sound: AudioStreamPlayer2D = $RotateSound
 onready var collision: CollisionShape2D = $CollisionShape2D
 onready var side_rune = $SideRune
 onready var pivot_rune= $PivotRune
@@ -98,6 +99,7 @@ func move_horizontal(direction:int) -> void:
 
 func rotate_runes(direction:int) -> void:
 	if can_rotate():
+		rotate_sound.play()
 		tween = get_tree().create_tween()
 		var move_rune_to = Vector2()
 		var move_collision_to = Vector2()

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui/menu/death_menu/death_menu_script.gd" type="Script" id=1]
+[ext_resource path="res://font/game_font.tres" type="DynamicFont" id=2]
+
+[node name="Menu" type="Node2D"]
+script = ExtResource( 1 )
+options = [ "YES", "NO" ]
+menu_font = ExtResource( 2 )
+root_path = NodePath("Content")
+
+[node name="Content" type="PanelContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 40, 40 )
+
+[node name="Label" type="Label" parent="Content"]
+margin_left = 7.0
+margin_top = 13.0
+margin_right = 33.0
+margin_bottom = 27.0

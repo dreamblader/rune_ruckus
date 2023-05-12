@@ -99,8 +99,7 @@ position = Vector2( 27.5, 480 )
 z_index = 3
 
 [node name="MovingLabel" parent="UDiedLabel" instance=ExtResource( 7 )]
-margin_right = 505.0
-margin_bottom = 80.0
+margin_right = 561.0
 __meta__ = {
 "_edit_group_": true
 }
@@ -114,7 +113,6 @@ z_index = 3
 [node name="MovingLabel" parent="PauseLabel" instance=ExtResource( 7 )]
 pause_mode = 2
 margin_right = 140.0
-margin_bottom = 80.0
 rect_min_size = Vector2( 140, 80 )
 __meta__ = {
 "_edit_group_": true
