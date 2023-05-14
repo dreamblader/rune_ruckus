@@ -10,5 +10,8 @@ func update_menu_selection() -> void:
 
 
 func on_option_selected() -> void:
-	pass
-	#implement here the menu option selection
+	match selected_index:
+		0:
+			pass # TODO GO TO LEADERBOARD SCENE AND THEN RESET THE GAME
+		1:
+			get_tree().quit(0)

@@ -4,7 +4,7 @@ enum SidePosition {TOP, RIGHT, BOTTOM, LEFT}
 enum InputFlag {LEFT, RIGHT, DOWN}
 
 onready var timer: Timer = $Timer
-onready var rotate_sound: AudioStreamPlayer2D = $RotateSound
+onready var rotate_sound: AudioStreamPlayer = $RotateSound
 onready var collision: CollisionShape2D = $CollisionShape2D
 onready var side_rune = $SideRune
 onready var pivot_rune= $PivotRune

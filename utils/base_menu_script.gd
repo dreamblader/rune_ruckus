@@ -12,7 +12,7 @@ var history_index:int = -1
 
 
 func _input(event: InputEvent) -> void:
-	if !options.empty():
+	if !options.empty() && self.visible:
 		if event.is_action_pressed("ui_up"):
 			selected_index = (selected_index+1) % options.size()
 			update_menu_selection()
@@ -61,6 +61,7 @@ func _render_menu() -> void:
 
 func _add_label(option_name:String) -> void:
 	var new_option = Label.new()
+	new_option.align = Label.ALIGN_CENTER
 	new_option.add_font_override("font", menu_font)
 	new_option.text = option_name
 	menu_container.add_child(new_option)

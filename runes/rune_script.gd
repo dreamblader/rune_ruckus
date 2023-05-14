@@ -23,6 +23,7 @@ var gravity: float
 var column_pos: float
 var is_floating:bool = true
 var does_exist:bool = true
+var chain_pitch:float = 1.0
 
 var v_power:int = 1
 var h_power:int = 1
@@ -32,6 +33,8 @@ var tween:SceneTreeTween
 
 onready var sprite: AnimatedSprite = $AnimatedSprite
 onready var detectors: Array = [ $DetectUp, $DetectRigth ]
+onready var explode_sound: AudioStreamPlayer = $ExplodeSound
+onready var drop_sound: AudioStreamPlayer = $DropSound
 
 var start_time
 
@@ -81,6 +84,9 @@ func collision_check(collider:Object) -> void:
 		is_floating = collider.is_floating
 	elif collider.get_class() == "StaticBody2D":
 		is_floating = false
+	
+	if !is_floating:
+		drop_sound.play()
 
 
 func init_chain_check() -> void:
@@ -169,6 +175,7 @@ func explode() -> void:
 		gravity_call()
 		sprite.frame = max_power-1
 		tween = get_tree().create_tween()
+		explode_sound.play()
 		tween.tween_property(self, "modulate:a", 0, fade_time).set_trans(Tween.TRANS_SINE)
 		tween.connect("finished", self, "gone")
 	reset_chains()
@@ -192,6 +199,10 @@ func reset_chains() -> void:
 
 func get_class() -> String:
 	return my_class
+
+
+func set_pitch(pitch_add:float) -> void:
+	explode_sound.pitch_scale = min(1+pitch_add, 1.5)
 
 
 func end() -> void:

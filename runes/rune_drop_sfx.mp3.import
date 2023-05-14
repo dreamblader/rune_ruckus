@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/rune_drop_sfx.mp3-88c5479c184d8eac222f3ce859cf23b3.mp3str"
+
+[deps]
+
+source_file="res://runes/rune_drop_sfx.mp3"
+dest_files=[ "res://.import/rune_drop_sfx.mp3-88c5479c184d8eac222f3ce859cf23b3.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

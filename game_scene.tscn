@@ -30,6 +30,10 @@ pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ],
+"_edit_vertical_guides_": [  ]
+}
 orb_scene = ExtResource( 5 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -103,7 +107,7 @@ margin_right = 1020.0
 
 [node name="DeathMenu" parent="." instance=ExtResource( 6 )]
 visible = false
-position = Vector2( 560, 640 )
+position = Vector2( 495, 640 )
 
 [connection signal="emit_chain" from="Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board" to="." method="_on_Board_emit_chain"]
 [connection signal="emit_orb" from="Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board" to="." method="_on_Board_emit_orb"]

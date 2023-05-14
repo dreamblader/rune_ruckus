@@ -141,6 +141,7 @@ func solve(chain_count_start:int) -> void:
 	var runes = get_tree().get_nodes_in_group("Rune")
 	if !runes.empty():
 		yield(wait_runes_touch_the_ground(runes), "completed")
+		add_pitch(runes, chain_count_start)
 		check_runes(runes)
 		wait_runes_explode(runes)
 		if continue_chain:
@@ -158,6 +159,14 @@ func wait_runes_touch_the_ground(runes) -> void:
 		if rune != null && rune.is_floating:
 			yield(rune, "touch_the_ground")
 	yield(get_tree(), "idle_frame")
+
+
+func add_pitch(runes, chain_number) -> void:
+	var chain_pitch = 0
+	if chain_number > 1:
+		chain_pitch = floor(chain_number-1/CHAIN_MULT)/10
+	for rune in runes:
+		rune.set_pitch(chain_pitch)
 
 
 func check_runes(runes) -> void:

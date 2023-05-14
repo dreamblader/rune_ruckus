@@ -1,12 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://ui/moving_label/moving_label_script.gd" type="Script" id=1]
-[ext_resource path="res://font/Anton-Regular.ttf" type="DynamicFontData" id=2]
-
-[sub_resource type="DynamicFont" id=4]
-size = 50
-outline_size = 5
-font_data = ExtResource( 2 )
+[ext_resource path="res://font/impact_font.tres" type="DynamicFont" id=2]
 
 [sub_resource type="Animation" id=5]
 length = 0.001
@@ -43,8 +38,8 @@ tracks/0/keys = {
 [node name="MovingLabel" type="Control"]
 anchor_right = 0.0520833
 anchor_bottom = 0.0740741
-margin_right = 100.0
-margin_bottom = 80.0
+margin_right = 700.0
+margin_bottom = 560.0
 rect_min_size = Vector2( 100, 80 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -59,7 +54,7 @@ rect_min_size = Vector2( 100, 80 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_colors/default_color = Color( 0, 0, 0, 1 )
-custom_fonts/normal_font = SubResource( 4 )
+custom_fonts/normal_font = ExtResource( 2 )
 visible_characters = 0
 percent_visible = 0.0
 scroll_active = false

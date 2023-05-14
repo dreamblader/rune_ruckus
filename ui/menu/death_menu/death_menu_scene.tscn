@@ -1,21 +1,46 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://ui/menu/death_menu/death_menu_script.gd" type="Script" id=1]
-[ext_resource path="res://font/game_font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://font/Stick-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://font/Anton-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://ui/margin_block_box.tres" type="StyleBox" id=4]
+
+[sub_resource type="DynamicFont" id=2]
+size = 40
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 45
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
 
 [node name="Menu" type="Node2D"]
 script = ExtResource( 1 )
 options = [ "YES", "NO" ]
-menu_font = ExtResource( 2 )
-root_path = NodePath("Content")
+menu_font = SubResource( 2 )
+root_path = NodePath("Content/MenuContainer")
 
 [node name="Content" type="PanelContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 250.0
+margin_bottom = 75.0
 rect_min_size = Vector2( 40, 40 )
+custom_styles/panel = ExtResource( 4 )
 
-[node name="Label" type="Label" parent="Content"]
-margin_left = 7.0
-margin_top = 13.0
-margin_right = 33.0
-margin_bottom = 27.0
+[node name="MenuContainer" type="VBoxContainer" parent="Content"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 247.0
+margin_bottom = 72.0
+
+[node name="Label" type="Label" parent="Content/MenuContainer"]
+margin_right = 244.0
+margin_bottom = 68.0
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 1 )
+text = " TRY AGAIN ? "
+align = 1
