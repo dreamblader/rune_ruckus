@@ -7,6 +7,7 @@ func update_menu_selection() -> void:
 	if before_label != null:
 		before_label.remove_color_override("font_color")
 	selected_label.add_color_override("font_color", Color(1,0,0))
+	selected_label.add_color_override("font_color", Color(1,0,0))
 
 
 func on_option_selected() -> void:

@@ -14,12 +14,14 @@ var history_index:int = -1
 func _input(event: InputEvent) -> void:
 	if !options.empty() && self.visible:
 		if event.is_action_pressed("ui_up"):
-			selected_index = (selected_index+1) % options.size()
+			selected_index = selected_index-1 if selected_index > 0 else options.size()-1
+			print(selected_index)
 			update_menu_selection()
 			add_index_to_history()
 		
 		if event.is_action_pressed("ui_down"):
-			selected_index = selected_index-1 if selected_index > 0 else options.size()-1
+			selected_index = (selected_index+1) % options.size()
+			print(selected_index)
 			update_menu_selection()
 			add_index_to_history()
 		
