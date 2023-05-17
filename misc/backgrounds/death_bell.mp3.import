@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/death_bell.mp3-58a3f3ede33a60dd2a6bac7be38ad202.mp3str"
+
+[deps]
+
+source_file="res://misc/backgrounds/death_bell.mp3"
+dest_files=[ "res://.import/death_bell.mp3-58a3f3ede33a60dd2a6bac7be38ad202.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

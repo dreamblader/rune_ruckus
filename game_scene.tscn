@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://main/board.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ui/data_content_scene.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://ui/menu/death_menu/death_menu_scene.tscn" type="PackedScene" id=6]
 [ext_resource path="res://misc/backgrounds/death_shader.tres" type="Shader" id=7]
 [ext_resource path="res://ui/menu/start_menu/start_menu_scene.tscn" type="PackedScene" id=8]
+[ext_resource path="res://misc/backgrounds/die_laugh.mp3" type="AudioStream" id=9]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -73,7 +74,7 @@ margin_bottom = 1080.0
 
 [node name="ViewPortBorder" type="PanelContainer" parent="Content/MidContainer/Control"]
 margin_top = 57.0
-margin_right = 486.0
+margin_right = 566.0
 margin_bottom = 1023.0
 custom_styles/panel = SubResource( 2 )
 
@@ -83,7 +84,7 @@ margin_left = 3.0
 margin_top = 3.0
 margin_right = 563.0
 margin_bottom = 963.0
-rect_min_size = Vector2( 560, 960 )
+rect_min_size = Vector2( 560, 0 )
 
 [node name="Viewport" type="Viewport" parent="Content/MidContainer/Control/ViewPortBorder/ViewportContainer"]
 size = Vector2( 560, 960 )
@@ -113,6 +114,9 @@ position = Vector2( 495, 640 )
 [node name="Menu" parent="." instance=ExtResource( 8 )]
 position = Vector2( 640, 360 )
 
+[node name="DeathLaugh" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
 [connection signal="emit_chain" from="Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board" to="." method="_on_Board_emit_chain"]
 [connection signal="emit_orb" from="Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board" to="." method="_on_Board_emit_orb"]
 [connection signal="emit_preview_runes" from="Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board" to="." method="_on_Board_emit_preview_runes"]
@@ -120,3 +124,4 @@ position = Vector2( 640, 360 )
 [connection signal="game_over" from="Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board" to="." method="_on_Board_game_over"]
 [connection signal="submit_score" from="Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board" to="." method="_on_Board_submit_score"]
 [connection signal="bar_complete" from="Content/RightContainer/DataContent" to="." method="_on_DataContent_bar_complete"]
+[connection signal="option_selected" from="Menu" to="." method="_on_Menu_option_selected"]

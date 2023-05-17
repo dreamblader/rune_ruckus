@@ -11,6 +11,7 @@ var COLOR_MULT: int = 6 #increase +1 per extra color (starts at 2 colors)
 var CHAIN_MULT: int = 4
 var LEVEL: int = 1
 
+var is_playing:bool = false
 var pause: bool = false
 var is_over:bool = false
 var on_wait: bool = false
@@ -33,6 +34,7 @@ onready var death_tile = $DeathTile
 onready var death = $Death
 onready var death_label = $UDiedLabel/MovingLabel
 onready var pause_label = $PauseLabel/MovingLabel
+onready var death_bell_audio = $DeathBell
 
 signal emit_orb(at_position)
 signal emit_preview_runes(preview_runes)
@@ -45,12 +47,8 @@ signal game_over(menu_flag)
 func _input(event: InputEvent) -> void:
 	if is_over && event.is_action_pressed("ui_accept"):
 		skip_death_animation()
-	elif death_tween == null && event.is_action_pressed("ui_accept"):
+	elif death_tween == null && is_playing && event.is_action_pressed("ui_accept"):
 		pause()
-
-
-func _ready():
-	start()
 
 
 func start():
@@ -59,6 +57,7 @@ func start():
 	player.tick_move = TICK_MOVE
 	player.move = GRID_SIZE.x
 	spawn_player()
+	is_playing = true
 
 
 func pause():
@@ -111,9 +110,11 @@ func awake_death_icon() -> void:
 	var death_animation_delay = 2.0
 	death_tile.visible = false
 	death.visible = true
+	death_bell_audio.play()
 	death_tween.set_trans(Tween.TRANS_SINE)
 	death_tween.set_ease(Tween.EASE_OUT)
 	death_tween.tween_callback(self, "set_is_over", [true]).set_delay(death_animation_delay)
+	death_tween.parallel().tween_callback(death_bell_audio, "play").set_delay(death_animation_delay)
 	death_tween.parallel().tween_property(death, "position", death_final_position, death_animation_time).set_delay(death_animation_delay)
 	death_tween.parallel().tween_property(death, "scale", death_final_scale, death_animation_time).set_delay(death_animation_delay) 
 	death_tween.tween_callback(death_label, "appear")

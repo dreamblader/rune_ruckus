@@ -3,10 +3,13 @@ extends Control
 export (PackedScene) var orb_scene
 
 onready var data = $Content/RightContainer/DataContent
-onready var board_viewport = $Content/MidContainer/Control/ViewPortBorder/ViewportContainer
+onready var board_border = $Content/MidContainer/Control/ViewPortBorder
+onready var board_viewport_container = $Content/MidContainer/Control/ViewPortBorder/ViewportContainer
+onready var board_viewport = $Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport
 onready var board = $Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board
 onready var left_panel = $Content/LeftPadding
 onready var death_menu = $DeathMenu
+onready var death_laugh_audio = $DeathLaugh
 
 var orb_travel_time:float = 0.65
 var multiplier: int = 1
@@ -24,9 +27,24 @@ var high_score:int = 10000
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	board_viewport.size.y = 0
+	board_viewport_container.rect_size.y = 0
+	board_border.rect_size.y = 0
+	board_border.visible = false
 	score = 0
 	update_score()
 	update_high_score()
+
+
+func open_board() -> void:
+	var open_time = 1.5
+	var tween = create_tween()
+	board_border.visible = true
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(board_viewport, "size:y", 960, open_time)
+	tween.parallel().tween_property(board_viewport_container, "rect_size:y", 960, open_time)
+	tween.tween_callback(board, "start")
 
 
 func update_score() -> void:
@@ -154,6 +172,14 @@ func is_a_orange_mix(color_check:int) -> bool:
 
 func _on_Board_game_over(menu_flag) -> void:
 	if menu_flag:
+		if !death_menu.visible:
+			death_laugh_audio.play()
 		death_menu.visible = true
 	else:
-		board_viewport.material.set_shader_param("enabled", true)
+		board_viewport_container.material.set_shader_param("enabled", true)
+
+
+func _on_Menu_option_selected(option) -> void:
+	match option:
+		"start":
+			open_board()

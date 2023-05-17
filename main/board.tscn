@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://misc/backgrounds/board_backdrop.png" type="Texture" id=1]
 [ext_resource path="res://main/board_script.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://runes/rune_scene.tscn" type="PackedScene" id=5]
 [ext_resource path="res://misc/backgrounds/death_scene.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ui/moving_label/moving_label_scene.tscn" type="PackedScene" id=7]
+[ext_resource path="res://misc/backgrounds/death_bell.mp3" type="AudioStream" id=8]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 40, 600 )
@@ -119,5 +120,8 @@ __meta__ = {
 }
 text = " PAUSE"
 text_show_time = 0.25
+
+[node name="DeathBell" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
 
 [connection signal="place_runes" from="Player" to="." method="_on_Player_place_runes"]
