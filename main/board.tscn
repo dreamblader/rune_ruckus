@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://misc/backgrounds/board_backdrop.png" type="Texture" id=1]
 [ext_resource path="res://main/board_script.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://misc/backgrounds/death_scene.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ui/moving_label/moving_label_scene.tscn" type="PackedScene" id=7]
 [ext_resource path="res://misc/backgrounds/death_bell.mp3" type="AudioStream" id=8]
+[ext_resource path="res://misc/backgrounds/die_laugh.mp3" type="AudioStream" id=9]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 40, 600 )
@@ -124,4 +125,8 @@ text_show_time = 0.25
 [node name="DeathBell" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
 
+[node name="DeathLaugh" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
 [connection signal="place_runes" from="Player" to="." method="_on_Player_place_runes"]
+[connection signal="send_score" from="Player" to="." method="_on_Player_send_score"]

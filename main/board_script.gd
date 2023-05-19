@@ -35,6 +35,7 @@ onready var death = $Death
 onready var death_label = $UDiedLabel/MovingLabel
 onready var pause_label = $PauseLabel/MovingLabel
 onready var death_bell_audio = $DeathBell
+onready var death_laugh_audio = $DeathLaugh
 
 signal emit_orb(at_position)
 signal emit_preview_runes(preview_runes)
@@ -57,7 +58,27 @@ func start():
 	player.tick_move = TICK_MOVE
 	player.move = GRID_SIZE.x
 	spawn_player()
+	is_over = false
 	is_playing = true
+
+
+func end():
+	death_tile.visible = true
+	death.position = Vector2(280,40)
+	death.scale = Vector2(1,1)
+	death.visible = false
+	death_label.disappear()
+	next_runes.empty()
+	emit_signal("emit_preview_runes", next_runes)
+	reset_color_progress()
+	var runes = get_tree().get_nodes_in_group("Rune")
+	for rune in runes:
+		rune.queue_free()
+
+
+func reset_color_progress() -> void:
+	unlocked_colors = [Rune.COLOR.RED, Rune.COLOR.YELLOW, Rune.COLOR.BLUE]
+	locked_colors = [Rune.COLOR.GREEN, Rune.COLOR.PURPLE, Rune.COLOR.ORANGE]
 
 
 func pause():
@@ -117,7 +138,7 @@ func awake_death_icon() -> void:
 	death_tween.parallel().tween_callback(death_bell_audio, "play").set_delay(death_animation_delay)
 	death_tween.parallel().tween_property(death, "position", death_final_position, death_animation_time).set_delay(death_animation_delay)
 	death_tween.parallel().tween_property(death, "scale", death_final_scale, death_animation_time).set_delay(death_animation_delay) 
-	death_tween.tween_callback(death_label, "appear")
+	death_tween.tween_callback(self, "show_u_died_label")
 	death_tween.tween_callback(self, "emit_signal", ["game_over", true]).set_delay(0.5)
 
 
@@ -125,10 +146,17 @@ func set_is_over(flag:bool) -> void:
 	is_over = flag
 
 
+func show_u_died_label() -> void:
+	death_tween = null
+	death_laugh_audio.play()
+	death_label.appear()
+
+
 func skip_death_animation() -> void:
 	if death_tween != null:
 		death_tween.kill()
 		death_tween = null
+		death_laugh_audio.play()
 		death_tile.visible = false
 		death.visible = true
 		death.position = death_final_position
@@ -227,3 +255,7 @@ func unlock_color(color_index:int) -> bool:
 
 func _on_Rune_explode(explode_position, explode_color) -> void:
 	emit_signal("emit_orb", explode_position, explode_color)
+
+
+func _on_Player_send_score(score) -> void:
+	emit_signal("submit_score", score)

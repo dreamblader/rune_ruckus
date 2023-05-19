@@ -5,6 +5,7 @@ enum InputFlag {LEFT, RIGHT, DOWN}
 
 onready var timer: Timer = $Timer
 onready var rotate_sound: AudioStreamPlayer = $RotateSound
+onready var move_sound: AudioStreamPlayer = $MoveSound
 onready var collision: CollisionShape2D = $CollisionShape2D
 onready var side_rune = $SideRune
 onready var pivot_rune= $PivotRune
@@ -22,7 +23,7 @@ var last_input_flag: int
 var is_holding:bool = false
 
 signal place_runes(insta_position, pivot_rune, side_rune)
-
+signal send_score(score)
 
 func _ready() -> void:
 	visible = false
@@ -31,19 +32,21 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if visible:
 		if event.is_action_pressed("ui_left"):
+			move_sound.play()
 			move_horizontal(-1)
 			hold_movement(InputFlag.LEFT)
 		elif event.is_action_released("ui_left"):
 			kill_holding(InputFlag.LEFT)
 			
 		if event.is_action_pressed("ui_right"):
+			move_sound.play()
 			move_horizontal(1)
 			hold_movement(InputFlag.RIGHT)
 		elif event.is_action_released("ui_right"):
 			kill_holding(InputFlag.RIGHT)
 		
 		if event.is_action_pressed("ui_down"):
-			move_down()
+			move_down(true)
 			hold_movement(InputFlag.DOWN)
 		elif event.is_action_released("ui_down"):
 			kill_holding(InputFlag.DOWN)
@@ -86,7 +89,7 @@ func _process(delta: float) -> void:
 			InputFlag.RIGHT:
 				move_horizontal(1)
 			InputFlag.DOWN:
-				move_down()
+				move_down(true)
 
 
 func move_horizontal(direction:int) -> void:
@@ -134,16 +137,20 @@ func rotate_runes(direction:int) -> void:
 
 
 func drop() -> void:
+	var snapshot_position_y = position.y
 	move_and_collide(Vector2(0.0, 980.0))
+	emit_signal("send_score", round((position.y - snapshot_position_y)/tick_move))
 	place_runes()
 
 
-func move_down() -> void:
+func move_down(by_input:bool = false) -> void:
 	var snapshot_position_y = position.y
 	var pivot_collide = move_and_collide(Vector2(0.0, tick_move))
 	if pivot_collide != null:
 		position.y = snapshot_position_y
 		place_runes()
+	if by_input:
+		emit_signal("send_score", 1)
 	timer.wait_time = tick_time
 
 

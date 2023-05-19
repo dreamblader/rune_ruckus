@@ -11,8 +11,25 @@ func update_menu_selection() -> void:
 
 
 func on_option_selected() -> void:
+	self.lock_control = true
 	match selected_index:
 		0:
-			pass # TODO GO TO LEADERBOARD SCENE AND THEN RESET THE GAME
+			fade_menu()
 		1:
 			get_tree().quit(0)
+
+
+func fade_menu() -> void:
+	var fade_time = 0.5
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.tween_property(self, "modulate:a", 0, fade_time)
+	tween.tween_callback(self, "reset_visibility")
+	emit_signal("option_selected", "restart")
+
+
+func reset_visibility() -> void:
+	self.visible = false
+	self.lock_control = false
+	self.modulate.a = 1

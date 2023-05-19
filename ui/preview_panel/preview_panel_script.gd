@@ -16,7 +16,9 @@ var second_preview
 
 
 func set_preview(preview_array:Array) -> void:
-	if preview_array.size() == 4:
+	if preview_array.empty():
+		clear_preview()
+	elif preview_array.size() == 4:
 		var next_first_preview = attach_preview(preview_array[0], preview_array[1], true)
 		var next_second_preview = attach_preview(preview_array[2], preview_array[3], false)
 		
@@ -63,3 +65,12 @@ func _on_preview_transition_end(next_first:Node, next_second:Node) -> void:
 	second_preview.queue_free()
 	first_preview = next_first
 	second_preview = next_second
+
+
+func clear_preview() -> void:
+	first_preview_panel.remove_child(first_preview)
+	first_preview.queue_free()
+	first_preview = null
+	second_preview_panel.remove_child(second_preview)
+	second_preview.queue_free()
+	second_preview = null

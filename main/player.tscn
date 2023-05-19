@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://main/player_script.gd" type="Script" id=1]
 [ext_resource path="res://runes/player_rune.tscn" type="PackedScene" id=2]
 [ext_resource path="res://runes/rune_rotate_sfx.mp3" type="AudioStream" id=3]
+[ext_resource path="res://runes/rune_move_sfx.mp3" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20, 79.5 )
@@ -48,6 +49,11 @@ shape = SubResource( 2 )
 
 [node name="RotateSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+volume_db = -15.0
+pitch_scale = 0.75
+
+[node name="MoveSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
 volume_db = -15.0
 pitch_scale = 0.75
 

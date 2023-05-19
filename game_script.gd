@@ -9,7 +9,6 @@ onready var board_viewport = $Content/MidContainer/Control/ViewPortBorder/Viewpo
 onready var board = $Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board
 onready var left_panel = $Content/LeftPadding
 onready var death_menu = $DeathMenu
-onready var death_laugh_audio = $DeathLaugh
 
 var orb_travel_time:float = 0.65
 var multiplier: int = 1
@@ -25,7 +24,7 @@ var current_rune_chain = 1
 var score:int = 0
 var high_score:int = 10000
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	board_viewport.size.y = 0
 	board_viewport_container.rect_size.y = 0
@@ -36,9 +35,23 @@ func _ready() -> void:
 	update_high_score()
 
 
+func restart_game() -> void:
+	var close_time = 1.0
+	score = 0
+	update_score()
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(board_viewport, "size:y", 0, close_time)
+	tween.parallel().tween_property(board_viewport_container, "rect_size:y", 0, close_time)
+	tween.tween_callback(board, "end")
+	tween.tween_callback(self, "open_board")
+
+
 func open_board() -> void:
 	var open_time = 1.5
 	var tween = create_tween()
+	board_viewport_container.material.set_shader_param("enabled", false)
 	board_border.visible = true
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_QUAD)
@@ -98,10 +111,10 @@ func _on_Board_emit_preview_runes(preview_runes:Array) -> void:
 	data.set_preview(preview_runes)
 
 
-func _on_Board_submit_score() -> void:
-	score += current_rune_chain*current_rune_score
+func _on_Board_submit_score(extra=0) -> void:
+	score += (current_rune_chain*current_rune_score)+extra
 	current_rune_score = 0
-	current_rune_chain = 0
+	current_rune_chain = 1
 	update_score()
 
 
@@ -172,8 +185,6 @@ func is_a_orange_mix(color_check:int) -> bool:
 
 func _on_Board_game_over(menu_flag) -> void:
 	if menu_flag:
-		if !death_menu.visible:
-			death_laugh_audio.play()
 		death_menu.visible = true
 	else:
 		board_viewport_container.material.set_shader_param("enabled", true)
@@ -183,3 +194,9 @@ func _on_Menu_option_selected(option) -> void:
 	match option:
 		"start":
 			open_board()
+
+
+func _on_DeathMenu_option_selected(option) -> void:
+	match option:
+		"restart":
+			restart_game()
