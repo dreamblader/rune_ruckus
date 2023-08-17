@@ -35,9 +35,17 @@ func _ready() -> void:
 		root = self
 	else:
 		root = get_node(root_path)
+	init_menu()
+
+
+func init_menu() -> void:
 	_render_menu()
 	update_menu_selection()
 	add_index_to_history()
+
+
+func clear_menu() -> void:
+	root.remove_child(menu_container)
 
 
 func update_menu_selection() -> void:
@@ -48,6 +56,12 @@ func update_menu_selection() -> void:
 func on_option_selected() -> void:
 	#implement here the menu option selection
 	push_error("MenuException: _on_option_selected not implemented for "+name) 
+
+
+func _set_options(new_options:Array) -> void:
+	options = new_options
+	clear_menu()
+	init_menu()
 
 
 func _add_option(option:String) -> void:

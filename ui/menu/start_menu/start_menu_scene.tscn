@@ -79,11 +79,11 @@ scale = Vector2( 2.5, 2.5 )
 frames = SubResource( 14 )
 speed_scale = 2.0
 
-[node name="Content" type="Control" parent="."]
-margin_left = -120.0
+[node name="Content" type="CenterContainer" parent="."]
 margin_top = 120.0
-margin_right = -120.0
 margin_bottom = 120.0
+grow_horizontal = 2
+rect_min_size = Vector2( 300, 300 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 1.5

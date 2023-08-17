@@ -183,6 +183,10 @@ func is_a_orange_mix(color_check:int) -> bool:
 	return color_check == Rune.COLOR.RED || color_check == Rune.COLOR.YELLOW
 
 
+func open_options() -> void:
+	pass
+
+
 func _on_Board_game_over(menu_flag) -> void:
 	if menu_flag:
 		death_menu.visible = true
@@ -194,6 +198,8 @@ func _on_Menu_option_selected(option) -> void:
 	match option:
 		"start":
 			open_board()
+		"options":
+			open_options()
 
 
 func _on_DeathMenu_option_selected(option) -> void:
