@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/logo_ip28.svg-8675200c18dbe1be2b8ca9a3b864bbda.stex"
+path="res://.import/tilted_sword.svg-7193b6713d98293b6ee1d9ab6cc3e061.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://splash/logo/logo_pieces/inner_particles/logo_ip28.svg"
-dest_files=[ "res://.import/logo_ip28.svg-8675200c18dbe1be2b8ca9a3b864bbda.stex" ]
+source_file="res://splash/logo/tilted_sword.svg"
+dest_files=[ "res://.import/tilted_sword.svg-7193b6713d98293b6ee1d9ab6cc3e061.stex" ]
 
 [params]
 
@@ -24,7 +24,7 @@ flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false

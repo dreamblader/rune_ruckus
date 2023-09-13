@@ -33,7 +33,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Rune Ruckus"
-run/main_scene="res://game_scene.tscn"
+run/main_scene="res://splash/splash_scene.tscn"
 config/icon="res://game_icon.png"
 
 [display]
