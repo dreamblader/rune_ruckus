@@ -90,6 +90,8 @@ func select_start_menu() -> void:
 			set_extra_menu()
 		2:
 			emit_signal("option_selected", "options")
+		3:
+			get_tree().quit(0)
 		_:
 			push_error("Selected Index: "+str(selected_index)+" out of bounds @"+name)
 
