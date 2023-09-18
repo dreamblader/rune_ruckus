@@ -26,7 +26,7 @@ func _input(event: InputEvent) -> void:
 			update_menu_selection()
 			add_index_to_history()
 		
-		if event.is_action_pressed("ui_accept"):
+		if event.is_action_pressed("ui_select"):
 			on_option_selected()
 
 
