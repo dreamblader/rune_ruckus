@@ -45,9 +45,9 @@ margin_right = 320.0
 
 [node name="Main" type="VBoxContainer" parent="Menu"]
 margin_left = 87.0
-margin_top = 219.0
+margin_top = 179.0
 margin_right = 553.0
-margin_bottom = 741.0
+margin_bottom = 781.0
 
 [node name="Video" type="VBoxContainer" parent="Menu/Main"]
 margin_right = 466.0
@@ -80,7 +80,7 @@ text = "Resolution: 1920 x 1080"
 [node name="Audio" type="VBoxContainer" parent="Menu/Main"]
 margin_top = 263.0
 margin_right = 466.0
-margin_bottom = 522.0
+margin_bottom = 602.0
 
 [node name="Title" type="Label" parent="Menu/Main/Audio"]
 margin_right = 466.0
@@ -90,18 +90,26 @@ custom_fonts/font = SubResource( 2 )
 text = "Audio"
 align = 1
 
-[node name="Fullscreen" type="Label" parent="Menu/Main/Audio"]
+[node name="Master" type="Label" parent="Menu/Main/Audio"]
 margin_top = 103.0
 margin_right = 466.0
 margin_bottom = 179.0
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 3 )
-text = "Fullscreen: Off"
+text = "Master Volume: |||||||"
 
-[node name="Resolution" type="Label" parent="Menu/Main/Audio"]
+[node name="Music" type="Label" parent="Menu/Main/Audio"]
 margin_top = 183.0
 margin_right = 466.0
 margin_bottom = 259.0
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 3 )
-text = "Resolution: 1920 x 1080"
+text = "Music Volume: |||||||"
+
+[node name="Sounds" type="Label" parent="Menu/Main/Audio"]
+margin_top = 263.0
+margin_right = 466.0
+margin_bottom = 339.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "Sounds Volume: |||||||"
