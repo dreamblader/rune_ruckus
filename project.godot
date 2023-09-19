@@ -23,11 +23,17 @@ _global_script_classes=[ {
 "class": "Rune",
 "language": "GDScript",
 "path": "res://runes/rune_script.gd"
+}, {
+"base": "Resource",
+"class": "Settings",
+"language": "GDScript",
+"path": "res://options/settings_resource.gd"
 } ]
 _global_script_class_icons={
 "Game": "",
 "Menu": "",
-"Rune": ""
+"Rune": "",
+"Settings": ""
 }
 
 [application]
