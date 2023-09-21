@@ -21,6 +21,7 @@ var keyboardInputs: Dictionary = {}
 
 func set_fullscreen(new_value):
 	fullscreen = new_value
-	OS.set_window_fullscreen(fullscreen)
+	if OS.is_window_fullscreen() != fullscreen:
+		OS.set_window_fullscreen(fullscreen)
 
 #TODO add other setters

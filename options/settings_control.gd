@@ -18,6 +18,7 @@ var keyboardInputs_key:String = "keyboardInputs"
 
 
 func _ready() -> void:
+	settings = Settings.new()
 	load_settings()
 	#print(InputMap.get_actions()) # get actions name
 	#print(InputMap.get_action_list("drop"))
@@ -26,19 +27,25 @@ func _ready() -> void:
 func load_settings() -> void:
 	var config_file = ConfigFile.new()
 	if config_file.load(PATH) != OK:
-		settings = Settings.new()
 		set_config_settings(config_file)
 		config_file.save(PATH)
 	else:
 		prints(config_file, config_file.get_sections())
-		settings = get_config_settings(config_file)
+		settings = change_config_settings(config_file)
 
 
-func get_config_settings(config:ConfigFile) -> Settings:
-	var result = Settings.new()
-	result.fullscreen = config.get_value(Settings.Section.keys()[Settings.Section.VIDEO], fullscreen_key)
-	# TODO
-	return result
+func change_config_settings(config:ConfigFile) -> void:
+	settings.fullscreen = config.get_value(Settings.Section.keys()[Settings.Section.VIDEO], fullscreen_key)
+	settings.resolution = config.get_value(Settings.Section.keys()[Settings.Section.VIDEO], resolution_key)
+	settings.vsync = config.get_value(Settings.Section.keys()[Settings.Section.VIDEO], vsync_key)
+	settings.mute = config.get_value(Settings.Section.keys()[Settings.Section.AUDIO], mute_key)
+	settings.masterVolumeDb = config.get_value(Settings.Section.keys()[Settings.Section.AUDIO], masterVolumeDb_key)
+	settings.musicVolumeDb = config.get_value(Settings.Section.keys()[Settings.Section.AUDIO], musicVolumeDb_key)
+	settings.sfxVolumeDb = config.get_value(Settings.Section.keys()[Settings.Section.AUDIO], sfxVolumeDb_key)
+	settings.voiceVolumeDb = config.get_value(Settings.Section.keys()[Settings.Section.AUDIO], voiceVolumeDb_key)
+	settings.controlType = config.get_value(Settings.Section.keys()[Settings.Section.CONTROLS], controlType_key)
+	settings.controllerInputs = config.get_value(Settings.Section.keys()[Settings.Section.CONTROLS], controllerInputs_key)
+	settings.keyboardInputs = config.get_value(Settings.Section.keys()[Settings.Section.CONTROLS], keyboardInputs_key)
 
 
 func set_config_settings(config:ConfigFile) -> void:
