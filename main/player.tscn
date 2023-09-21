@@ -51,10 +51,12 @@ shape = SubResource( 2 )
 stream = ExtResource( 3 )
 volume_db = -15.0
 pitch_scale = 0.75
+bus = "SFX"
 
 [node name="MoveSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 volume_db = -15.0
 pitch_scale = 0.75
+bus = "SFX"
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

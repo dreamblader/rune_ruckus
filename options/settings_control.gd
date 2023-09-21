@@ -20,8 +20,6 @@ var keyboardInputs_key:String = "keyboardInputs"
 func _ready() -> void:
 	settings = Settings.new()
 	load_settings()
-	#print(InputMap.get_actions()) # get actions name
-	#print(InputMap.get_action_list("drop"))
 
 
 func load_settings() -> void:
@@ -67,19 +65,3 @@ func save_settings() -> void:
 	set_config_settings(config_file)
 	prints("DEBUG:", config_file.get_sections())
 	config_file.save(PATH)
-
-
-# CONTROL EXAMPLE
-#		for action in config.get_section_keys("input"):
-#			# Get the key scancode corresponding to the saved human-readable string
-#			scancode = OS.find_scancode_from_string(config.get_value("input", action))
-#			# Create a new event object based on the saved scancode
-#			event = InputEventKey.new()
-#			event.scancode = scancode
-#			# Replace old actions by the new one - apparently erasing the old action
-#			# works better to get the control buttons properly initialised in the UI
-#			# TODO: Handle multiple events per action in a better way
-#			for old_event in InputMap.get_action_list(action):
-#				if old_event is InputEventKey:
-#					InputMap.action_erase_event(action, old_event)
-#			InputMap.action_add_event(action, event)

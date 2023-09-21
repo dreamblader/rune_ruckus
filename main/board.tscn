@@ -124,9 +124,11 @@ text_show_time = 0.25
 
 [node name="DeathBell" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+bus = "SFX"
 
 [node name="DeathLaugh" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
+bus = "SFX"
 
 [connection signal="place_runes" from="Player" to="." method="_on_Player_place_runes"]
 [connection signal="send_score" from="Player" to="." method="_on_Player_send_score"]
