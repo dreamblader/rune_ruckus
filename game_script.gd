@@ -184,7 +184,7 @@ func is_a_orange_mix(color_check:int) -> bool:
 
 
 func open_options() -> void:
-	pass
+	get_tree().change_scene("res://options/options_scene.tscn")
 
 
 func _on_Board_game_over(menu_flag) -> void:

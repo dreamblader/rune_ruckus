@@ -18,6 +18,9 @@ var controlType : int = 0 # 0 = Keyboard | 1 = Controller
 var controllerInputs: Dictionary = {} setget set_controllerInputs
 var keyboardInputs: Dictionary = {} setget set_keyboardInputs
 
+#####
+var audio_mute_treshold:float = -50.0
+
 
 func set_fullscreen(new_value):
 	fullscreen = new_value
@@ -47,24 +50,28 @@ func set_masterVolumeDb(new_value):
 	masterVolumeDb = new_value
 	if AudioServer.get_bus_volume_db(0) != masterVolumeDb:
 		AudioServer.set_bus_volume_db(0, masterVolumeDb)
+		AudioServer.set_bus_mute(0, get_mute_flag(masterVolumeDb))
 
 
 func set_musicVolumeDb(new_value):
 	musicVolumeDb = new_value
 	if AudioServer.get_bus_volume_db(1) != musicVolumeDb:
 		AudioServer.set_bus_volume_db(1, musicVolumeDb)
+		AudioServer.set_bus_mute(1, get_mute_flag(musicVolumeDb))
 
 
 func set_sfxVolumeDb(new_value):
 	sfxVolumeDb = new_value
 	if AudioServer.get_bus_volume_db(2) != sfxVolumeDb:
 		AudioServer.set_bus_volume_db(2, sfxVolumeDb)
+		AudioServer.set_bus_mute(2, get_mute_flag(sfxVolumeDb))
 
 
 func set_voiceVolumeDb(new_value):
 	voiceVolumeDb = new_value
 	if AudioServer.bus_count > 3 && AudioServer.get_bus_volume_db(3) != voiceVolumeDb:
 		AudioServer.set_bus_volume_db(3, voiceVolumeDb)
+		AudioServer.set_bus_mute(3, get_mute_flag(voiceVolumeDb))
 
 
 func set_controllerInputs(new_value):
@@ -75,6 +82,11 @@ func set_controllerInputs(new_value):
 func set_keyboardInputs(new_value):
 	keyboardInputs = new_value
 	#TODO call InputMap and add values
+
+
+func get_mute_flag(db:float) -> bool:
+	return db <= audio_mute_treshold
+
 
 # CONTROL EXAMPLE
 #print(InputMap.get_actions()) # get actions name

@@ -1,6 +1,6 @@
 extends Node
 
-var settings: Settings
+var settings: Settings = Settings.new()
 var PATH: String = "user://settings.cfg"
 
 #KEYs
@@ -18,7 +18,6 @@ var keyboardInputs_key:String = "keyboardInputs"
 
 
 func _ready() -> void:
-	settings = Settings.new()
 	load_settings()
 
 
@@ -28,7 +27,6 @@ func load_settings() -> void:
 		set_config_settings(config_file)
 		config_file.save(PATH)
 	else:
-		prints(config_file, config_file.get_sections())
 		settings = change_config_settings(config_file)
 
 
@@ -63,5 +61,4 @@ func set_config_settings(config:ConfigFile) -> void:
 func save_settings() -> void:
 	var config_file = ConfigFile.new()
 	set_config_settings(config_file)
-	prints("DEBUG:", config_file.get_sections())
 	config_file.save(PATH)
