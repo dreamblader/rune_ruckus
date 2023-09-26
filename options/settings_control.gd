@@ -2,6 +2,7 @@ extends Node
 
 var settings: Settings = Settings.new()
 var PATH: String = "user://settings.cfg"
+var audio_mute_treshold:float = -50.0
 
 #KEYs
 var fullscreen_key:String = "fullscreen"
@@ -19,6 +20,7 @@ var keyboardInputs_key:String = "keyboardInputs"
 
 func _ready() -> void:
 	load_settings()
+	settings.connect("on_settings_change", self, "_on_settings_changed")
 
 
 func load_settings() -> void:
@@ -27,7 +29,7 @@ func load_settings() -> void:
 		set_config_settings(config_file)
 		config_file.save(PATH)
 	else:
-		settings = change_config_settings(config_file)
+		change_config_settings(config_file)
 
 
 func change_config_settings(config:ConfigFile) -> void:
@@ -62,3 +64,7 @@ func save_settings() -> void:
 	var config_file = ConfigFile.new()
 	set_config_settings(config_file)
 	config_file.save(PATH)
+
+
+func _on_settings_changed() -> void:
+	save_settings()

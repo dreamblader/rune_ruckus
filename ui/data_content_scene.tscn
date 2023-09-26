@@ -31,7 +31,7 @@ anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0.0980392 )
 
 [node name="Label2" type="Label" parent="."]
-margin_left = 20.0
+margin_left = 40.0
 margin_top = 40.0
 margin_right = 260.0
 margin_bottom = 128.0
@@ -39,6 +39,8 @@ custom_fonts/font = SubResource( 3 )
 text = "NEXT"
 
 [node name="PreviewPanel" parent="." instance=ExtResource( 6 )]
+margin_left = 40.0
+margin_right = 180.0
 
 [node name="BarContainer" type="HBoxContainer" parent="."]
 margin_left = 280.0
@@ -109,39 +111,34 @@ rect_scale = Vector2( 1, 1 )
 my_color = 4
 
 [node name="Label" type="Label" parent="."]
-margin_left = 200.0
+margin_left = 320.0
 margin_top = 260.0
-margin_right = 440.0
+margin_right = 560.0
 margin_bottom = 348.0
 custom_fonts/font = SubResource( 1 )
 text = "SPELL"
 
 [node name="SpeelContainer" type="HBoxContainer" parent="."]
-margin_left = 200.0
+margin_left = 320.0
 margin_top = 340.0
-margin_right = 920.0
+margin_right = 1040.0
 margin_bottom = 460.0
 custom_constants/separation = 40
 
-[node name="SpellBlock" parent="SpeelContainer" instance=ExtResource( 3 )]
-margin_right = 120.0
-margin_bottom = 120.0
-
 [node name="SpellBlock2" parent="SpeelContainer" instance=ExtResource( 3 )]
-margin_left = 160.0
-margin_right = 280.0
+margin_right = 120.0
 margin_bottom = 120.0
 my_lock = 1
 
 [node name="SpellBlock3" parent="SpeelContainer" instance=ExtResource( 3 )]
-margin_left = 320.0
-margin_right = 440.0
+margin_left = 160.0
+margin_right = 280.0
 margin_bottom = 120.0
 my_lock = 3
 
 [node name="SpellBlock4" parent="SpeelContainer" instance=ExtResource( 3 )]
-margin_left = 480.0
-margin_right = 600.0
+margin_left = 320.0
+margin_right = 440.0
 margin_bottom = 120.0
 my_lock = 2
 

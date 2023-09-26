@@ -1,7 +1,9 @@
-extends Resource
+extends Node
 class_name Settings
 
 enum Section {VIDEO, AUDIO, CONTROLS}
+
+signal on_settings_change
 
 # VIDEO
 var fullscreen: bool = OS.is_window_fullscreen() setget set_fullscreen
@@ -18,32 +20,34 @@ var controlType : int = 0 # 0 = Keyboard | 1 = Controller
 var controllerInputs: Dictionary = {} setget set_controllerInputs
 var keyboardInputs: Dictionary = {} setget set_keyboardInputs
 
-#####
-var audio_mute_treshold:float = -50.0
 
 
 func set_fullscreen(new_value):
 	fullscreen = new_value
 	if OS.is_window_fullscreen() != fullscreen:
 		OS.set_window_fullscreen(fullscreen)
+		emit_signal("on_settings_change")
 
 
 func set_resolution(new_value):
 	resolution = new_value
 	if OS.get_window_size() != resolution:
 		OS.set_window_size(resolution)
+		emit_signal("on_settings_change")
 
 
 func set_vsync(new_value):
 	vsync = new_value
 	if OS.is_vsync_enabled() != vsync:
 		OS.set_use_vsync(vsync)
+		emit_signal("on_settings_change")
 
 
 func set_mute(new_value):
 	mute = new_value
 	if AudioServer.is_bus_mute(0) != mute:
 		AudioServer.set_bus_mute(0, mute)
+		emit_signal("on_settings_change")
 
 
 func set_masterVolumeDb(new_value):
@@ -51,6 +55,7 @@ func set_masterVolumeDb(new_value):
 	if AudioServer.get_bus_volume_db(0) != masterVolumeDb:
 		AudioServer.set_bus_volume_db(0, masterVolumeDb)
 		AudioServer.set_bus_mute(0, get_mute_flag(masterVolumeDb))
+		emit_signal("on_settings_change")
 
 
 func set_musicVolumeDb(new_value):
@@ -58,6 +63,7 @@ func set_musicVolumeDb(new_value):
 	if AudioServer.get_bus_volume_db(1) != musicVolumeDb:
 		AudioServer.set_bus_volume_db(1, musicVolumeDb)
 		AudioServer.set_bus_mute(1, get_mute_flag(musicVolumeDb))
+		emit_signal("on_settings_change")
 
 
 func set_sfxVolumeDb(new_value):
@@ -65,6 +71,7 @@ func set_sfxVolumeDb(new_value):
 	if AudioServer.get_bus_volume_db(2) != sfxVolumeDb:
 		AudioServer.set_bus_volume_db(2, sfxVolumeDb)
 		AudioServer.set_bus_mute(2, get_mute_flag(sfxVolumeDb))
+		emit_signal("on_settings_change")
 
 
 func set_voiceVolumeDb(new_value):
@@ -72,6 +79,7 @@ func set_voiceVolumeDb(new_value):
 	if AudioServer.bus_count > 3 && AudioServer.get_bus_volume_db(3) != voiceVolumeDb:
 		AudioServer.set_bus_volume_db(3, voiceVolumeDb)
 		AudioServer.set_bus_mute(3, get_mute_flag(voiceVolumeDb))
+		emit_signal("on_settings_change")
 
 
 func set_controllerInputs(new_value):
@@ -85,7 +93,7 @@ func set_keyboardInputs(new_value):
 
 
 func get_mute_flag(db:float) -> bool:
-	return db <= audio_mute_treshold
+	return db <= SettingsControl.audio_mute_treshold
 
 
 # CONTROL EXAMPLE

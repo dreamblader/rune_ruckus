@@ -24,7 +24,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://runes/rune_script.gd"
 }, {
-"base": "Resource",
+"base": "Node",
 "class": "Settings",
 "language": "GDScript",
 "path": "res://options/settings_resource.gd"

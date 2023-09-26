@@ -4,8 +4,8 @@
 [ext_resource path="res://font/Anton-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://ui/menu/start_menu/title_card_sprite_sheet.png" type="Texture" id=3]
 
-[sub_resource type="DynamicFont" id=1]
-size = 60
+[sub_resource type="DynamicFont" id=15]
+size = 50
 outline_size = 5
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 2 )
@@ -69,13 +69,13 @@ animations = [ {
 [node name="Menu" type="Node2D"]
 script = ExtResource( 1 )
 options = [ "Start", "Extras", "Options" ]
-menu_font = SubResource( 1 )
+menu_font = SubResource( 15 )
 root_path = NodePath("Content")
 min_glow_wait = 1.5
 max_glow_wait = 3.5
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-scale = Vector2( 2.5, 2.5 )
+scale = Vector2( 2, 2 )
 frames = SubResource( 14 )
 speed_scale = 2.0
 

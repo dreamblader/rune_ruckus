@@ -111,7 +111,7 @@ visible = false
 position = Vector2( 495, 640 )
 
 [node name="Menu" parent="." instance=ExtResource( 8 )]
-position = Vector2( 640, 360 )
+position = Vector2( 520, 360 )
 options = [ "Start", "Extras", "Options", "Quit Game" ]
 
 [connection signal="emit_chain" from="Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board" to="." method="_on_Board_emit_chain"]
