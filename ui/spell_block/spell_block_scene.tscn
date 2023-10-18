@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://ui/spell_block/spell_block_script.gd" type="Script" id=1]
 [ext_resource path="res://ui/margin_block_box.tres" type="StyleBox" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://ui/symbols/o_symbol.png" type="Texture" id=7]
 [ext_resource path="res://ui/symbols/p_symbol.png" type="Texture" id=8]
 [ext_resource path="res://ui/spell_block/spell_locks.tres" type="SpriteFrames" id=9]
-[ext_resource path="res://game_icon.png" type="Texture" id=10]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -264,7 +263,6 @@ custom_styles/panel = ExtResource( 2 )
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 60, 60 )
 scale = Vector2( 3, 3 )
-texture = ExtResource( 10 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 1 )

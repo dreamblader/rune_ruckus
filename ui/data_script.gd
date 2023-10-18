@@ -9,10 +9,30 @@ onready var green_progress = $BarContainer/GreenProgress
 onready var purple_progress = $BarContainer/PurpleProgress
 onready var orange_progress = $BarContainer/OrangeProgress
 
+onready var spell_containter = $SpeelContainer
+onready var spell_purple = $SpeelContainer/SpellBlock2
+onready var spell_orange = $SpeelContainer/SpellBlock3
+onready var spell_green = $SpeelContainer/SpellBlock4
+
 onready var score = $ScoreContainer/Score
 onready var highscore = $ScoreContainer/HighScore
 
 signal bar_complete(color)
+
+
+func reset_data() -> void:
+	red_progress.clear()
+	blue_progress.clear()
+	yellow_progress.clear()
+	green_progress.clear()
+	purple_progress.clear()
+	orange_progress.clear()
+	
+	green_progress.visible = false
+	purple_progress.visible = false
+	orange_progress.visible = false
+	#TODO need to restart spells
+
 
 func color_up(value:int, color_index:int) -> void:
 	match color_index:
@@ -55,10 +75,23 @@ func unlock_color_bar(color_index:int) -> void:
 	match color_index:
 		Rune.COLOR.GREEN:
 			green_progress.appear()
+			spell_green.unlock_block()
 		Rune.COLOR.PURPLE:
 			purple_progress.appear()
+			spell_purple.unlock_block()
 		Rune.COLOR.ORANGE:
 			orange_progress.appear()
+			spell_orange.unlock_block()
+
+
+func select_spell_block(spell_index:int) -> void:
+	#TODO 
+	pass
+
+
+func get_spell() -> int:
+	#TODO
+	return 0
 
 
 func set_preview(next_preview_runes_color:Array) -> void:

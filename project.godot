@@ -28,12 +28,18 @@ _global_script_classes=[ {
 "class": "Settings",
 "language": "GDScript",
 "path": "res://options/settings_resource.gd"
+}, {
+"base": "Node",
+"class": "Spells",
+"language": "GDScript",
+"path": "res://main/spell_script.gd"
 } ]
 _global_script_class_icons={
 "Game": "",
 "Menu": "",
 "Rune": "",
-"Settings": ""
+"Settings": "",
+"Spells": ""
 }
 
 [application]
@@ -174,6 +180,11 @@ drop={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":83,"unicode":0,"echo":false,"script":null)
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":1,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+spell={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":32,"unicode":0,"echo":false,"script":null)
  ]
 }
 

@@ -27,7 +27,9 @@ func unlock_block() -> void:
 
 
 func cast_spell(valid_spell:bool) -> void:
-	if valid_spell:
+	if my_symbol < 0:
+		shake_lock()
+	elif valid_spell:
 		consume_symbol()
 	else:
 		yeet_symbol()

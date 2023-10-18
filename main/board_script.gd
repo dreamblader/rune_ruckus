@@ -43,9 +43,13 @@ signal emit_score(value)
 signal emit_chain(value)
 signal submit_score()
 signal game_over(menu_flag)
+signal cast_spell()
 
 
 func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("spell"):
+		emit_signal("cast_spell")
+	
 	if is_over && event.is_action_pressed("ui_accept"):
 		skip_death_animation()
 	elif death_tween == null && is_playing && event.is_action_pressed("ui_accept"):
@@ -251,6 +255,11 @@ func unlock_color(color_index:int) -> bool:
 		return true
 	else:
 		return false
+
+
+func apply_spell(spell:int) -> void:
+	#TODO
+	prints("SPELL: ", spell)
 
 
 func _on_Rune_explode(explode_position, explode_color) -> void:

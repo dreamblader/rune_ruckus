@@ -22,6 +22,11 @@ func _ready() -> void:
 	points = bar.value
 
 
+func clear() -> void:
+	points = 0
+	bar.value = points
+
+
 func colorize() -> void:
 	match my_color:
 		Rune.COLOR.RED:
