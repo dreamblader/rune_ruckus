@@ -257,9 +257,9 @@ func unlock_color(color_index:int) -> bool:
 		return false
 
 
-func apply_spell(spell:int) -> void:
+func apply_spell(spell_code:Array) -> void:
 	#TODO
-	prints("SPELL: ", spell)
+	prints("SPELL: ", spell_code)
 
 
 func _on_Rune_explode(explode_position, explode_color) -> void:

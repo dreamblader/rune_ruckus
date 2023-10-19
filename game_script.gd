@@ -20,9 +20,6 @@ var color_mix_pool:int = -1
 var current_rune_score = 0
 var current_rune_chain = 1
 
-var spell_array: Array = []
-var spell_index: int = -1
-
 var score:int = 0
 var high_score:int = 10000
 
@@ -33,8 +30,6 @@ func _ready() -> void:
 	board_border.rect_size.y = 0
 	board_border.visible = false
 	score = 0
-	spell_array.resize(3)
-	spell_array.fill(Spells.Effect.NONE)
 	update_score()
 	update_high_score()
 
@@ -214,4 +209,4 @@ func _on_DeathMenu_option_selected(option) -> void:
 
 
 func _on_Board_cast_spell() -> void:
-	board.apply_spell(data.get_spell())
+	board.apply_spell(data.get_spell_code())

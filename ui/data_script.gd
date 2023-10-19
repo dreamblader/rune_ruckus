@@ -19,8 +19,13 @@ onready var highscore = $ScoreContainer/HighScore
 
 signal bar_complete(color)
 
+var spell_index:int = -1
+var old_spell_index: int = -1
 
 func reset_data() -> void:
+	spell_index = -1
+	old_spell_index = -1
+	
 	red_progress.clear()
 	blue_progress.clear()
 	yellow_progress.clear()
@@ -31,7 +36,10 @@ func reset_data() -> void:
 	green_progress.visible = false
 	purple_progress.visible = false
 	orange_progress.visible = false
-	#TODO need to restart spells
+	
+	spell_purple.lock_block()
+	spell_orange.lock_block()
+	spell_green.lock_block()
 
 
 func color_up(value:int, color_index:int) -> void:
@@ -76,22 +84,64 @@ func unlock_color_bar(color_index:int) -> void:
 		Rune.COLOR.GREEN:
 			green_progress.appear()
 			spell_green.unlock_block()
+			set_spell_index(spell_green.get_index())
 		Rune.COLOR.PURPLE:
 			purple_progress.appear()
 			spell_purple.unlock_block()
+			set_spell_index(spell_purple.get_index())
 		Rune.COLOR.ORANGE:
 			orange_progress.appear()
 			spell_orange.unlock_block()
+			set_spell_index(spell_orange.get_index())
+	
+	select_spell_block()
 
 
-func select_spell_block(spell_index:int) -> void:
-	#TODO 
-	pass
+func set_spell_index(value:int) -> void:
+	old_spell_index = spell_index
+	spell_index = value
+
+#TODO add a board call to manually move spells
+func move_spell_block(value:int) -> void:
+	if spell_index >= 0:
+		var new_index = spell_index_change(spell_index, value)
+		
+		#TODO check if while is not on eternal loop
+		while spell_containter.get_child(new_index).my_symbol < 0:
+			new_index = spell_index_change(new_index, value)
+		
+		set_spell_index(new_index)
+		select_spell_block()
 
 
-func get_spell() -> int:
-	#TODO
-	return 0
+func spell_index_change(index:int, value:int) -> int:
+	var new_index = (index + value) % spell_containter.get_child_count()
+	if new_index < 0:
+		new_index = spell_containter.get_child_count() - 1
+	return new_index
+
+
+func select_spell_block() -> void:
+	var unselected_block = spell_containter.get_child(old_spell_index)
+	var selected_block = spell_containter.get_child(spell_index)
+	if selected_block != null:
+		#TODO this is making all the panels blink
+		selected_block.select_block(true)
+	if unselected_block != null:
+		unselected_block.select_block(false)
+
+
+func get_spell_code() -> Array:
+	var spell_code = [spell_purple.my_symbol, spell_orange.my_symbol, spell_green.my_symbol]
+	var spell_is_valid = is_spell_valid(spell_code)
+	spell_purple.cast_spell(spell_is_valid)
+	spell_orange.cast_spell(spell_is_valid)
+	spell_green.cast_spell(spell_is_valid)
+	return spell_code
+
+
+func is_spell_valid(spell_code:Array) -> bool:
+	return !spell_code.has(-1) && !spell_code.has(Rune.COLOR.NONE)
 
 
 func set_preview(next_preview_runes_color:Array) -> void:
@@ -131,4 +181,8 @@ func _on_PurpleProgress_bar_complete() -> void:
 
 
 func _on_color_bar_complete(color_index) -> void:
+	if spell_index >= 0:
+		var my_block = spell_containter.get_child(spell_index)
+		my_block.my_symbol = color_index
+		move_spell_block(1)
 	emit_signal("bar_complete", color_index)

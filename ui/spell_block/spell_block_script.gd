@@ -14,16 +14,31 @@ export (Rune.COLOR) var my_symbol = -1 setget change_symbol
 export (LockType) var my_lock
 
 onready var symbol:Sprite = $Sprite
+onready var panel: Panel = $Panel
+onready var panel_animation: AnimationPlayer = $Panel/PanelAnimation
 onready var animation:AnimationPlayer = $AnimationPlayer
 
 var symbol_is_visible:bool = true
+
 
 func _ready() -> void:
 	get_lock()
 
 
+func lock_block() -> void:
+	my_symbol = -1
+	get_lock()
+
+
 func unlock_block() -> void:
 	yeet_symbol()
+
+
+func select_block(yes:bool) -> void:
+	if yes:
+		panel_animation.play("blink")
+	else:
+		panel_animation.play("RESET")
 
 
 func cast_spell(valid_spell:bool) -> void:
