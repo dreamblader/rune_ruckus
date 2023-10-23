@@ -36,6 +36,7 @@ onready var death_label = $UDiedLabel/MovingLabel
 onready var pause_label = $PauseLabel/MovingLabel
 onready var death_bell_audio = $DeathBell
 onready var death_laugh_audio = $DeathLaugh
+onready var spellchecker = $SpellChecker
 
 signal emit_orb(at_position)
 signal emit_preview_runes(preview_runes)
@@ -260,6 +261,8 @@ func unlock_color(color_index:int) -> bool:
 func apply_spell(spell_code:Array) -> void:
 	#TODO
 	prints("SPELL: ", spell_code)
+	var spell_effect = spellchecker.check(spell_code)
+	print(spell_effect)
 
 
 func _on_Rune_explode(explode_position, explode_color) -> void:

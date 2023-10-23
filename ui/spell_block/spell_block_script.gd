@@ -86,6 +86,7 @@ func get_lock() -> void:
 
 
 func yeet_symbol() -> void:
+	symbol_is_visible = false
 	my_symbol = Rune.COLOR.NONE
 	animation.play("yeet")
 
@@ -101,6 +102,7 @@ func appear_symbol() -> void:
 
 
 func consume_symbol() -> void:
+	symbol_is_visible = false
 	my_symbol = Rune.COLOR.NONE
 	animation.play("consume")
 

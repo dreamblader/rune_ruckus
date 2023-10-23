@@ -22,6 +22,15 @@ signal bar_complete(color)
 var spell_index:int = -1
 var old_spell_index: int = -1
 
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("move_spell_l"):
+		move_spell_block(-1)
+	
+	if event.is_action_pressed("move_spell_r"):
+		move_spell_block(1)
+
+
 func reset_data() -> void:
 	spell_index = -1
 	old_spell_index = -1
@@ -101,12 +110,11 @@ func set_spell_index(value:int) -> void:
 	old_spell_index = spell_index
 	spell_index = value
 
-#TODO add a board call to manually move spells
+
 func move_spell_block(value:int) -> void:
 	if spell_index >= 0:
 		var new_index = spell_index_change(spell_index, value)
 		
-		#TODO check if while is not on eternal loop
 		while spell_containter.get_child(new_index).my_symbol < 0:
 			new_index = spell_index_change(new_index, value)
 		
@@ -124,11 +132,10 @@ func spell_index_change(index:int, value:int) -> int:
 func select_spell_block() -> void:
 	var unselected_block = spell_containter.get_child(old_spell_index)
 	var selected_block = spell_containter.get_child(spell_index)
-	if selected_block != null:
-		#TODO this is making all the panels blink
-		selected_block.select_block(true)
 	if unselected_block != null:
 		unselected_block.select_block(false)
+	if selected_block != null:
+		selected_block.select_block(true)
 
 
 func get_spell_code() -> Array:

@@ -9,7 +9,6 @@ onready var board_viewport = $Content/MidContainer/Control/ViewPortBorder/Viewpo
 onready var board = $Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board
 onready var left_panel = $Content/LeftPadding
 onready var death_menu = $DeathMenu
-onready var spells = $Spell
 
 var orb_travel_time:float = 0.65
 var multiplier: int = 1
