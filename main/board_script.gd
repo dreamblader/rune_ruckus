@@ -49,7 +49,8 @@ signal cast_spell()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("spell"):
-		emit_signal("cast_spell")
+		apply_spell([Rune.COLOR.RED, Rune.COLOR.RED, Rune.COLOR.RED]) # TODO TESTER
+		#emit_signal("cast_spell")
 	
 	if is_over && event.is_action_pressed("ui_accept"):
 		skip_death_animation()
@@ -189,6 +190,7 @@ func solve(chain_count_start:int) -> void:
 
 
 func wait_runes_touch_the_ground(runes) -> void:
+	#TODO Spell is dying here on forced explosions(?)
 	for rune in runes:
 		if rune != null && rune.is_floating:
 			yield(rune, "touch_the_ground")
@@ -260,9 +262,73 @@ func unlock_color(color_index:int) -> bool:
 
 func apply_spell(spell_code:Array) -> void:
 	#TODO
-	prints("SPELL: ", spell_code)
 	var spell_effect = spellchecker.check(spell_code)
-	print(spell_effect)
+	
+	if spell_effect != Spells.Effect.NONE:
+		player.disable_player()
+	
+	match spell_effect:
+		Spells.Effect.XXX:
+			remove_all_runes(spell_code[0])
+		Spells.Effect.XYX:
+			switch_runes(spell_code[0], spell_code[1])
+		Spells.Effect.BYG:
+			pass
+		Spells.Effect.RGB:
+			pass
+		Spells.Effect.YPO:
+			pass
+		Spells.Effect.POG:
+			pass
+		Spells.Effect.PYG:
+			pass
+		Spells.Effect.ROY:
+			pass
+		Spells.Effect.GOB:
+			pass
+		Spells.Effect.BOY:
+			pass
+		Spells.Effect.POO:
+			pass
+		Spells.Effect.BOG:
+			pass
+		Spells.Effect.RPG:
+			pass
+		Spells.Effect.PRO:
+			pass
+		Spells.Effect.BRO:
+			pass
+		Spells.Effect.ORG:
+			pass
+		Spells.Effect.ORB:
+			pass
+		Spells.Effect.YOO:
+			pass
+		Spells.Effect.OBG:
+			pass
+		Spells.Effect.CHAOS:
+			pass
+	
+	solve(0)
+
+
+func remove_all_runes(rune_code: int) -> void:
+	var runes = get_tree().get_nodes_in_group("Rune")
+	for rune in runes:
+		if rune.color == rune_code:
+			rune.max_power = 0
+	wait_runes_explode(runes)
+
+
+func switch_runes(rune_to_transform: int, rune_to_be_transform: int) -> void:
+	var runes = get_tree().get_nodes_in_group("Rune")
+	for rune in runes:
+		if rune.color == rune_to_be_transform:
+			rune.color = rune_to_transform
+
+
+func create_special_runes(type:int) -> void:
+	pass
 
 
 func _on_Rune_explode(explode_position, explode_color) -> void:

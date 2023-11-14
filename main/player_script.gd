@@ -179,10 +179,14 @@ func _on_Timer_timeout() -> void:
 func place_runes() -> void:
 	if visible && (tween == null || !tween.is_running()):
 		snap_position()
-		timer.stop()
-		collision.disabled = true
-		visible = false
+		disable_player()
 		emit_signal("place_runes", position, pivot_rune, side_rune)
+
+
+func disable_player() -> void:
+	timer.stop()
+	collision.disabled = true
+	visible = false
 
 
 func respawn(pivot_rune_color: int, side_rune_color: int) -> void:
