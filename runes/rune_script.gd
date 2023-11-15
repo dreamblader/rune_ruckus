@@ -3,7 +3,8 @@ class_name Rune
 
 var my_class = "Rune"
 
-enum COLOR { RED, YELLOW, BLUE, GREEN , PURPLE, ORANGE, NONE}
+enum COLOR { RED, YELLOW, BLUE, GREEN , PURPLE, ORANGE, NONE, SPECIAL}
+enum SPECIALS { PYG, ROY, GOB, BOY}
 enum SIDE {VERTICAL, HORIZONTAL}
 
 export (SpriteFrames) var red_rune
@@ -13,9 +14,14 @@ export (SpriteFrames) var green_rune
 export (SpriteFrames) var purple_rune
 export (SpriteFrames) var orange_rune
 export (SpriteFrames) var none_rune
+export (SpriteFrames) var pyg_rune
+export (SpriteFrames) var roy_rune
+export (SpriteFrames) var gob_rune
+export (SpriteFrames) var boy_rune
 
 export (COLOR) var color = COLOR.RED setget set_color
 
+var MAX_POWER_CONST = 4
 var chains: Array = [[],[]]
 
 var fade_time:float
@@ -30,6 +36,7 @@ var h_power:int = 1
 var max_power:int = 4
 
 var tween:SceneTreeTween
+var update_tween:SceneTreeTween
 
 onready var sprite: AnimatedSprite = $AnimatedSprite
 onready var detectors: Array = [ $DetectUp, $DetectRigth ]
@@ -40,6 +47,7 @@ var start_time
 
 signal explode(rune)
 signal touch_the_ground
+signal updated
 
 
 func _ready() -> void:
@@ -60,6 +68,19 @@ func _process(_delta: float) -> void:
 		emit_signal("touch_the_ground")
 
 
+func switch_color(color_value:int, special_id: int = -1) -> void:
+	update_tween = get_tree().create_tween()
+	#change_sound.play()
+	update_tween.set_trans(Tween.TRANS_SINE)
+	update_tween.tween_property(self, "modulate", Color(0,0,0), fade_time/2)
+	update_tween.tween_property(self, "modulate", Color(1,1,1), fade_time/2)
+	
+	if color_value != COLOR.SPECIAL:
+		update_tween.tween_callback(self, "set_color", [color_value])
+	else:
+		update_tween.tween_callback(self, "set_special", [special_id])
+
+
 func set_color(color_value: int) -> void:
 	color = color_value
 	match color_value:
@@ -77,6 +98,29 @@ func set_color(color_value: int) -> void:
 			sprite.frames = orange_rune
 		_:
 			push_error("INCORRECT SET COLOR EXCEPTION @ Rune")
+	finish_update()
+
+
+func set_special(special_id: int) -> void:
+	color = COLOR.SPECIAL
+	match special_id:
+		SPECIALS.PYG:
+			sprite.frames = pyg_rune
+		SPECIALS.ROY:
+			sprite.frames = roy_rune
+		SPECIALS.GOB:
+			sprite.frames = gob_rune
+		SPECIALS.BOY:
+			sprite.frames = boy_rune
+		_:
+			push_error("INCORRECT SET SPECIAL COLOR ID EXCEPTION @ Rune")
+	finish_update()
+
+
+func finish_update() -> void:
+	if update_tween != null:
+		update_tween = null
+		emit_signal("updated")
 
 
 func collision_check(collider:Object) -> void:
@@ -130,7 +174,11 @@ func detect_body(at_side:int) -> Object:
 
 
 func is_chainable_rune(body) -> bool:
-	return is_rune(body) && body.color == self.color
+	return is_rune(body) && (body.color == self.color || chain_has_specials(body))
+
+
+func chain_has_specials(body) -> bool:
+	return self.color == COLOR.SPECIAL || body.color == COLOR.SPECIAL
 
 
 func is_rune(body) -> bool:
@@ -178,6 +226,8 @@ func explode() -> void:
 		explode_sound.play()
 		tween.tween_property(self, "modulate:a", 0, fade_time).set_trans(Tween.TRANS_SINE)
 		tween.connect("finished", self, "gone")
+	else:
+		max_power = MAX_POWER_CONST
 	reset_chains()
 
 

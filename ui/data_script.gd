@@ -155,8 +155,12 @@ func set_preview(next_preview_runes_color:Array) -> void:
 	preview_runes.set_preview(next_preview_runes_color)
 
 
-func set_score(value:String) -> void:
+func set_score(value:String, negative:bool = false) -> void:
 	score.set_text(value)
+	if negative:
+		score.set_font_color(Color(1,0,0))
+	else:
+		score.set_font_color(Color(1,1,1))
 
 
 func set_highscore(value:String) -> void:

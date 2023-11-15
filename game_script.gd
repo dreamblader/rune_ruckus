@@ -71,7 +71,8 @@ func update_high_score() -> void:
 
 
 func set_score_temp() -> void:
-	data.set_score(str(current_rune_chain)+" x "+str(current_rune_score))
+	if current_rune_score > 0:
+		data.set_score(str(current_rune_chain)+" x "+str(current_rune_score))
 
 
 func _on_Board_emit_orb(at_position, to_color) -> void:
@@ -115,6 +116,14 @@ func _on_Board_submit_score(extra=0) -> void:
 	current_rune_score = 0
 	current_rune_chain = 1
 	update_score()
+
+
+func _on_Board_submit_score_multiplier(value) -> void:
+	var bad_multiplier = value < 1
+	var percentage_value:String = str(value*100)+"%"
+	var multiply_signal:String = "-" if bad_multiplier else "+" 
+	data.set_score(multiply_signal+percentage_value, bad_multiplier)
+	score = score * value
 
 
 func _on_DataContent_bar_complete(color_index) -> void:
@@ -209,3 +218,6 @@ func _on_DeathMenu_option_selected(option) -> void:
 
 func _on_Board_cast_spell() -> void:
 	board.apply_spell(data.get_spell_code())
+
+
+

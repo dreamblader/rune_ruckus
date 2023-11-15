@@ -10,6 +10,7 @@ var FADE_TIME: float = 0.35
 var COLOR_MULT: int = 6 #increase +1 per extra color (starts at 2 colors)
 var CHAIN_MULT: int = 4
 var LEVEL: int = 1
+var SCORE: int = 1
 
 var is_playing:bool = false
 var pause: bool = false
@@ -43,13 +44,14 @@ signal emit_preview_runes(preview_runes)
 signal emit_score(value)
 signal emit_chain(value)
 signal submit_score()
+signal submit_score_multiplier(value)
 signal game_over(menu_flag)
 signal cast_spell()
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("spell"):
-		apply_spell([Rune.COLOR.RED, Rune.COLOR.RED, Rune.COLOR.RED]) # TODO TESTER
+		apply_spell([Rune.COLOR.PURPLE, Rune.COLOR.ORANGE, Rune.COLOR.ORANGE]) # TODO TESTER
 		#emit_signal("cast_spell")
 	
 	if is_over && event.is_action_pressed("ui_accept"):
@@ -187,6 +189,7 @@ func solve(chain_count_start:int) -> void:
 	spawn_player()
 	color_chain.clear()
 	emit_signal("submit_score")
+	SCORE = 1
 
 
 func wait_runes_touch_the_ground(runes) -> void:
@@ -219,7 +222,7 @@ func wait_runes_explode(runes) -> void:
 			if rune.tween != null:
 				if !color_chain.has(rune.color):
 					color_chain.append(rune.color)
-				emit_signal("emit_score", 1)
+				emit_signal("emit_score", SCORE)
 				continue_chain = true
 
 
@@ -271,9 +274,9 @@ func apply_spell(spell_code:Array) -> void:
 		Spells.Effect.XXX:
 			remove_all_runes(spell_code[0])
 		Spells.Effect.XYX:
-			switch_runes(spell_code[0], spell_code[1])
+			yield(switch_runes(spell_code[0], spell_code[1]), "completed")
 		Spells.Effect.BYG:
-			pass
+			special_set_runes_explode(2)
 		Spells.Effect.RGB:
 			pass
 		Spells.Effect.YPO:
@@ -281,33 +284,35 @@ func apply_spell(spell_code:Array) -> void:
 		Spells.Effect.POG:
 			pass
 		Spells.Effect.PYG:
-			pass
+			yield(create_special_runes(Rune.SPECIALS.PYG), "completed")
 		Spells.Effect.ROY:
-			pass
+			yield(create_special_runes(Rune.SPECIALS.ROY), "completed")
 		Spells.Effect.GOB:
-			pass
+			yield(create_special_runes(Rune.SPECIALS.GOB), "completed")
 		Spells.Effect.BOY:
-			pass
+			yield(create_special_runes(Rune.SPECIALS.BOY), "completed")
 		Spells.Effect.POO:
-			pass
+			SCORE = 0
+			emit_signal("submit_score_multiplier", 0.75)
+			remove_all_runes(-1)
 		Spells.Effect.BOG:
 			pass
 		Spells.Effect.RPG:
 			pass
 		Spells.Effect.PRO:
-			pass
+			add_difficulty(1)
 		Spells.Effect.BRO:
-			pass
+			add_difficulty(-1)
 		Spells.Effect.ORG:
 			pass
 		Spells.Effect.ORB:
 			pass
 		Spells.Effect.YOO:
-			pass
+			call_easter_egg(0)
 		Spells.Effect.OBG:
-			pass
+			call_easter_egg(1)
 		Spells.Effect.CHAOS:
-			pass
+			chaos_spell()
 	
 	solve(0)
 
@@ -315,19 +320,48 @@ func apply_spell(spell_code:Array) -> void:
 func remove_all_runes(rune_code: int) -> void:
 	var runes = get_tree().get_nodes_in_group("Rune")
 	for rune in runes:
-		if rune.color == rune_code:
+		if rune.color == rune_code || rune_code < 0:
 			rune.max_power = 0
-	wait_runes_explode(runes)
 
 
 func switch_runes(rune_to_transform: int, rune_to_be_transform: int) -> void:
 	var runes = get_tree().get_nodes_in_group("Rune")
 	for rune in runes:
 		if rune.color == rune_to_be_transform:
-			rune.color = rune_to_transform
+			rune.switch_color(rune_to_transform)
+	
+	yield(wait_runes_to_update(runes), "completed")
+
+
+func wait_runes_to_update(runes: Array) -> void:
+	for rune in runes:
+		if rune != null && rune.update_tween != null:
+			yield(rune, "updated")
+
+
+func special_set_runes_explode (new_max:int) -> void:
+		var runes = get_tree().get_nodes_in_group("Rune")
+		for rune in runes:
+			rune.max_power = new_max
 
 
 func create_special_runes(type:int) -> void:
+	#TODO
+	pass
+
+
+func add_difficulty(value:int) -> void:
+	#TODO
+	pass
+
+
+func call_easter_egg(id:int) -> void:
+	#TODO
+	pass
+
+
+func chaos_spell() -> void:
+	#TODO
 	pass
 
 
