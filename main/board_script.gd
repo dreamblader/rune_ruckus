@@ -266,6 +266,8 @@ func unlock_color(color_index:int) -> bool:
 func apply_spell(spell_code:Array) -> void:
 	#TODO
 	var spell_effect = spellchecker.check(spell_code)
+	var rgb_runes = [Rune.COLOR.RED, Rune.COLOR.GREEN, Rune.COLOR.BLUE]
+	var ypo_runes = [Rune.COLOR.YELLOW, Rune.COLOR.PURPLE, Rune.COLOR.ORANGE]
 	
 	if spell_effect != Spells.Effect.NONE:
 		player.disable_player()
@@ -278,11 +280,12 @@ func apply_spell(spell_code:Array) -> void:
 		Spells.Effect.BYG:
 			special_set_runes_explode(2)
 		Spells.Effect.RGB:
-			pass
+			yield(switch_types(ypo_runes, rgb_runes), "completed")
 		Spells.Effect.YPO:
-			pass
+			yield(switch_types(rgb_runes, ypo_runes), "completed")
 		Spells.Effect.POG:
-			pass
+			SCORE = 2
+			remove_random_runes(1, 100, 10)
 		Spells.Effect.PYG:
 			yield(create_special_runes(Rune.SPECIALS.PYG), "completed")
 		Spells.Effect.ROY:
@@ -340,14 +343,59 @@ func wait_runes_to_update(runes: Array) -> void:
 
 
 func special_set_runes_explode (new_max:int) -> void:
-		var runes = get_tree().get_nodes_in_group("Rune")
-		for rune in runes:
-			rune.max_power = new_max
+	var runes = get_tree().get_nodes_in_group("Rune")
+	for rune in runes:
+		rune.max_power = new_max
+
+
+func switch_types(from:Array, randomly_to:Array) -> void:
+	var runes = get_tree().get_nodes_in_group("Rune")
+	for rune in runes:
+		if from.has(rune.color):
+			var random_index = rng.randi_range(0, randomly_to.size()-1)
+			var new_color = randomly_to[random_index]
+			rune.switch_color(new_color)
+	
+	yield(wait_runes_to_update(runes), "completed")
+
+
+func remove_random_runes(min_num: int, max_num:int, odds:int) -> void:
+	var runes = get_tree().get_nodes_in_group("Rune")
+	var remove_runes = rune_picker(runes, min_num, max_num, odds)
+	for remove_this_rune in remove_runes:
+		remove_this_rune.max_power = 0
+
+
+func rune_picker(runes:Array, min_num:int, max_num:int, odds:int) -> Array:
+	var result: Array = []
+	
+	if runes.size() <= min_num:
+		return runes
+		
+	while result.size() < min_num:
+		var pick_index = rng.randi_range(0, runes.size()-1)
+		result.append(runes.pop_at(pick_index))
+	
+	for rune in runes:
+		var roll = rng.randi_range(1, odds)
+		if roll == odds:
+			result.append(rune)
+			if result.size() >= max_num:
+				break;
+		
+	return result
 
 
 func create_special_runes(type:int) -> void:
-	#TODO
-	pass
+	var runes = get_tree().get_nodes_in_group("Rune")
+	var min_special_runes = 4
+	var max_special_runes = 20
+	var special_runes_odds = 5
+	var special_runes = rune_picker(runes, min_special_runes, max_special_runes, special_runes_odds)
+	for special_rune in special_runes:
+		special_rune.switch_color(Rune.COLOR.SPECIAL, type)
+	
+	yield(wait_runes_to_update(runes), "completed")
 
 
 func add_difficulty(value:int) -> void:
