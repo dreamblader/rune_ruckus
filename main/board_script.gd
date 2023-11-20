@@ -47,11 +47,12 @@ signal submit_score()
 signal submit_score_multiplier(value)
 signal game_over(menu_flag)
 signal cast_spell()
+signal runes_sunk()
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("spell"):
-		apply_spell([Rune.COLOR.PURPLE, Rune.COLOR.ORANGE, Rune.COLOR.ORANGE]) # TODO TESTER
+		apply_spell([Rune.COLOR.BLUE, Rune.COLOR.ORANGE, Rune.COLOR.GREEN]) # TODO TESTER
 		#emit_signal("cast_spell")
 	
 	if is_over && event.is_action_pressed("ui_accept"):
@@ -193,7 +194,6 @@ func solve(chain_count_start:int) -> void:
 
 
 func wait_runes_touch_the_ground(runes) -> void:
-	#TODO Spell is dying here on forced explosions(?)
 	for rune in runes:
 		if rune != null && rune.is_floating:
 			yield(rune, "touch_the_ground")
@@ -204,8 +204,10 @@ func add_pitch(runes, chain_number) -> void:
 	var chain_pitch = 0
 	if chain_number > 1:
 		chain_pitch = floor(chain_number-1/CHAIN_MULT)/10
+		#TODO rune pitch is gettin null excepiton on BOG speel TEST
 	for rune in runes:
-		rune.set_pitch(chain_pitch)
+		if rune != null:
+			rune.set_pitch(chain_pitch)
 
 
 func check_runes(runes) -> void:
@@ -291,30 +293,42 @@ func apply_spell(spell_code:Array) -> void:
 		Spells.Effect.ROY:
 			yield(create_special_runes(Rune.SPECIALS.ROY), "completed")
 		Spells.Effect.GOB:
+			#TEST
 			yield(create_special_runes(Rune.SPECIALS.GOB), "completed")
 		Spells.Effect.BOY:
+			#TEST
 			yield(create_special_runes(Rune.SPECIALS.BOY), "completed")
 		Spells.Effect.POO:
 			SCORE = 0
 			emit_signal("submit_score_multiplier", 0.75)
 			remove_all_runes(-1)
 		Spells.Effect.BOG:
-			pass
+			#TEST
+			sink_runes()
+			yield(self, "runes_sunk")
 		Spells.Effect.RPG:
+			#TEST
 			pass
 		Spells.Effect.PRO:
+			#TEST
 			add_difficulty(1)
 		Spells.Effect.BRO:
+			#TEST
 			add_difficulty(-1)
 		Spells.Effect.ORG:
+			#TEST
 			pass
 		Spells.Effect.ORB:
+			#TEST
 			pass
 		Spells.Effect.YOO:
+			#TEST
 			call_easter_egg(0)
 		Spells.Effect.OBG:
+			#TEST
 			call_easter_egg(1)
 		Spells.Effect.CHAOS:
+			#TEST
 			chaos_spell()
 	
 	solve(0)
@@ -340,6 +354,7 @@ func wait_runes_to_update(runes: Array) -> void:
 	for rune in runes:
 		if rune != null && rune.update_tween != null:
 			yield(rune, "updated")
+	yield(get_tree(), "idle_frame")
 
 
 func special_set_runes_explode (new_max:int) -> void:
@@ -396,6 +411,25 @@ func create_special_runes(type:int) -> void:
 		special_rune.switch_color(Rune.COLOR.SPECIAL, type)
 	
 	yield(wait_runes_to_update(runes), "completed")
+
+
+func sink_runes() -> void:
+	var runes = get_tree().get_nodes_in_group("Rune")
+	var sink_time = 1.5
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_IN)
+	for rune in runes:
+		tween.parallel().tween_property(rune, "position:y", rune.position.y+GRID_SIZE.y, sink_time)
+	tween.tween_callback(self, "sink_finish", [runes])
+
+
+func sink_finish(runes:Array) -> void:
+	SCORE = 0
+	var sunk_destruction_position = 880
+	for rune in runes:
+		if rune.position.y > sunk_destruction_position:
+			rune.queue_free()
+	emit_signal("runes_sunk")
 
 
 func add_difficulty(value:int) -> void:

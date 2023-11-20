@@ -20,6 +20,7 @@ export (SpriteFrames) var gob_rune
 export (SpriteFrames) var boy_rune
 
 export (COLOR) var color = COLOR.RED setget set_color
+var special_type : int = -1
 
 var MAX_POWER_CONST = 4
 var chains: Array = [[],[]]
@@ -103,6 +104,7 @@ func set_color(color_value: int) -> void:
 
 func set_special(special_id: int) -> void:
 	color = COLOR.SPECIAL
+	special_type = special_id
 	match special_id:
 		SPECIALS.PYG:
 			sprite.frames = pyg_rune
@@ -213,7 +215,10 @@ func mask_rune(mask_index:int) -> void:
 
 
 func unmask_rune() -> void:
-	set_color(color)
+	if color == COLOR.SPECIAL:
+		set_special(special_type)
+	else:
+		set_color(color)
 	update_sprite()
 
 
