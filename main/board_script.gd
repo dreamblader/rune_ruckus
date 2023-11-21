@@ -38,6 +38,7 @@ onready var pause_label = $PauseLabel/MovingLabel
 onready var death_bell_audio = $DeathBell
 onready var death_laugh_audio = $DeathLaugh
 onready var spellchecker = $SpellChecker
+onready var background = $Background
 
 signal emit_orb(at_position)
 signal emit_preview_runes(preview_runes)
@@ -47,12 +48,12 @@ signal submit_score()
 signal submit_score_multiplier(value)
 signal game_over(menu_flag)
 signal cast_spell()
-signal runes_sunk()
+signal runes_moved()
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("spell"):
-		apply_spell([Rune.COLOR.BLUE, Rune.COLOR.ORANGE, Rune.COLOR.GREEN]) # TODO TESTER
+		apply_spell([Rune.COLOR.ORANGE, Rune.COLOR.RED, Rune.COLOR.GREEN]) # TODO TESTER
 		#emit_signal("cast_spell")
 	
 	if is_over && event.is_action_pressed("ui_accept"):
@@ -195,7 +196,7 @@ func solve(chain_count_start:int) -> void:
 
 func wait_runes_touch_the_ground(runes) -> void:
 	for rune in runes:
-		if rune != null && rune.is_floating:
+		if rune != null && is_instance_valid(rune) && rune.is_floating:
 			yield(rune, "touch_the_ground")
 	yield(get_tree(), "idle_frame")
 
@@ -204,22 +205,22 @@ func add_pitch(runes, chain_number) -> void:
 	var chain_pitch = 0
 	if chain_number > 1:
 		chain_pitch = floor(chain_number-1/CHAIN_MULT)/10
-		#TODO rune pitch is gettin null excepiton on BOG speel TEST
 	for rune in runes:
-		if rune != null:
+		if rune != null && is_instance_valid(rune):
 			rune.set_pitch(chain_pitch)
 
 
 func check_runes(runes) -> void:
 	for rune in runes:
-		if rune != null:
+		if rune != null && is_instance_valid(rune):
 			rune.init_chain_check()
 
 
 func wait_runes_explode(runes) -> void:
+	#TODO ORG IS CAUSING RUNES TO INSTAFLOAT SOMETIMES
 	continue_chain = false
 	for rune in runes:
-		if rune != null:
+		if rune != null && is_instance_valid(rune):
 			rune.explode()
 			if rune.tween != null:
 				if !color_chain.has(rune.color):
@@ -293,22 +294,19 @@ func apply_spell(spell_code:Array) -> void:
 		Spells.Effect.ROY:
 			yield(create_special_runes(Rune.SPECIALS.ROY), "completed")
 		Spells.Effect.GOB:
-			#TEST
 			yield(create_special_runes(Rune.SPECIALS.GOB), "completed")
 		Spells.Effect.BOY:
-			#TEST
 			yield(create_special_runes(Rune.SPECIALS.BOY), "completed")
 		Spells.Effect.POO:
 			SCORE = 0
 			emit_signal("submit_score_multiplier", 0.75)
 			remove_all_runes(-1)
 		Spells.Effect.BOG:
-			#TEST
 			sink_runes()
-			yield(self, "runes_sunk")
+			yield(self, "runes_moved")
 		Spells.Effect.RPG:
 			#TEST
-			pass
+			roll_d20()
 		Spells.Effect.PRO:
 			#TEST
 			add_difficulty(1)
@@ -317,7 +315,8 @@ func apply_spell(spell_code:Array) -> void:
 			add_difficulty(-1)
 		Spells.Effect.ORG:
 			#TEST
-			pass
+			reorganize_runes()
+			yield(self, "runes_moved")
 		Spells.Effect.ORB:
 			#TEST
 			pass
@@ -352,7 +351,7 @@ func switch_runes(rune_to_transform: int, rune_to_be_transform: int) -> void:
 
 func wait_runes_to_update(runes: Array) -> void:
 	for rune in runes:
-		if rune != null && rune.update_tween != null:
+		if rune != null && is_instance_valid(rune) && rune.update_tween != null:
 			yield(rune, "updated")
 	yield(get_tree(), "idle_frame")
 
@@ -425,16 +424,41 @@ func sink_runes() -> void:
 
 func sink_finish(runes:Array) -> void:
 	SCORE = 0
-	var sunk_destruction_position = 880
+	var sunk_destruction_position = 881
 	for rune in runes:
 		if rune.position.y > sunk_destruction_position:
 			rune.queue_free()
-	emit_signal("runes_sunk")
+	emit_signal("runes_moved")
+
+
+func roll_d20() -> void:
+	pass
 
 
 func add_difficulty(value:int) -> void:
 	#TODO
 	pass
+
+
+func reorganize_runes() -> void:
+	var runes = get_tree().get_nodes_in_group("Rune")
+	var organize_time = 1.5
+	var tween = create_tween()
+	var max_col_size = (background.rect_size.x/GRID_SIZE.x)*2
+	var max_row_size = (background.rect_size.y/GRID_SIZE.y)*2
+	var x_index = 0
+	var y_index = 0
+	tween.set_ease(Tween.EASE_IN)
+	runes.sort_custom(Rune, "colorComparison")
+	for rune in runes:
+		var new_position = Vector2(x_index*GRID_SIZE.x, 880-(y_index*GRID_SIZE.y))
+		tween.parallel().tween_property(rune, "position", new_position, organize_time)
+		x_index += 1
+		if x_index >= max_col_size:
+			x_index = 0
+			y_index += 1
+	
+	tween.tween_callback(self, "emit_signal", ["runes_moved"])
 
 
 func call_easter_egg(id:int) -> void:

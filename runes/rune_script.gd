@@ -267,3 +267,7 @@ func end() -> void:
 func gone() -> void:
 	emit_signal("explode", position, color)
 	queue_free()
+
+
+static func colorComparison(rune_a, rune_b):
+	return rune_a.color < rune_b.color
