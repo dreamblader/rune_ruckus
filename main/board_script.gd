@@ -11,6 +11,7 @@ var COLOR_MULT: int = 6 #increase +1 per extra color (starts at 2 colors)
 var CHAIN_MULT: int = 4
 var LEVEL: int = 1
 var SCORE: int = 1
+var LOWEST_VERTICAL_RUNE_POSTION = 880
 
 var is_playing:bool = false
 var pause: bool = false
@@ -217,7 +218,6 @@ func check_runes(runes) -> void:
 
 
 func wait_runes_explode(runes) -> void:
-	#TODO ORG IS CAUSING RUNES TO INSTAFLOAT SOMETIMES
 	continue_chain = false
 	for rune in runes:
 		if rune != null && is_instance_valid(rune):
@@ -314,7 +314,6 @@ func apply_spell(spell_code:Array) -> void:
 			#TEST
 			add_difficulty(-1)
 		Spells.Effect.ORG:
-			#TEST
 			reorganize_runes()
 			yield(self, "runes_moved")
 		Spells.Effect.ORB:
@@ -424,7 +423,7 @@ func sink_runes() -> void:
 
 func sink_finish(runes:Array) -> void:
 	SCORE = 0
-	var sunk_destruction_position = 881
+	var sunk_destruction_position = LOWEST_VERTICAL_RUNE_POSTION + 1
 	for rune in runes:
 		if rune.position.y > sunk_destruction_position:
 			rune.queue_free()
@@ -451,7 +450,8 @@ func reorganize_runes() -> void:
 	tween.set_ease(Tween.EASE_IN)
 	runes.sort_custom(Rune, "colorComparison")
 	for rune in runes:
-		var new_position = Vector2(x_index*GRID_SIZE.x, 880-(y_index*GRID_SIZE.y))
+		var new_position = Vector2(x_index*GRID_SIZE.x, LOWEST_VERTICAL_RUNE_POSTION-(y_index*GRID_SIZE.y))
+		rune.column_pos = new_position.x
 		tween.parallel().tween_property(rune, "position", new_position, organize_time)
 		x_index += 1
 		if x_index >= max_col_size:
