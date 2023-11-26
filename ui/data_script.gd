@@ -147,6 +147,15 @@ func get_spell_code() -> Array:
 	return spell_code
 
 
+func set_spell_code(code:Array) -> void:
+	var index = 0
+	for symbol in code:
+		var current_block = spell_containter.get_child(index)
+		if symbol != Rune.COLOR.NONE:
+			current_block.my_symbol = symbol
+		index += 1
+
+
 func is_spell_valid(spell_code:Array) -> bool:
 	return !spell_code.has(-1) && !spell_code.has(Rune.COLOR.NONE)
 

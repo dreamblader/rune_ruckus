@@ -220,4 +220,5 @@ func _on_Board_cast_spell() -> void:
 	board.apply_spell(data.get_spell_code())
 
 
-
+func _on_Board_submit_spell_code(code) -> void:
+	pass # Replace with function body.

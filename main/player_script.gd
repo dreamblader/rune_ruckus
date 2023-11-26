@@ -11,6 +11,8 @@ onready var side_rune = $SideRune
 onready var pivot_rune= $PivotRune
 onready var areas = $Areas
 
+var score = 1
+var level = 0
 var rune_size = 80
 var tween: SceneTreeTween 
 var side_position: int = SidePosition.TOP
@@ -30,35 +32,34 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if visible:
-		if event.is_action_pressed("ui_left"):
-			move_sound.play()
-			move_horizontal(-1)
-			hold_movement(InputFlag.LEFT)
-		elif event.is_action_released("ui_left"):
-			kill_holding(InputFlag.LEFT)
-			
-		if event.is_action_pressed("ui_right"):
-			move_sound.play()
-			move_horizontal(1)
-			hold_movement(InputFlag.RIGHT)
-		elif event.is_action_released("ui_right"):
-			kill_holding(InputFlag.RIGHT)
+	if event.is_action_pressed("ui_left") && visible:
+		move_sound.play()
+		move_horizontal(-1)
+		hold_movement(InputFlag.LEFT)
+	elif event.is_action_released("ui_left"):
+		kill_holding(InputFlag.LEFT)
 		
-		if event.is_action_pressed("ui_down"):
-			move_down(true)
-			hold_movement(InputFlag.DOWN)
-		elif event.is_action_released("ui_down"):
-			kill_holding(InputFlag.DOWN)
-		
-		if event.is_action_pressed("rotate_r"):
-			rotate_runes(1)
-		
-		if event.is_action_pressed("rotate_l"):
-			rotate_runes(-1)
-		
-		if event.is_action_pressed("drop"):
-			drop()
+	if event.is_action_pressed("ui_right") && visible:
+		move_sound.play()
+		move_horizontal(1)
+		hold_movement(InputFlag.RIGHT)
+	elif event.is_action_released("ui_right"):
+		kill_holding(InputFlag.RIGHT)
+	
+	if event.is_action_pressed("ui_down") && visible:
+		move_down(true)
+		hold_movement(InputFlag.DOWN)
+	elif event.is_action_released("ui_down"):
+		kill_holding(InputFlag.DOWN)
+	
+	if event.is_action_pressed("rotate_r") && visible:
+		rotate_runes(1)
+	
+	if event.is_action_pressed("rotate_l") && visible:
+		rotate_runes(-1)
+	
+	if event.is_action_pressed("drop") && visible:
+		drop()
 
 
 func hold_movement(my_flag:int) -> void:
@@ -149,8 +150,8 @@ func move_down(by_input:bool = false) -> void:
 	if pivot_collide != null:
 		position.y = snapshot_position_y
 		place_runes()
-	if by_input:
-		emit_signal("send_score", 1)
+	if by_input && visible:
+		emit_signal("send_score", score)
 	timer.wait_time = tick_time
 
 
@@ -190,7 +191,6 @@ func disable_player() -> void:
 
 
 func respawn(pivot_rune_color: int, side_rune_color: int) -> void:
-	kill_holding(last_input_flag)
 	visible = true
 	position = Vector2(240,-40)
 	reset_rotation()
