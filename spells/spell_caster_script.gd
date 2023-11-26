@@ -53,7 +53,6 @@ func cast_spell(spell_code: Array, spell_effect:int, runes: Array) -> void:
 			#TEST
 			roll_d20(runes)
 		Spells.Effect.PRO:
-			#TEST
 			emit_signal("add_difficulty", 1)
 		Spells.Effect.BRO:
 			#TEST
