@@ -24,6 +24,7 @@ var locked_colors: Array = [Rune.COLOR.GREEN, Rune.COLOR.PURPLE, Rune.COLOR.ORAN
 var next_runes: Array = []
 var color_chain: Array = []
 var rng = RandomNumberGenerator.new()
+var spell_code_to_submit: Array = []
 
 var death_tween:SceneTreeTween
 var death_final_position = Vector2(280, 400)
@@ -50,6 +51,7 @@ signal submit_score_multiplier(value)
 signal game_over(menu_flag)
 signal cast_spell()
 signal runes_moved()
+signal submit_spell_code(code)
 
 
 func _input(event: InputEvent) -> void:
@@ -283,9 +285,9 @@ func apply_spell(spell_code:Array) -> void:
 		Spells.Effect.BYG:
 			special_set_runes_explode(2)
 		Spells.Effect.RGB:
-			yield(switch_types(ypo_runes, rgb_runes), "completed")
+			yield(switch_types(get_tree().get_nodes_in_group("Rune"), ypo_runes, rgb_runes), "completed")
 		Spells.Effect.YPO:
-			yield(switch_types(rgb_runes, ypo_runes), "completed")
+			yield(switch_types(get_tree().get_nodes_in_group("Rune"), rgb_runes, ypo_runes), "completed")
 		Spells.Effect.POG:
 			SCORE = 2
 			remove_random_runes(1, 100, 10)
@@ -361,10 +363,9 @@ func special_set_runes_explode (new_max:int) -> void:
 		rune.max_power = new_max
 
 
-func switch_types(from:Array, randomly_to:Array) -> void:
-	var runes = get_tree().get_nodes_in_group("Rune")
+func switch_types(runes: Array, from:Array, randomly_to:Array) -> void:
 	for rune in runes:
-		if from.has(rune.color):
+		if from.has(rune.color) || from.empty():
 			var random_index = rng.randi_range(0, randomly_to.size()-1)
 			var new_color = randomly_to[random_index]
 			rune.switch_color(new_color)
@@ -431,7 +432,65 @@ func sink_finish(runes:Array) -> void:
 
 
 func roll_d20() -> void:
-	pass
+	var roll: int = rng.randi_range(1, 20)
+	var all_non_special_runes = [Rune.COLOR.RED, Rune.COLOR.YELLOW, Rune.COLOR.BLUE, Rune.COLOR.PURPLE, Rune.COLOR.GREEN, Rune.COLOR.ORANGE, Rune.COLOR.NONE]
+	var runes = get_tree().get_nodes_in_group("Rune")
+	if roll >= 2 && roll <= 4:
+		#Spell Reroll
+		submit_random_spell(all_non_special_runes)
+	elif roll >=5 && roll <=7:
+		#Small Runes Change
+		var picked_runes = rune_picker(runes, 1, 30, 10)
+		switch_types(picked_runes, [], all_non_special_runes)
+	elif roll >=8 && roll <=10:
+		#Medium Runes Change
+		var picked_runes = rune_picker(runes, 4, 50, 5)
+		var picked_types:Array = []
+		for i in range(4):
+			var pick_type_index = rng.randi_range(0, all_non_special_runes.size()-1)
+			picked_types.push_back(all_non_special_runes.pop_at(pick_type_index)) 
+		switch_types(picked_runes, [], picked_types)
+	elif roll >=11 && roll <=13:
+		#Max Runes Change
+		var picked_runes = rune_picker(runes, 10, 100, 4)
+		var picked_types:Array = []
+		for i in range(2):
+			var pick_type_index = rng.randi_range(0, all_non_special_runes.size()-1)
+			picked_types.push_back(all_non_special_runes.pop_at(pick_type_index)) 
+		picked_types.push_back(Rune.COLOR.SPECIAL)
+		switch_types(picked_runes, [], picked_types)
+	elif roll >=14 && roll <=16:
+		#Special Roll
+		for rune in runes:
+			var rune_roll: int = rng.randi_range(1, 20)
+			if rune_roll > 6 && rune_roll <= 13:
+				rune.switch_color(Rune.COLOR.SPECIAL)
+			elif rune_roll > 13:
+				rune.max_power = 0
+	elif roll >=17 && roll <=19:
+		#Special Roll and New Spell
+		for rune in runes:
+			var rune_roll: int = rng.randi_range(1, 20)
+			if rune_roll > 2 && rune_roll <= 11:
+				rune.switch_color(Rune.COLOR.SPECIAL)
+			elif rune_roll > 11:
+				rune.max_power = 0
+		all_non_special_runes.pop_back()
+		submit_random_spell(all_non_special_runes)
+	elif roll == 20:
+		#CRITICAL Explosion and Reroll
+		SCORE = 2
+		for rune in runes:
+			rune.max_power = 0
+		spell_code_to_submit = [Rune.COLOR.RED, Rune.COLOR.PURPLE, Rune.COLOR.GREEN]
+
+
+func submit_random_spell(possible_combinations:Array) -> void:
+	var new_spell: Array = []
+	for i in range(3):
+			var random_index = rng.randi(0, possible_combinations.size()-1)
+			new_spell.push_back(possible_combinations[random_index])
+	spell_code_to_submit = new_spell
 
 
 func add_difficulty(value:int) -> void:

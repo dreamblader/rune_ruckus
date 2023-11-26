@@ -103,6 +103,8 @@ func set_color(color_value: int) -> void:
 
 
 func set_special(special_id: int) -> void:
+	if special_id < 0:
+		special_id = RandomNumberGenerator.new().randi_range(0, SPECIALS.size())
 	color = COLOR.SPECIAL
 	special_type = special_id
 	match special_id:
