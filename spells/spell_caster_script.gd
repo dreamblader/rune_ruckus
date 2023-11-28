@@ -31,7 +31,6 @@ func cast_spell(spell_code: Array, spell_effect:int, runes: Array) -> void:
 		Spells.Effect.YPO:
 			yield(switch_types(runes, rgb_runes, ypo_runes), "completed")
 		Spells.Effect.POG:
-			#SCORE = 2
 			emit_signal("set_score", 2)
 			remove_random_runes(runes, 1, 100, 10)
 		Spells.Effect.PYG:
@@ -55,7 +54,6 @@ func cast_spell(spell_code: Array, spell_effect:int, runes: Array) -> void:
 		Spells.Effect.PRO:
 			emit_signal("add_difficulty", 1)
 		Spells.Effect.BRO:
-			#TEST
 			emit_signal("add_difficulty", -1)
 		Spells.Effect.ORG:
 			reorganize_runes(runes)

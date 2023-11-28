@@ -76,17 +76,20 @@ func set_score_temp() -> void:
 
 
 func _on_Board_emit_orb(at_position, to_color) -> void:
-	var tween = create_tween()
+	
 	var offset = Vector2(40, 100) + Vector2(left_panel.rect_size.x, 0)
-	var go_to = data.get_bar_position(to_color) + Vector2(60, 60)
-	var orb = orb_scene.instance()
-	orb.position = at_position + offset
-	orb.color = to_color
-	add_child(orb)
-	tween.tween_property(orb, "position", go_to, orb_travel_time)
-	tween.set_trans(Tween.TRANS_SINE)
-	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_callback(self, "orb_reached_goal", [orb, to_color])
+	var color_buffer = [to_color] if to_color != Rune.COLOR.SPECIAL else board.unlocked_colors
+	for color in color_buffer :
+		var tween = create_tween()
+		tween.set_trans(Tween.TRANS_SINE)
+		tween.set_ease(Tween.EASE_OUT)
+		var go_to = data.get_bar_position(color) + Vector2(60, 60)
+		var orb = orb_scene.instance()
+		orb.position = at_position + offset
+		orb.color = color
+		add_child(orb)
+		tween.tween_property(orb, "position", go_to, orb_travel_time)
+		tween.tween_callback(self, "orb_reached_goal", [orb, color])
 
 
 func orb_reached_goal(orb, color_index:int) -> void:

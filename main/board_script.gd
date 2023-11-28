@@ -57,7 +57,7 @@ signal submit_spell_code(code)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("spell"):
-		apply_spell([Rune.COLOR.PURPLE, Rune.COLOR.RED, Rune.COLOR.ORANGE]) # TODO TESTER
+		apply_spell([Rune.COLOR.PURPLE, Rune.COLOR.YELLOW, Rune.COLOR.GREEN]) # TODO TESTER
 		#emit_signal("cast_spell")
 	
 	if is_over && event.is_action_pressed("ui_accept"):
@@ -324,6 +324,6 @@ func _on_SpellCaster_submit_score_multiplier(multiplier) -> void:
 func _on_SpellCaster_add_difficulty(value) -> void:
 	LEVEL = clamp(LEVEL+value, -5, 10)
 	update_score()
-	player.score = DROP_SCORE + LEVEL
+	player.score = max(DROP_SCORE, DROP_SCORE + LEVEL)
 	player.tick_time = TICK_TIME - (LEVEL*0.1)
-	player.tick_move = TICK_MOVE + ((GRID_SIZE.y*LEVEL)/20)
+	player.tick_move = TICK_MOVE + ((GRID_SIZE.y*LEVEL)/20) if LEVEL > 0 else TICK_MOVE

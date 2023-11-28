@@ -83,6 +83,8 @@ func get_bar_position(color_index:int) -> Vector2:
 			return purple_progress.rect_global_position
 		Rune.COLOR.ORANGE:
 			return orange_progress.rect_global_position
+		Rune.COLOR.NONE:
+			return Vector2(620, 0)
 		_:
 			push_error("Invalid color_index in get_bar_position() call")
 			return Vector2()
