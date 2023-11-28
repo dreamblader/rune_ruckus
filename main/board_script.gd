@@ -53,6 +53,7 @@ signal submit_score_multiplier(value)
 signal game_over(menu_flag)
 signal cast_spell()
 signal submit_spell_code(code)
+signal submit_level(level)
 
 
 func _input(event: InputEvent) -> void:
@@ -327,3 +328,4 @@ func _on_SpellCaster_add_difficulty(value) -> void:
 	player.score = max(DROP_SCORE, DROP_SCORE + LEVEL)
 	player.tick_time = TICK_TIME - (LEVEL*0.1)
 	player.tick_move = TICK_MOVE + ((GRID_SIZE.y*LEVEL)/20) if LEVEL > 0 else TICK_MOVE
+	emit_signal("submit_level", LEVEL)

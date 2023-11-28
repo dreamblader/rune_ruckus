@@ -76,7 +76,6 @@ func set_score_temp() -> void:
 
 
 func _on_Board_emit_orb(at_position, to_color) -> void:
-	
 	var offset = Vector2(40, 100) + Vector2(left_panel.rect_size.x, 0)
 	var color_buffer = [to_color] if to_color != Rune.COLOR.SPECIAL else board.unlocked_colors
 	for color in color_buffer :
@@ -224,4 +223,9 @@ func _on_Board_cast_spell() -> void:
 
 
 func _on_Board_submit_spell_code(code) -> void:
+	data.set_spell_code(code)
+
+
+func _on_Board_submit_level(level) -> void:
+	#TODO send LEVEL value to Data Content to show
 	pass # Replace with function body.

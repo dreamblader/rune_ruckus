@@ -12,7 +12,7 @@ signal set_score(new_value)
 signal submit_score_multiplier(multiplier)
 signal submit_new_spell(spell_code)
 signal add_difficulty(value)
-
+signal call_easteregg(id)
 
 func cast_spell(spell_code: Array, spell_effect:int, runes: Array) -> void:
 	#TODO
@@ -63,10 +63,11 @@ func cast_spell(spell_code: Array, spell_effect:int, runes: Array) -> void:
 			pass
 		Spells.Effect.YOO:
 			#TEST
-			call_easter_egg(0)
+			emit_signal("call_easteregg", 0)
+			#call_easter_egg(0)
 		Spells.Effect.OBG:
 			#TEST
-			call_easter_egg(1)
+			emit_signal("call_easteregg", 1)
 		Spells.Effect.CHAOS:
 			#TEST
 			chaos_spell()
