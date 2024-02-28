@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://d0xjn3dbvovkp"]
 
 [ext_resource type="PackedScene" uid="uid://csqcpm74o3l7y" path="res://main/board.tscn" id="1"]
-[ext_resource type="PackedScene" path="res://ui/data_content_scene.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://bypr18e3kutp5" path="res://ui/data_content_scene.tscn" id="2"]
 [ext_resource type="Script" path="res://game_script.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://duv3svkonxctm" path="res://misc/backgrounds/wall.jpg" id="4"]
 [ext_resource type="PackedScene" path="res://misc/orb/orb_scene.tscn" id="5"]
@@ -106,7 +106,7 @@ position = Vector2(495, 640)
 
 [node name="Menu" parent="." instance=ExtResource("8")]
 position = Vector2(520, 360)
-options = ["Start", "Extras", "Options", "Quit Game"]
+options = Array[String](["Start", "Extras", "Options", "Quit Game"])
 
 [connection signal="cast_spell" from="Content/MidContainer/Control/ViewPortBorder/SubViewportContainer/SubViewport/Board" to="." method="_on_Board_cast_spell"]
 [connection signal="emit_chain" from="Content/MidContainer/Control/ViewPortBorder/SubViewportContainer/SubViewport/Board" to="." method="_on_Board_emit_chain"]

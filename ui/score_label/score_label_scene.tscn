@@ -1,31 +1,28 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://m8ajicrqc1a7"]
 
-[ext_resource path="res://font/game_font.tres" type="FontFile" id=1]
-[ext_resource path="res://ui/margin_block_box.tres" type="StyleBox" id=2]
-[ext_resource path="res://ui/score_label/score_label_script.gd" type="Script" id=3]
+[ext_resource type="FontFile" uid="uid://ctu4crbxegy4t" path="res://font/game_font.tres" id="1"]
+[ext_resource type="StyleBox" path="res://ui/margin_block_box.tres" id="2"]
+[ext_resource type="Script" path="res://ui/score_label/score_label_script.gd" id="3"]
 
 [node name="Score" type="Panel"]
+custom_minimum_size = Vector2(240, 80)
 offset_right = 240.0
 offset_bottom = 80.0
-custom_minimum_size = Vector2( 240, 80 )
-theme_override_styles/panel = ExtResource( 2 )
-script = ExtResource( 3 )
+theme_override_styles/panel = ExtResource("2")
+script = ExtResource("3")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_top = 10
 theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 15
 
 [node name="Label" type="Label" parent="MarginContainer"]
-offset_left = 5.0
-offset_top = 10.0
-offset_right = 235.0
-offset_bottom = 69.0
-theme_override_colors/font_color = Color( 1, 1, 1, 1 )
-theme_override_fonts/font = ExtResource( 1 )
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 40
 text = "99999999"
-align = 1
-valign = 1
