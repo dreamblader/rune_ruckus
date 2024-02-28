@@ -1,6 +1,6 @@
 extends Control
 
-@export (PackedScene) var next_scene
+@export var next_scene: PackedScene
 @onready var splash_animation = $AnimationPlayer
 
 

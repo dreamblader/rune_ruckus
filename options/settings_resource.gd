@@ -6,9 +6,9 @@ enum Section {VIDEO, AUDIO, CONTROLS}
 signal on_settings_change
 
 # VIDEO
-var fullscreen: bool = ((get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN) or (get_window().mode == Window.MODE_FULLSCREEN)): set = set_fullscreen
-var resolution:Vector2 = get_window().get_size(): set = set_resolution
-var vsync: bool = (DisplayServer.window_get_vsync_mode() != DisplayServer.VSYNC_DISABLED): set = set_vsync
+var fullscreen: bool : set = set_fullscreen
+var resolution:Vector2i : set = set_resolution
+var vsync: bool: set = set_vsync
 # AUDIO
 var mute: bool = false: set = set_mute
 var masterVolumeDb: float = 0.0: set = set_masterVolumeDb
@@ -20,6 +20,11 @@ var controlType : int = 0 # 0 = Keyboard | 1 = Controller
 var controllerInputs: Dictionary = {}: set = set_controllerInputs
 var keyboardInputs: Dictionary = {}: set = set_keyboardInputs
 
+
+func _ready() -> void:
+	fullscreen = ((get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN) or (get_window().mode == Window.MODE_FULLSCREEN))
+	resolution = get_window().get_size()
+	vsync = (DisplayServer.window_get_vsync_mode() != DisplayServer.VSYNC_DISABLED)
 
 
 func set_fullscreen(new_value):
