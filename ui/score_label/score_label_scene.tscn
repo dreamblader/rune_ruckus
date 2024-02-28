@@ -1,8 +1,38 @@
-[gd_scene load_steps=4 format=3 uid="uid://m8ajicrqc1a7"]
+[gd_scene load_steps=5 format=3 uid="uid://m8ajicrqc1a7"]
 
-[ext_resource type="FontFile" uid="uid://ctu4crbxegy4t" path="res://font/game_font.tres" id="1"]
 [ext_resource type="StyleBox" path="res://ui/margin_block_box.tres" id="2"]
 [ext_resource type="Script" path="res://ui/score_label/score_label_script.gd" id="3"]
+[ext_resource type="FontFile" uid="uid://qm41pjw6s1wh" path="res://font/Stick-Regular.ttf" id="3_w7n3g"]
+
+[sub_resource type="FontFile" id="FontFile_6lhb0"]
+fallbacks = Array[Font]([ExtResource("3_w7n3g")])
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/50/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/40/0 = Vector2(0, 0)
+cache/0/50/0/ascent = 0.0
+cache/0/50/0/descent = 0.0
+cache/0/50/0/underline_position = 0.0
+cache/0/50/0/underline_thickness = 0.0
+cache/0/50/0/scale = 1.0
+cache/0/50/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/50/0/kerning_overrides/50/0 = Vector2(0, 0)
+cache/0/50/0/kerning_overrides/40/0 = Vector2(0, 0)
+cache/0/40/0/ascent = 0.0
+cache/0/40/0/descent = 0.0
+cache/0/40/0/underline_position = 0.0
+cache/0/40/0/underline_thickness = 0.0
+cache/0/40/0/scale = 1.0
+cache/0/40/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/40/0/kerning_overrides/50/0 = Vector2(0, 0)
+cache/0/40/0/kerning_overrides/40/0 = Vector2(0, 0)
 
 [node name="Score" type="Panel"]
 custom_minimum_size = Vector2(240, 80)
@@ -23,6 +53,6 @@ theme_override_constants/margin_bottom = 15
 [node name="Label" type="Label" parent="MarginContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("1")
+theme_override_fonts/font = SubResource("FontFile_6lhb0")
 theme_override_font_sizes/font_size = 40
 text = "99999999"

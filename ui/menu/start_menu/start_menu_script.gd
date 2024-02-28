@@ -22,6 +22,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _ready() -> void:
+	super()
 	start_options = options.duplicate(true)
 	start_extra_options()
 	rng.randomize()

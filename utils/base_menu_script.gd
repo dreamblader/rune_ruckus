@@ -2,6 +2,7 @@ extends Node
 class_name Menu
 
 @export var options: Array[String]
+@export var menu_font_size: int
 @export var menu_font: Font
 @export var root_path: NodePath
 
@@ -79,6 +80,7 @@ func _render_menu() -> void:
 func _add_label(option_name:String) -> void:
 	var new_option = Label.new()
 	new_option.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	new_option.add_theme_font_size_override("font_size",menu_font_size)
 	new_option.add_theme_font_override("font", menu_font)
 	new_option.text = option_name
 	menu_container.add_child(new_option)
