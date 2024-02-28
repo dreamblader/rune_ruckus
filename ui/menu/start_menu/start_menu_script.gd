@@ -1,14 +1,14 @@
 extends Menu
 
-export (float) var min_glow_wait
-export (float) var max_glow_wait
+@export (float) var min_glow_wait
+@export (float) var max_glow_wait
 
 
-onready var title:AnimatedSprite = $AnimatedSprite
-onready var timer:Timer = $Timer
+@onready var title:AnimatedSprite2D = $AnimatedSprite2D
+@onready var timer:Timer = $Timer
 
 var rng:RandomNumberGenerator = RandomNumberGenerator.new()
-var tween:SceneTreeTween
+var tween:Tween
 var label_snapshot_pos_y:float
 var menu_layer: int = 0
 
@@ -79,7 +79,7 @@ func start_game() -> void:
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(self, "modulate:a", 0, 0.5)
-	tween.tween_callback(self, "menu_gone")
+	tween.tween_callback(Callable(self, "menu_gone"))
 
 
 func select_start_menu() -> void:
@@ -114,20 +114,20 @@ func select_extra_menu() -> void:
 
 
 func animate_label(label:Label) -> void:
-	label_snapshot_pos_y = label.rect_position.y
+	label_snapshot_pos_y = label.position.y
 	tween = create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.set_loops()
-	tween.tween_property(label, "rect_position:y", label_snapshot_pos_y+5, 0.5)
-	tween.tween_property(label, "rect_position:y", label_snapshot_pos_y-10, 1)
-	label.add_color_override("font_color", Color(1,0,0))
+	tween.tween_property(label, "position:y", label_snapshot_pos_y+5, 0.5)
+	tween.tween_property(label, "position:y", label_snapshot_pos_y-10, 1)
+	label.add_theme_color_override("font_color", Color(1,0,0))
 
 
 func reset_label(label:Label) -> void:
 	tween.kill()
-	label.rect_position.y = label_snapshot_pos_y
-	label.remove_color_override("font_color")
+	label.position.y = label_snapshot_pos_y
+	label.remove_theme_color_override("font_color")
 
 
 func _on_AnimatedSprite_animation_finished() -> void:

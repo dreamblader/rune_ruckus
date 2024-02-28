@@ -1,14 +1,14 @@
 extends Control
 
-export (PackedScene) var orb_scene
+@export (PackedScene) var orb_scene
 
-onready var data = $Content/RightContainer/DataContent
-onready var board_border = $Content/MidContainer/Control/ViewPortBorder
-onready var board_viewport_container = $Content/MidContainer/Control/ViewPortBorder/ViewportContainer
-onready var board_viewport = $Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport
-onready var board = $Content/MidContainer/Control/ViewPortBorder/ViewportContainer/Viewport/Board
-onready var left_panel = $Content/LeftPadding
-onready var death_menu = $DeathMenu
+@onready var data = $Content/RightContainer/DataContent
+@onready var board_border = $Content/MidContainer/Control/ViewPortBorder
+@onready var board_viewport_container = $Content/MidContainer/Control/ViewPortBorder/SubViewportContainer
+@onready var board_viewport = $Content/MidContainer/Control/ViewPortBorder/SubViewportContainer/SubViewport
+@onready var board = $Content/MidContainer/Control/ViewPortBorder/SubViewportContainer/SubViewport/Board
+@onready var left_panel = $Content/LeftPadding
+@onready var death_menu = $DeathMenu
 
 var orb_travel_time:float = 0.65
 var multiplier: int = 1
@@ -25,8 +25,8 @@ var high_score:int = 10000
 
 func _ready() -> void:
 	board_viewport.size.y = 0
-	board_viewport_container.rect_size.y = 0
-	board_border.rect_size.y = 0
+	board_viewport_container.size.y = 0
+	board_border.size.y = 0
 	board_border.visible = false
 	score = 0
 	update_score()
@@ -42,21 +42,21 @@ func restart_game() -> void:
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(board_viewport, "size:y", 0, close_time)
-	tween.parallel().tween_property(board_viewport_container, "rect_size:y", 0, close_time)
-	tween.tween_callback(board, "end")
-	tween.tween_callback(self, "open_board")
+	tween.parallel().tween_property(board_viewport_container, "size:y", 0, close_time)
+	tween.tween_callback(Callable(board, "end"))
+	tween.tween_callback(Callable(self, "open_board"))
 
 
 func open_board() -> void:
 	var open_time = 1.5
 	var tween = create_tween()
-	board_viewport_container.material.set_shader_param("enabled", false)
+	board_viewport_container.material.set_shader_parameter("enabled", false)
 	board_border.visible = true
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(board_viewport, "size:y", 960, open_time)
-	tween.parallel().tween_property(board_viewport_container, "rect_size:y", 960, open_time)
-	tween.tween_callback(board, "start")
+	tween.parallel().tween_property(board_viewport_container, "size:y", 960, open_time)
+	tween.tween_callback(Callable(board, "start"))
 
 
 func update_score() -> void:
@@ -76,19 +76,19 @@ func set_score_temp() -> void:
 
 
 func _on_Board_emit_orb(at_position, to_color) -> void:
-	var offset = Vector2(40, 100) + Vector2(left_panel.rect_size.x, 0)
+	var offset = Vector2(40, 100) + Vector2(left_panel.size.x, 0)
 	var color_buffer = [to_color] if to_color != Rune.COLOR.SPECIAL else board.unlocked_colors
 	for color in color_buffer :
 		var tween = create_tween()
 		tween.set_trans(Tween.TRANS_SINE)
 		tween.set_ease(Tween.EASE_OUT)
 		var go_to = data.get_bar_position(color) + Vector2(60, 60)
-		var orb = orb_scene.instance()
+		var orb = orb_scene.instantiate()
 		orb.position = at_position + offset
 		orb.color = color
 		add_child(orb)
 		tween.tween_property(orb, "position", go_to, orb_travel_time)
-		tween.tween_callback(self, "orb_reached_goal", [orb, color])
+		tween.tween_callback(Callable(self, "orb_reached_goal").bind(orb, color))
 
 
 func orb_reached_goal(orb, color_index:int) -> void:
@@ -108,7 +108,7 @@ func _on_Board_emit_chain(value) -> void:
 
 func _on_Board_emit_preview_runes(preview_runes:Array) -> void:
 	if data == null:
-		yield($Content/RightContainer/DataContent, "ready")
+		await $Content/RightContainer/DataContent.ready
 		data = $Content/RightContainer/DataContent
 	data.set_preview(preview_runes)
 
@@ -129,7 +129,7 @@ func _on_Board_submit_score_multiplier(value) -> void:
 
 
 func _on_DataContent_bar_complete(color_index) -> void:
-	if !board.locked_colors.empty():
+	if !board.locked_colors.is_empty():
 		if color_mix_pool < 0 && color_index < Rune.COLOR.GREEN:
 			color_mix_pool = color_index
 		elif color_mix_pool != color_index:
@@ -194,14 +194,14 @@ func is_a_orange_mix(color_check:int) -> bool:
 
 
 func open_options() -> void:
-	get_tree().change_scene("res://options/options_scene.tscn")
+	get_tree().change_scene_to_file("res://options/options_scene.tscn")
 
 
 func _on_Board_game_over(menu_flag) -> void:
 	if menu_flag:
 		death_menu.visible = true
 	else:
-		board_viewport_container.material.set_shader_param("enabled", true)
+		board_viewport_container.material.set_shader_parameter("enabled", true)
 
 
 func _on_Menu_option_selected(option) -> void:

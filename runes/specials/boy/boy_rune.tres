@@ -1,23 +1,35 @@
-[gd_resource type="SpriteFrames" load_steps=5 format=2]
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://bcpxg47nucvpj"]
 
-[ext_resource path="res://runes/specials/boy/rune_special_boy_sprite_sheet.png" type="Texture" id=1]
+[ext_resource type="Texture2D" uid="uid://o1vwt7f45w7o" path="res://runes/specials/boy/rune_special_boy_sprite_sheet.png" id="1"]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 40, 40 )
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 40, 40)
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 40, 0, 40, 40 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("1")
+region = Rect2(40, 0, 40, 40)
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
-region = Rect2( 80, 0, 40, 40 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("1")
+region = Rect2(80, 0, 40, 40)
 
 [resource]
-animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("1")
+}, {
+"duration": 1.0,
+"texture": SubResource("1")
+}, {
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 5.0
-} ]
+}]

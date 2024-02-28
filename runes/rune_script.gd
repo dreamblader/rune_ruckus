@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends CharacterBody2D
 class_name Rune
 
 var my_class = "Rune"
@@ -7,19 +7,19 @@ enum COLOR { RED, YELLOW, BLUE, GREEN , PURPLE, ORANGE, NONE, SPECIAL}
 enum SPECIALS { PYG, ROY, GOB, BOY}
 enum SIDE {VERTICAL, HORIZONTAL}
 
-export (SpriteFrames) var red_rune
-export (SpriteFrames) var yellow_rune
-export (SpriteFrames) var blue_rune
-export (SpriteFrames) var green_rune
-export (SpriteFrames) var purple_rune
-export (SpriteFrames) var orange_rune
-export (SpriteFrames) var none_rune
-export (SpriteFrames) var pyg_rune
-export (SpriteFrames) var roy_rune
-export (SpriteFrames) var gob_rune
-export (SpriteFrames) var boy_rune
+@export (SpriteFrames) var red_rune
+@export (SpriteFrames) var yellow_rune
+@export (SpriteFrames) var blue_rune
+@export (SpriteFrames) var green_rune
+@export (SpriteFrames) var purple_rune
+@export (SpriteFrames) var orange_rune
+@export (SpriteFrames) var none_rune
+@export (SpriteFrames) var pyg_rune
+@export (SpriteFrames) var roy_rune
+@export (SpriteFrames) var gob_rune
+@export (SpriteFrames) var boy_rune
 
-export (COLOR) var color = COLOR.RED setget set_color
+@export (COLOR) var color = COLOR.RED: set = set_color
 var special_type : int = -1
 
 var MAX_POWER_CONST = 4
@@ -36,13 +36,13 @@ var v_power:int = 1
 var h_power:int = 1
 var max_power:int = 4
 
-var tween:SceneTreeTween
-var update_tween:SceneTreeTween
+var tween:Tween
+var update_tween:Tween
 
-onready var sprite: AnimatedSprite = $AnimatedSprite
-onready var detectors: Array = [ $DetectUp, $DetectRigth ]
-onready var explode_sound: AudioStreamPlayer = $ExplodeSound
-onready var drop_sound: AudioStreamPlayer = $DropSound
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var detectors: Array = [ $DetectUp, $DetectRigth ]
+@onready var explode_sound: AudioStreamPlayer = $ExplodeSound
+@onready var drop_sound: AudioStreamPlayer = $DropSound
 
 var start_time
 
@@ -77,9 +77,9 @@ func switch_color(color_value:int, special_id: int = -1) -> void:
 	update_tween.tween_property(self, "modulate", Color(1,1,1), fade_time/2)
 	
 	if color_value != COLOR.SPECIAL:
-		update_tween.tween_callback(self, "set_color", [color_value])
+		update_tween.tween_callback(Callable(self, "set_color").bind(color_value))
 	else:
-		update_tween.tween_callback(self, "set_special", [special_id])
+		update_tween.tween_callback(Callable(self, "set_special").bind(special_id))
 
 
 func set_color(color_value: int) -> void:
@@ -148,7 +148,7 @@ func init_chain_check() -> void:
 
 func check_chain(at_side:int, chain:Array) -> Array:
 	var my_chain: Array = self.chains[at_side]
-	if my_chain.empty():
+	if my_chain.is_empty():
 		my_chain.append_array(chain) 
 		var collider = detect_body(at_side)
 		if is_chainable_rune(collider):
@@ -232,7 +232,7 @@ func explode() -> void:
 		tween = get_tree().create_tween()
 		explode_sound.play()
 		tween.tween_property(self, "modulate:a", 0, fade_time).set_trans(Tween.TRANS_SINE)
-		tween.connect("finished", self, "gone")
+		tween.connect("finished", Callable(self, "gone"))
 	else:
 		max_power = MAX_POWER_CONST
 	reset_chains()

@@ -2,21 +2,21 @@ extends MarginContainer
 
 enum LockType {PRIMARY, PURPLE, GREEN, ORANGE}
 
-export (StreamTexture) var red_symbol
-export (StreamTexture) var blue_symbol
-export (StreamTexture) var yellow_symbol
-export (StreamTexture) var green_symbol
-export (StreamTexture) var purple_symbol
-export (StreamTexture) var orange_symbol
-export (SpriteFrames) var lock
+@export (CompressedTexture2D) var red_symbol
+@export (CompressedTexture2D) var blue_symbol
+@export (CompressedTexture2D) var yellow_symbol
+@export (CompressedTexture2D) var green_symbol
+@export (CompressedTexture2D) var purple_symbol
+@export (CompressedTexture2D) var orange_symbol
+@export (SpriteFrames) var lock
 
-export (Rune.COLOR) var my_symbol = -1 setget change_symbol
-export (LockType) var my_lock
+@export (Rune.COLOR) var my_symbol = -1: set = change_symbol
+@export (LockType) var my_lock
 
-onready var symbol:Sprite = $Sprite
-onready var panel: Panel = $Panel
-onready var panel_animation: AnimationPlayer = $Panel/PanelAnimation
-onready var animation:AnimationPlayer = $AnimationPlayer
+@onready var symbol:Sprite2D = $Sprite2D
+@onready var panel: Panel = $Panel
+@onready var panel_animation: AnimationPlayer = $Panel/PanelAnimation
+@onready var animation:AnimationPlayer = $AnimationPlayer
 
 var symbol_is_visible:bool = true
 

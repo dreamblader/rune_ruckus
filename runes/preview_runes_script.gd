@@ -1,14 +1,14 @@
 extends Node2D
 
-export (Texture) var red_rune
-export (Texture) var blue_rune
-export (Texture) var yellow_rune
-export (Texture) var green_rune
-export (Texture) var purple_rune
-export (Texture) var orange_rune
+@export (Texture2D) var red_rune
+@export (Texture2D) var blue_rune
+@export (Texture2D) var yellow_rune
+@export (Texture2D) var green_rune
+@export (Texture2D) var purple_rune
+@export (Texture2D) var orange_rune
 
-onready var side_preview = $SidePreview
-onready var pivot_preview = $PivotPreview
+@onready var side_preview = $SidePreview
+@onready var pivot_preview = $PivotPreview
 
 
 func set_side_color(color_index:int) -> void:
@@ -19,7 +19,7 @@ func set_pivot_color(color_index:int) -> void:
 	pivot_preview.texture = get_color_texture(color_index)
 
 
-func get_color_texture(color_index:int) -> Texture:
+func get_color_texture(color_index:int) -> Texture2D:
 	match color_index:
 		Rune.COLOR.RED:
 			return red_rune

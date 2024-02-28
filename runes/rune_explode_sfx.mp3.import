@@ -2,14 +2,18 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/rune_explode_sfx.mp3-ccdaa1192235576a860b929083fd4441.mp3str"
+uid="uid://db3b6dy24tfdg"
+path="res://.godot/imported/rune_explode_sfx.mp3-ccdaa1192235576a860b929083fd4441.mp3str"
 
 [deps]
 
 source_file="res://runes/rune_explode_sfx.mp3"
-dest_files=[ "res://.import/rune_explode_sfx.mp3-ccdaa1192235576a860b929083fd4441.mp3str" ]
+dest_files=["res://.godot/imported/rune_explode_sfx.mp3-ccdaa1192235576a860b929083fd4441.mp3str"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

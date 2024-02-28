@@ -20,7 +20,7 @@ var keyboardInputs_key:String = "keyboardInputs"
 
 func _ready() -> void:
 	load_settings()
-	settings.connect("on_settings_change", self, "_on_settings_changed")
+	settings.connect("on_settings_change", Callable(self, "_on_settings_changed"))
 
 
 func load_settings() -> void:

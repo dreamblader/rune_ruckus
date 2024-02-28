@@ -1,10 +1,10 @@
 extends Control
 
-export (Array, Rune.COLOR) var preview_color_array setget set_preview
-export (PackedScene) var preview_rune
+@export (Array, Rune.COLOR) var preview_color_array : set = set_preview
+@export (PackedScene) var preview_rune
 
-onready var first_preview_panel = $PreviewNext
-onready var second_preview_panel = $PreviewAfterNext
+@onready var first_preview_panel = $PreviewNext
+@onready var second_preview_panel = $PreviewAfterNext
 
 
 var first_preview_positions = [Vector2(109,80), Vector2(40,50), Vector2(-98,-10)]
@@ -16,14 +16,14 @@ var second_preview
 
 
 func set_preview(preview_array:Array) -> void:
-	if preview_array.empty():
+	if preview_array.is_empty():
 		clear_preview()
 	elif preview_array.size() == 4:
 		var next_first_preview = attach_preview(preview_array[0], preview_array[1], true)
 		var next_second_preview = attach_preview(preview_array[2], preview_array[3], false)
 		
 		if first_preview != null && second_preview != null:
-			var tween:SceneTreeTween = create_tween()
+			var tween:Tween = create_tween()
 			tween.set_trans(Tween.TRANS_QUAD)
 			tween.set_ease(Tween.EASE_IN_OUT)
 			tween.tween_property(next_first_preview, "position", first_preview_positions[1], animation_time)
@@ -34,7 +34,7 @@ func set_preview(preview_array:Array) -> void:
 			tween.parallel().tween_property(next_second_preview, "scale", scales[1], animation_time)
 			tween.parallel().tween_property(second_preview, "position", second_preview_positions[2], animation_time)
 			tween.parallel().tween_property(second_preview, "scale", scales[2], animation_time)
-			tween.tween_callback(self, "_on_preview_transition_end", [next_first_preview, next_second_preview])
+			tween.tween_callback(Callable(self, "_on_preview_transition_end").bind(next_first_preview, next_second_preview))
 		else:
 			first_preview = next_first_preview
 			first_preview.position = first_preview_positions[1]
@@ -45,7 +45,7 @@ func set_preview(preview_array:Array) -> void:
 
 
 func attach_preview(preview_pivot_color:int, preview_side_color:int, first:bool) -> Node:
-	var temp_preview = preview_rune.instance()
+	var temp_preview = preview_rune.instantiate()
 	if first:
 		temp_preview.position = first_preview_positions[0]
 		temp_preview.scale = scales[1]

@@ -1,10 +1,10 @@
 [gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://ui/menu/start_menu/start_menu_script.gd" type="Script" id=1]
-[ext_resource path="res://font/Anton-Regular.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://ui/menu/start_menu/title_card_sprite_sheet.png" type="Texture" id=3]
+[ext_resource path="res://font/Anton-Regular.ttf" type="FontFile" id=2]
+[ext_resource path="res://ui/menu/start_menu/title_card_sprite_sheet.png" type="Texture2D" id=3]
 
-[sub_resource type="DynamicFont" id=15]
+[sub_resource type="FontFile" id=15]
 size = 50
 outline_size = 5
 outline_color = Color( 0, 0, 0, 1 )
@@ -74,20 +74,20 @@ root_path = NodePath("Content")
 min_glow_wait = 1.5
 max_glow_wait = 3.5
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 14 )
 speed_scale = 2.0
 
 [node name="Content" type="CenterContainer" parent="."]
-margin_top = 120.0
-margin_bottom = 120.0
+offset_top = 120.0
+offset_bottom = 120.0
 grow_horizontal = 2
-rect_min_size = Vector2( 300, 300 )
+custom_minimum_size = Vector2( 300, 300 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 1.5
 autostart = true
 
-[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

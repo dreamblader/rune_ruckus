@@ -3,7 +3,7 @@
 [resource]
 code = "shader_type canvas_item;
 
-uniform vec4 recolor: hint_color; 
+uniform vec4 recolor: source_color; 
 
 void fragment() {
 	vec4 oldColor = texture(TEXTURE, UV);

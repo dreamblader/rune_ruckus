@@ -2,14 +2,18 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/rune_rotate_sfx.mp3-440ad8821c3c9c8eeb47ffa8555995e9.mp3str"
+uid="uid://cl77b2sa720ty"
+path="res://.godot/imported/rune_rotate_sfx.mp3-440ad8821c3c9c8eeb47ffa8555995e9.mp3str"
 
 [deps]
 
 source_file="res://runes/rune_rotate_sfx.mp3"
-dest_files=[ "res://.import/rune_rotate_sfx.mp3-440ad8821c3c9c8eeb47ffa8555995e9.mp3str" ]
+dest_files=["res://.godot/imported/rune_rotate_sfx.mp3-440ad8821c3c9c8eeb47ffa8555995e9.mp3str"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

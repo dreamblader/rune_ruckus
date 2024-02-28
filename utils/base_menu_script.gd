@@ -1,9 +1,9 @@
 extends Node
 class_name Menu
 
-export (Array, String) var options
-export (Font) var menu_font
-export (NodePath) var root_path
+@export (Array, String) var options
+@export (Font) var menu_font
+@export (NodePath) var root_path
 
 signal option_selected(option)
 
@@ -15,7 +15,7 @@ var history_index:int = -1
 
 
 func _input(event: InputEvent) -> void:
-	if !options.empty() && self.visible && !lock_control:
+	if !options.is_empty() && self.visible && !lock_control:
 		if event.is_action_pressed("ui_up"):
 			selected_index = selected_index-1 if selected_index > 0 else options.size()-1
 			update_menu_selection()
@@ -78,8 +78,8 @@ func _render_menu() -> void:
 
 func _add_label(option_name:String) -> void:
 	var new_option = Label.new()
-	new_option.align = Label.ALIGN_CENTER
-	new_option.add_font_override("font", menu_font)
+	new_option.align = Label.ALIGNMENT_CENTER
+	new_option.add_theme_font_override("font", menu_font)
 	new_option.text = option_name
 	menu_container.add_child(new_option)
 

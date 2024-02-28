@@ -1,20 +1,20 @@
-extends KinematicBody2D
+extends CharacterBody2D
 
 enum SidePosition {TOP, RIGHT, BOTTOM, LEFT}
 enum InputFlag {LEFT, RIGHT, DOWN}
 
-onready var timer: Timer = $Timer
-onready var rotate_sound: AudioStreamPlayer = $RotateSound
-onready var move_sound: AudioStreamPlayer = $MoveSound
-onready var collision: CollisionShape2D = $CollisionShape2D
-onready var side_rune = $SideRune
-onready var pivot_rune= $PivotRune
-onready var areas = $Areas
+@onready var timer: Timer = $Timer
+@onready var rotate_sound: AudioStreamPlayer = $RotateSound
+@onready var move_sound: AudioStreamPlayer = $MoveSound
+@onready var collision: CollisionShape2D = $CollisionShape2D
+@onready var side_rune = $SideRune
+@onready var pivot_rune= $PivotRune
+@onready var areas = $Areas
 
 var score = 1
 var level = 0
 var rune_size = 80
-var tween: SceneTreeTween 
+var tween: Tween 
 var side_position: int = SidePosition.TOP
 var tick_time: float = 1.0
 var input_press_cooldown: float = 0.5
@@ -64,14 +64,14 @@ func _input(event: InputEvent) -> void:
 
 func hold_movement(my_flag:int) -> void:
 	input_timer = get_tree().create_timer(input_press_cooldown, false)
-	input_timer.connect("timeout", self, "hold")
+	input_timer.connect("timeout", Callable(self, "hold"))
 	last_input_flag = my_flag
 
 
 func kill_holding(my_flag:int) -> void:
 	if last_input_flag == my_flag:
 		if input_timer != null:
-			input_timer.disconnect("timeout", self, "hold")
+			input_timer.disconnect("timeout", Callable(self, "hold"))
 			input_timer = null
 		if is_holding:
 			is_holding = false
@@ -212,4 +212,4 @@ func can_rotate() -> bool:
 	var left_area = $Areas/L_Area
 	var rigth_area = $Areas/R_Area
 	var is_vertical = side_position == SidePosition.BOTTOM || side_position == SidePosition.TOP
-	return !(is_vertical && !left_area.get_overlapping_bodies().empty()  && !rigth_area.get_overlapping_bodies().empty())
+	return !(is_vertical && !left_area.get_overlapping_bodies().is_empty()  && !rigth_area.get_overlapping_bodies().is_empty())

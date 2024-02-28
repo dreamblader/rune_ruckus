@@ -1,6 +1,6 @@
 extends Control
 
-export (Array, NodePath) var options
+@export (Array, NodePath) var options
 
 var resolutions: Array = [Vector2(1920, 1080), Vector2(1280, 720), Vector2(854, 480), Vector2(640, 360), Vector2(426, 240)]
 var max_volume_points: int = 10
@@ -56,12 +56,12 @@ func get_start_resolution_index(resolution_width:float) -> void:
 
 func select_label() -> void:
 	var selected_label: Label = get_node(options[menu_index])
-	selected_label.add_color_override("font_color", Color(1,0,0))
+	selected_label.add_theme_color_override("font_color", Color(1,0,0))
 
 
 func deselect_label() -> void:
 	var deselected_label: Label = get_node(options[menu_index])
-	deselected_label.remove_color_override("font_color")
+	deselected_label.remove_theme_color_override("font_color")
 
 
 func move_menu(value:int) -> void:
@@ -110,9 +110,9 @@ func set_resolution_label(resolution:Vector2) -> void:
 func enable_resolution_label(enable:bool) -> void:
 	var label: Label = $Menu/Main/Video/Resolution 
 	if enable:
-		label.add_color_override("font_color", Color(0.08, 0.08, 0.08))
+		label.add_theme_color_override("font_color", Color(0.08, 0.08, 0.08))
 	else:
-		label.remove_color_override("font_color")
+		label.remove_theme_color_override("font_color")
 
 
 func set_master_volume_label(dbValue:float) -> void:
@@ -193,4 +193,4 @@ func back_to_default() -> void:
 
 
 func move_back() -> void:
-	get_tree().change_scene("res://game_scene.tscn")
+	get_tree().change_scene_to_file("res://game_scene.tscn")

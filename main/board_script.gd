@@ -27,22 +27,22 @@ var color_chain: Array = []
 var rng = RandomNumberGenerator.new()
 var spell_code_to_submit: Array = []
 
-var death_tween:SceneTreeTween
+var death_tween:Tween
 var death_final_position = Vector2(280, 400)
 var death_final_scale = Vector2(4, 4)
 
-export (PackedScene) var rune_scene
+@export (PackedScene) var rune_scene
 
-onready var player = $Player
-onready var death_tile = $DeathTile
-onready var death = $Death
-onready var death_label = $UDiedLabel/MovingLabel
-onready var pause_label = $PauseLabel/MovingLabel
-onready var death_bell_audio = $DeathBell
-onready var death_laugh_audio = $DeathLaugh
-onready var spellchecker = $SpellChecker
-onready var spellcaster = $SpellCaster
-onready var background = $Background
+@onready var player = $Player
+@onready var death_tile = $DeathTile
+@onready var death = $Death
+@onready var death_label = $UDiedLabel/MovingLabel
+@onready var pause_label = $PauseLabel/MovingLabel
+@onready var death_bell_audio = $DeathBell
+@onready var death_laugh_audio = $DeathLaugh
+@onready var spellchecker = $SpellChecker
+@onready var spellcaster = $SpellCaster
+@onready var background = $Background
 
 signal emit_orb(at_position)
 signal emit_preview_runes(preview_runes)
@@ -69,7 +69,7 @@ func _input(event: InputEvent) -> void:
 
 func _ready() -> void:
 	spellcaster.GRID_SIZE = GRID_SIZE
-	spellcaster.ARENA_SIZE = background.rect_size*2
+	spellcaster.ARENA_SIZE = background.size*2
 
 
 func start():
@@ -90,7 +90,7 @@ func end():
 	death.scale = Vector2(1,1)
 	death.visible = false
 	death_label.disappear()
-	next_runes.empty()
+	next_runes.is_empty()
 	emit_signal("emit_preview_runes", next_runes)
 	reset_color_progress()
 	var runes = get_tree().get_nodes_in_group("Rune")
@@ -157,12 +157,12 @@ func awake_death_icon() -> void:
 	death_bell_audio.play()
 	death_tween.set_trans(Tween.TRANS_SINE)
 	death_tween.set_ease(Tween.EASE_OUT)
-	death_tween.tween_callback(self, "set_is_over", [true]).set_delay(death_animation_delay)
-	death_tween.parallel().tween_callback(death_bell_audio, "play").set_delay(death_animation_delay)
+	death_tween.tween_callback(Callable(self, "set_is_over").bind(true)).set_delay(death_animation_delay)
+	death_tween.parallel().tween_callback(Callable(death_bell_audio, "play")).set_delay(death_animation_delay)
 	death_tween.parallel().tween_property(death, "position", death_final_position, death_animation_time).set_delay(death_animation_delay)
 	death_tween.parallel().tween_property(death, "scale", death_final_scale, death_animation_time).set_delay(death_animation_delay) 
-	death_tween.tween_callback(self, "show_u_died_label")
-	death_tween.tween_callback(self, "emit_signal", ["game_over", true]).set_delay(0.5)
+	death_tween.tween_callback(Callable(self, "show_u_died_label"))
+	death_tween.tween_callback(Callable(self, "emit_signal").bind("game_over", true)).set_delay(0.5)
 
 
 func set_is_over(flag:bool) -> void:
@@ -191,14 +191,14 @@ func skip_death_animation() -> void:
 func solve(chain_count_start:int) -> void:
 	var extra_padding_time: float = 0.1
 	var runes = get_tree().get_nodes_in_group("Rune")
-	if !runes.empty():
-		yield(wait_runes_touch_the_ground(runes), "completed")
+	if !runes.is_empty():
+		await wait_runes_touch_the_ground(runes).completed
 		add_pitch(runes, chain_count_start)
 		check_runes(runes)
 		wait_runes_explode(runes)
 		if continue_chain:
 			emit_signal("emit_chain", chain_count_start+get_color_chain_score())
-			yield(get_tree().create_timer(FADE_TIME+extra_padding_time, false), "timeout")
+			await get_tree().create_timer(FADE_TIME+extra_padding_time, false).timeout
 			solve(chain_count_start+CHAIN_MULT)
 			return
 	spawn_player()
@@ -211,8 +211,8 @@ func solve(chain_count_start:int) -> void:
 func wait_runes_touch_the_ground(runes) -> void:
 	for rune in runes:
 		if rune != null && is_instance_valid(rune) && rune.is_floating:
-			yield(rune, "touch_the_ground")
-	yield(get_tree(), "idle_frame")
+			await rune.touch_the_ground
+	await get_tree().idle_frame
 
 
 func add_pitch(runes, chain_number) -> void:
@@ -249,14 +249,14 @@ func _on_Player_place_runes(insta_position, pivot_rune, side_rune) -> void:
 
 
 func put_new_rune(rune_position, old_rune) -> void:
-	var new_rune = rune_scene.instance()
+	var new_rune = rune_scene.instantiate()
 	new_rune.add_to_group("Rune")
 	new_rune.position = rune_position
 	new_rune.gravity = GRAVITY
 	new_rune.fade_time = FADE_TIME
 	add_child(new_rune)
 	new_rune.color = old_rune.color
-	new_rune.connect("explode", self, "_on_Rune_explode")
+	new_rune.connect("explode", Callable(self, "_on_Rune_explode"))
 
 
 func get_color_chain_score() -> int:
@@ -293,7 +293,7 @@ func apply_spell(spell_code:Array) -> void:
 
 
 func submit_pending_spell() -> void:
-	if spell_code_to_submit != null && !spell_code_to_submit.empty():
+	if spell_code_to_submit != null && !spell_code_to_submit.is_empty():
 		emit_signal("submit_spell_code", spell_code_to_submit)
 		spell_code_to_submit.clear()
 

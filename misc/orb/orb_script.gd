@@ -1,7 +1,7 @@
 extends Node2D
 
-onready var animation = $AnimationPlayer
-onready var sprite = $OrbSprite
+@onready var animation = $AnimationPlayer
+@onready var sprite = $OrbSprite
 
 var color:int = -1
 
@@ -17,7 +17,7 @@ func _ready() -> void:
 
 func set_color() -> void:
 	var my_material = sprite.material as ShaderMaterial
-	var recolor = 	my_material.set_shader_param("recolor", get_color())
+	var recolor = 	my_material.set_shader_parameter("recolor", get_color())
 
 
 func get_color() -> Color:

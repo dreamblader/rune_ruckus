@@ -6,40 +6,40 @@ enum Section {VIDEO, AUDIO, CONTROLS}
 signal on_settings_change
 
 # VIDEO
-var fullscreen: bool = OS.is_window_fullscreen() setget set_fullscreen
-var resolution:Vector2 = OS.get_window_size() setget set_resolution
-var vsync: bool = OS.is_vsync_enabled() setget set_vsync
+var fullscreen: bool = ((get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN) or (get_window().mode == Window.MODE_FULLSCREEN)): set = set_fullscreen
+var resolution:Vector2 = get_window().get_size(): set = set_resolution
+var vsync: bool = (DisplayServer.window_get_vsync_mode() != DisplayServer.VSYNC_DISABLED): set = set_vsync
 # AUDIO
-var mute: bool = false setget set_mute
-var masterVolumeDb: float = 0.0 setget set_masterVolumeDb
-var musicVolumeDb: float = 0.0 setget set_musicVolumeDb
-var sfxVolumeDb: float = 0.0 setget set_sfxVolumeDb
-var voiceVolumeDb: float = 0.0 setget set_voiceVolumeDb
+var mute: bool = false: set = set_mute
+var masterVolumeDb: float = 0.0: set = set_masterVolumeDb
+var musicVolumeDb: float = 0.0: set = set_musicVolumeDb
+var sfxVolumeDb: float = 0.0: set = set_sfxVolumeDb
+var voiceVolumeDb: float = 0.0: set = set_voiceVolumeDb
 # CONTROLS
 var controlType : int = 0 # 0 = Keyboard | 1 = Controller 
-var controllerInputs: Dictionary = {} setget set_controllerInputs
-var keyboardInputs: Dictionary = {} setget set_keyboardInputs
+var controllerInputs: Dictionary = {}: set = set_controllerInputs
+var keyboardInputs: Dictionary = {}: set = set_keyboardInputs
 
 
 
 func set_fullscreen(new_value):
 	fullscreen = new_value
-	if OS.is_window_fullscreen() != fullscreen:
-		OS.set_window_fullscreen(fullscreen)
+	if ((get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN) or (get_window().mode == Window.MODE_FULLSCREEN)) != fullscreen:
+		get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN if (fullscreen) else Window.MODE_WINDOWED
 		emit_signal("on_settings_change")
 
 
 func set_resolution(new_value):
 	resolution = new_value
-	if OS.get_window_size() != resolution:
-		OS.set_window_size(resolution)
+	if get_window().get_size() != resolution:
+		get_window().set_size(resolution)
 		emit_signal("on_settings_change")
 
 
 func set_vsync(new_value):
 	vsync = new_value
-	if OS.is_vsync_enabled() != vsync:
-		OS.set_use_vsync(vsync)
+	if (DisplayServer.window_get_vsync_mode() != DisplayServer.VSYNC_DISABLED) != vsync:
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if (vsync) else DisplayServer.VSYNC_DISABLED)
 		emit_signal("on_settings_change")
 
 

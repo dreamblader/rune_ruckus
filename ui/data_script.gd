@@ -1,21 +1,21 @@
 extends Control
 
 
-onready var preview_runes = $PreviewPanel
-onready var red_progress = $BarContainer/RedProgress
-onready var blue_progress = $BarContainer/BlueProgress
-onready var yellow_progress = $BarContainer/YellowProgress
-onready var green_progress = $BarContainer/GreenProgress
-onready var purple_progress = $BarContainer/PurpleProgress
-onready var orange_progress = $BarContainer/OrangeProgress
+@onready var preview_runes = $PreviewPanel
+@onready var red_progress = $BarContainer/RedProgress
+@onready var blue_progress = $BarContainer/BlueProgress
+@onready var yellow_progress = $BarContainer/YellowProgress
+@onready var green_progress = $BarContainer/GreenProgress
+@onready var purple_progress = $BarContainer/PurpleProgress
+@onready var orange_progress = $BarContainer/OrangeProgress
 
-onready var spell_containter = $SpeelContainer
-onready var spell_purple = $SpeelContainer/SpellBlock2
-onready var spell_orange = $SpeelContainer/SpellBlock3
-onready var spell_green = $SpeelContainer/SpellBlock4
+@onready var spell_containter = $SpeelContainer
+@onready var spell_purple = $SpeelContainer/SpellBlock2
+@onready var spell_orange = $SpeelContainer/SpellBlock3
+@onready var spell_green = $SpeelContainer/SpellBlock4
 
-onready var score = $ScoreContainer/Score
-onready var highscore = $ScoreContainer/HighScore
+@onready var score = $ScoreContainer/Score
+@onready var highscore = $ScoreContainer/HighScore
 
 signal bar_complete(color)
 
@@ -72,17 +72,17 @@ func color_up(value:int, color_index:int) -> void:
 func get_bar_position(color_index:int) -> Vector2:
 	match color_index:
 		Rune.COLOR.RED:
-			return red_progress.rect_global_position
+			return red_progress.global_position
 		Rune.COLOR.YELLOW:
-			return yellow_progress.rect_global_position
+			return yellow_progress.global_position
 		Rune.COLOR.BLUE:
-			return blue_progress.rect_global_position
+			return blue_progress.global_position
 		Rune.COLOR.GREEN:
-			return green_progress.rect_global_position
+			return green_progress.global_position
 		Rune.COLOR.PURPLE:
-			return purple_progress.rect_global_position
+			return purple_progress.global_position
 		Rune.COLOR.ORANGE:
-			return orange_progress.rect_global_position
+			return orange_progress.global_position
 		Rune.COLOR.NONE:
 			return Vector2(620, 0)
 		_:

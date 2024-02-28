@@ -23,31 +23,31 @@ func cast_spell(spell_code: Array, spell_effect:int, runes: Array) -> void:
 		Spells.Effect.XXX:
 			remove_all_runes(runes, spell_code[0])
 		Spells.Effect.XYX:
-			yield(switch_runes(runes, spell_code[0], spell_code[1]), "completed")
+			await switch_runes(runes, spell_code[0], spell_code[1]).completed
 		Spells.Effect.BYG:
 			special_set_runes_explode(runes, 2)
 		Spells.Effect.RGB:
-			yield(switch_types(runes, ypo_runes, rgb_runes), "completed")
+			await switch_types(runes, ypo_runes, rgb_runes).completed
 		Spells.Effect.YPO:
-			yield(switch_types(runes, rgb_runes, ypo_runes), "completed")
+			await switch_types(runes, rgb_runes, ypo_runes).completed
 		Spells.Effect.POG:
 			emit_signal("set_score", 2)
 			remove_random_runes(runes, 1, 100, 10)
 		Spells.Effect.PYG:
-			yield(create_special_runes(runes, Rune.SPECIALS.PYG), "completed")
+			await create_special_runes(runes, Rune.SPECIALS.PYG).completed
 		Spells.Effect.ROY:
-			yield(create_special_runes(runes, Rune.SPECIALS.ROY), "completed")
+			await create_special_runes(runes, Rune.SPECIALS.ROY).completed
 		Spells.Effect.GOB:
-			yield(create_special_runes(runes, Rune.SPECIALS.GOB), "completed")
+			await create_special_runes(runes, Rune.SPECIALS.GOB).completed
 		Spells.Effect.BOY:
-			yield(create_special_runes(runes, Rune.SPECIALS.BOY), "completed")
+			await create_special_runes(runes, Rune.SPECIALS.BOY).completed
 		Spells.Effect.POO:
 			emit_signal("set_score", 0)
 			emit_signal("submit_score_multiplier", 0.75)
 			remove_all_runes(runes, -1)
 		Spells.Effect.BOG:
 			sink_runes(runes)
-			yield(self, "runes_moved")
+			await self.runes_moved
 		Spells.Effect.RPG:
 			#TEST
 			roll_d20(runes)
@@ -57,7 +57,7 @@ func cast_spell(spell_code: Array, spell_effect:int, runes: Array) -> void:
 			emit_signal("add_difficulty", -1)
 		Spells.Effect.ORG:
 			reorganize_runes(runes)
-			yield(self, "runes_moved")
+			await self.runes_moved
 		Spells.Effect.ORB:
 			#TEST
 			pass
@@ -86,14 +86,14 @@ func switch_runes(runes: Array, rune_to_transform: int, rune_to_be_transform: in
 		if rune.color == rune_to_be_transform:
 			rune.switch_color(rune_to_transform)
 	
-	yield(wait_runes_to_update(runes), "completed")
+	await wait_runes_to_update(runes).completed
 
 
 func wait_runes_to_update(runes: Array) -> void:
 	for rune in runes:
 		if rune != null && is_instance_valid(rune) && rune.update_tween != null:
-			yield(rune, "updated")
-	yield(get_tree(), "idle_frame")
+			await rune.updated
+	await get_tree().idle_frame
 
 
 func special_set_runes_explode (runes: Array, new_max:int) -> void:
@@ -103,12 +103,12 @@ func special_set_runes_explode (runes: Array, new_max:int) -> void:
 
 func switch_types(runes: Array, from:Array, randomly_to:Array) -> void:
 	for rune in runes:
-		if from.has(rune.color) || from.empty():
+		if from.has(rune.color) || from.is_empty():
 			var random_index = rng.randi_range(0, randomly_to.size()-1)
 			var new_color = randomly_to[random_index]
 			rune.switch_color(new_color)
 	
-	yield(wait_runes_to_update(runes), "completed")
+	await wait_runes_to_update(runes).completed
 
 
 func remove_random_runes(runes: Array, min_num: int, max_num:int, odds:int) -> void:
@@ -145,7 +145,7 @@ func create_special_runes(runes: Array, type:int) -> void:
 	for special_rune in special_runes:
 		special_rune.switch_color(Rune.COLOR.SPECIAL, type)
 	
-	yield(wait_runes_to_update(runes), "completed")
+	await wait_runes_to_update(runes).completed
 
 
 func sink_runes(runes: Array) -> void:
@@ -154,7 +154,7 @@ func sink_runes(runes: Array) -> void:
 	tween.set_ease(Tween.EASE_IN)
 	for rune in runes:
 		tween.parallel().tween_property(rune, "position:y", rune.position.y+GRID_SIZE.y, sink_time)
-	tween.tween_callback(self, "sink_finish", [runes])
+	tween.tween_callback(Callable(self, "sink_finish").bind(runes))
 
 
 func sink_finish(runes:Array) -> void:
@@ -235,7 +235,7 @@ func reorganize_runes(runes: Array) -> void:
 	var x_index = 0
 	var y_index = 0
 	tween.set_ease(Tween.EASE_IN)
-	runes.sort_custom(Rune, "colorComparison")
+	runes.sort_custom(Callable(Rune, "colorComparison"))
 	for rune in runes:
 		var new_position = Vector2(x_index*GRID_SIZE.x, LOWEST_VERTICAL_RUNE_POSTION-(y_index*GRID_SIZE.y))
 		rune.column_pos = new_position.x
@@ -245,7 +245,7 @@ func reorganize_runes(runes: Array) -> void:
 			x_index = 0
 			y_index += 1
 	
-	tween.tween_callback(self, "emit_signal", ["runes_moved"])
+	tween.tween_callback(Callable(self, "emit_signal").bind("runes_moved"))
 
 
 func call_easter_egg(id:int) -> void:

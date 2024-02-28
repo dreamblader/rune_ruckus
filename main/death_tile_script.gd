@@ -1,7 +1,7 @@
 extends Node2D
 
-onready var detector:RayCast2D = $Detector
-onready var sprite:Sprite = $Sprite
+@onready var detector:RayCast2D = $Detector
+@onready var sprite:Sprite2D = $Sprite2D
 
 
 # Called when the node enters the scene tree for the first time.

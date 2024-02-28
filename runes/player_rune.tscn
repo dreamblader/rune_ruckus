@@ -30,7 +30,7 @@ green_animation = ExtResource( 6 )
 purple_animation = ExtResource( 8 )
 orange_animation = ExtResource( 7 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource( 1 )
 position = Vector2( 20, 20 )
 frames = ExtResource( 2 )

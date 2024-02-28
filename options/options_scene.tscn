@@ -1,16 +1,16 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://misc/backgrounds/wall.jpg" type="Texture" id=1]
-[ext_resource path="res://font/Anton-Regular.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://font/impact_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://misc/backgrounds/wall.jpg" type="Texture2D" id=1]
+[ext_resource path="res://font/Anton-Regular.ttf" type="FontFile" id=2]
+[ext_resource path="res://font/impact_font.tres" type="FontFile" id=3]
 [ext_resource path="res://options/options_script.gd" type="Script" id=4]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="FontFile" id=1]
 size = 80
 outline_size = 5
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="FontFile" id=2]
 size = 65
 outline_size = 5
 font_data = ExtResource( 2 )
@@ -31,117 +31,117 @@ expand = true
 [node name="Options" type="Label" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -120.0
-margin_right = 120.0
-margin_bottom = 122.0
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 1 )
+offset_left = -120.0
+offset_right = 120.0
+offset_bottom = 122.0
+theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = SubResource( 1 )
 text = "Options"
 
 [node name="Menu" type="CenterContainer" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -320.0
-margin_top = 120.0
-margin_right = 320.0
+offset_left = -320.0
+offset_top = 120.0
+offset_right = 320.0
 
 [node name="Main" type="VBoxContainer" parent="Menu"]
-margin_left = 82.0
-margin_top = 47.0
-margin_right = 558.0
-margin_bottom = 912.0
+offset_left = 82.0
+offset_top = 47.0
+offset_right = 558.0
+offset_bottom = 912.0
 
 [node name="Video" type="VBoxContainer" parent="Menu/Main"]
-margin_right = 476.0
-margin_bottom = 259.0
+offset_right = 476.0
+offset_bottom = 259.0
 
 [node name="Title" type="Label" parent="Menu/Main/Video"]
-margin_right = 476.0
-margin_bottom = 99.0
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 2 )
+offset_right = 476.0
+offset_bottom = 99.0
+theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = SubResource( 2 )
 text = "Video"
 align = 1
 
 [node name="Fullscreen" type="Label" parent="Menu/Main/Video"]
-margin_top = 103.0
-margin_right = 476.0
-margin_bottom = 179.0
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 3 )
+offset_top = 103.0
+offset_right = 476.0
+offset_bottom = 179.0
+theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 3 )
 text = "Fullscreen: Off"
 
 [node name="Resolution" type="Label" parent="Menu/Main/Video"]
-margin_top = 183.0
-margin_right = 476.0
-margin_bottom = 259.0
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 3 )
+offset_top = 183.0
+offset_right = 476.0
+offset_bottom = 259.0
+theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 3 )
 text = "Resolution: 1920 x 1080"
 
 [node name="Audio" type="VBoxContainer" parent="Menu/Main"]
-margin_top = 263.0
-margin_right = 476.0
-margin_bottom = 602.0
+offset_top = 263.0
+offset_right = 476.0
+offset_bottom = 602.0
 
 [node name="Title" type="Label" parent="Menu/Main/Audio"]
-margin_right = 476.0
-margin_bottom = 99.0
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 2 )
+offset_right = 476.0
+offset_bottom = 99.0
+theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = SubResource( 2 )
 text = "Audio"
 align = 1
 
 [node name="Master" type="Label" parent="Menu/Main/Audio"]
-margin_top = 103.0
-margin_right = 476.0
-margin_bottom = 179.0
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 3 )
+offset_top = 103.0
+offset_right = 476.0
+offset_bottom = 179.0
+theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 3 )
 text = "Master Volume: |||||......"
 
 [node name="Music" type="Label" parent="Menu/Main/Audio"]
-margin_top = 183.0
-margin_right = 476.0
-margin_bottom = 259.0
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 3 )
+offset_top = 183.0
+offset_right = 476.0
+offset_bottom = 259.0
+theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 3 )
 text = "Music Volume: |||||......"
 
 [node name="Sounds" type="Label" parent="Menu/Main/Audio"]
-margin_top = 263.0
-margin_right = 476.0
-margin_bottom = 339.0
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 3 )
+offset_top = 263.0
+offset_right = 476.0
+offset_bottom = 339.0
+theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 3 )
 text = "Sounds Volume: |||||......"
 
 [node name="Misc" type="VBoxContainer" parent="Menu/Main"]
-margin_top = 606.0
-margin_right = 476.0
-margin_bottom = 865.0
+offset_top = 606.0
+offset_right = 476.0
+offset_bottom = 865.0
 
 [node name="Title" type="Label" parent="Menu/Main/Misc"]
-margin_right = 476.0
-margin_bottom = 99.0
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 2 )
+offset_right = 476.0
+offset_bottom = 99.0
+theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = SubResource( 2 )
 align = 1
 
 [node name="Default" type="Label" parent="Menu/Main/Misc"]
-margin_top = 103.0
-margin_right = 476.0
-margin_bottom = 179.0
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 3 )
+offset_top = 103.0
+offset_right = 476.0
+offset_bottom = 179.0
+theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 3 )
 text = "Back to Default Settings"
 
 [node name="Back" type="Label" parent="Menu/Main/Misc"]
-margin_top = 183.0
-margin_right = 476.0
-margin_bottom = 259.0
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 3 )
+offset_top = 183.0
+offset_right = 476.0
+offset_bottom = 259.0
+theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 3 )
 text = "Back to Menu"
 align = 1

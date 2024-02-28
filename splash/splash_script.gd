@@ -1,7 +1,7 @@
 extends Control
 
-export (PackedScene) var next_scene
-onready var splash_animation = $AnimationPlayer
+@export (PackedScene) var next_scene
+@onready var splash_animation = $AnimationPlayer
 
 
 func _ready() -> void:
@@ -10,4 +10,4 @@ func _ready() -> void:
 
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if anim_name == "splash":
-		get_tree().change_scene_to(next_scene)
+		get_tree().change_scene_to_packed(next_scene)

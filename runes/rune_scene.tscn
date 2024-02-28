@@ -18,7 +18,7 @@
 [sub_resource type="RectangleShape2D" id=18]
 extents = Vector2( 20, 40 )
 
-[node name="Rune" type="KinematicBody2D"]
+[node name="Rune" type="CharacterBody2D"]
 script = ExtResource( 2 )
 red_rune = ExtResource( 3 )
 yellow_rune = ExtResource( 1 )
@@ -32,7 +32,7 @@ roy_rune = ExtResource( 11 )
 gob_rune = ExtResource( 12 )
 boy_rune = ExtResource( 13 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2( 40, 40 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 1 )

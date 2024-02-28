@@ -2,23 +2,23 @@ extends Node2D
 
 enum COLOR { RED, YELLOW, BLUE, GREEN , PURPLE, ORANGE, NONE}
 
-export (COLOR) var color setget change_color
-export (SpriteFrames) var red_animation
-export (SpriteFrames) var blue_animation
-export (SpriteFrames) var yellow_animation
-export (SpriteFrames) var green_animation
-export (SpriteFrames) var purple_animation
-export (SpriteFrames) var orange_animation
-export (bool) var pivot = false
+@export (COLOR) var color : set = change_color
+@export (SpriteFrames) var red_animation
+@export (SpriteFrames) var blue_animation
+@export (SpriteFrames) var yellow_animation
+@export (SpriteFrames) var green_animation
+@export (SpriteFrames) var purple_animation
+@export (SpriteFrames) var orange_animation
+@export (bool) var pivot = false
 
-onready var sprite = $AnimatedSprite
+@onready var sprite = $AnimatedSprite2D
 
 func _ready() -> void:
 	toggle_border(pivot)
 
 
 func init_sprite() -> void:
-	sprite = sprite if sprite != null else $AnimatedSprite
+	sprite = sprite if sprite != null else $AnimatedSprite2D
 
 
 func change_color(new_color:int) -> void:
@@ -44,4 +44,4 @@ func change_color(new_color:int) -> void:
 func toggle_border(flag:bool) -> void:
 	init_sprite()
 	material = sprite.material as ShaderMaterial
-	material.set_shader_param("active", flag)
+	material.set_shader_parameter("active", flag)

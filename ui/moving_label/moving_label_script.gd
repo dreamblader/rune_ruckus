@@ -1,12 +1,12 @@
 extends Control
 
-export (String, MULTILINE) var text
-export (float) var text_show_time
+@export (String, MULTILINE) var text
+@export (float) var text_show_time
 
-onready var label:RichTextLabel = $RichTextLabel
-onready var animation:AnimationPlayer = $AnimationPlayer
+@onready var label:RichTextLabel = $RichTextLabel
+@onready var animation:AnimationPlayer = $AnimationPlayer
 
-var tween:SceneTreeTween
+var tween:Tween
 
 
 func _ready() -> void:
@@ -15,13 +15,13 @@ func _ready() -> void:
 
 
 func update_size() -> void:
-	label.rect_min_size = label.get_font("normal_font").get_string_size(text)
-	print(label.rect_min_size)
+	label.custom_minimum_size = label.get_font("normal_font").get_string_size(text)
+	print(label.custom_minimum_size)
 
 
 func appear() -> void:
 	tween = get_tree().create_tween()
-	tween.set_pause_mode(pause_mode)
+	tween.set_process_mode(process_mode)
 	animation.play("hover")
 	tween.tween_property(label, "visible_characters", text.length(), text_show_time)
 

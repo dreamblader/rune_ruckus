@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var area: Area2D = $Area2D
+@onready var area: Area2D = $Area2D
 
 
 func _ready() -> void:
@@ -16,7 +16,7 @@ func trigger() -> void:
 	tween.set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "scale", Vector2(1,1), explosion_time/2)
 	tween.parallel().tween_property(self, "modulate", Color(1,1,1), (explosion_time/2)+lingering_time)
-	tween.tween_callback(self, "destroy_runes")
+	tween.tween_callback(Callable(self, "destroy_runes"))
 	tween.tween_property(self, "modulate", Color(0,0,0), explosion_time/2).set_delay(lingering_time)
 	tween.parallel().tween_property(self, "scale", Vector2(0,0), explosion_time/2).set_delay(lingering_time)
 
