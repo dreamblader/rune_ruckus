@@ -1,14 +1,14 @@
 extends Control
 
-@export (CompressedTexture2D) var red_symbol
-@export (CompressedTexture2D) var blue_symbol
-@export (CompressedTexture2D) var yellow_symbol
-@export (CompressedTexture2D) var green_symbol
-@export (CompressedTexture2D) var purple_symbol
-@export (CompressedTexture2D) var orange_symbol
-@export (Rune.COLOR) var my_color
-@export (float) var fill_time = 0.35
-@export (float) var glow_time = 0.15
+@export var red_symbol : CompressedTexture2D
+@export var blue_symbol : CompressedTexture2D
+@export var yellow_symbol : CompressedTexture2D
+@export var green_symbol : CompressedTexture2D
+@export var purple_symbol : CompressedTexture2D
+@export var orange_symbol : CompressedTexture2D
+@export var my_color : Rune.COLOR
+@export var fill_time : float = 0.35
+@export var glow_time : float = 0.15
 
 @onready var symbol = $Label
 @onready var bar = $ProgressBar

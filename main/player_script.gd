@@ -24,7 +24,7 @@ var input_timer:SceneTreeTimer
 var last_input_flag: int
 var is_holding:bool = false
 
-signal place_runes(insta_position, pivot_rune, side_rune)
+signal runes_placed(insta_position, pivot_rune, side_rune)
 signal send_score(score)
 
 func _ready() -> void:
@@ -181,7 +181,7 @@ func place_runes() -> void:
 	if visible && (tween == null || !tween.is_running()):
 		snap_position()
 		disable_player()
-		emit_signal("place_runes", position, pivot_rune, side_rune)
+		emit_signal("runes_placed", position, pivot_rune, side_rune)
 
 
 func disable_player() -> void:

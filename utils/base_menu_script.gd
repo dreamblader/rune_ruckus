@@ -1,9 +1,9 @@
 extends Node
 class_name Menu
 
-@export (Array, String) var options
-@export (Font) var menu_font
-@export (NodePath) var root_path
+@export var options: Array[String]
+@export var menu_font: Font
+@export var root_path: NodePath
 
 signal option_selected(option)
 
@@ -65,7 +65,7 @@ func _set_options(new_options:Array) -> void:
 
 
 func _add_option(option:String) -> void:
-	options.push(option)
+	options.push_back(option)
 	_add_label(option)
 
 
@@ -78,7 +78,7 @@ func _render_menu() -> void:
 
 func _add_label(option_name:String) -> void:
 	var new_option = Label.new()
-	new_option.align = Label.ALIGNMENT_CENTER
+	new_option.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	new_option.add_theme_font_override("font", menu_font)
 	new_option.text = option_name
 	menu_container.add_child(new_option)

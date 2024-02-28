@@ -20,8 +20,8 @@ var is_over:bool = false
 var on_wait: bool = false
 var continue_chain = false
 
-var unlocked_colors: Array = [Rune.COLOR.RED, Rune.COLOR.YELLOW, Rune.COLOR.BLUE]
-var locked_colors: Array = [Rune.COLOR.GREEN, Rune.COLOR.PURPLE, Rune.COLOR.ORANGE]
+var unlocked_colors: Array[int] = [Rune.COLOR.RED, Rune.COLOR.YELLOW, Rune.COLOR.BLUE]
+var locked_colors: Array[int] = [Rune.COLOR.GREEN, Rune.COLOR.PURPLE, Rune.COLOR.ORANGE]
 var next_runes: Array = []
 var color_chain: Array = []
 var rng = RandomNumberGenerator.new()
@@ -31,7 +31,7 @@ var death_tween:Tween
 var death_final_position = Vector2(280, 400)
 var death_final_scale = Vector2(4, 4)
 
-@export (PackedScene) var rune_scene
+@export var rune_scene: PackedScene
 
 @onready var player = $Player
 @onready var death_tile = $DeathTile
@@ -64,7 +64,7 @@ func _input(event: InputEvent) -> void:
 	if is_over && event.is_action_pressed("ui_accept"):
 		skip_death_animation()
 	elif death_tween == null && is_playing && event.is_action_pressed("ui_accept"):
-		pause()
+		_pause()
 
 
 func _ready() -> void:
@@ -103,7 +103,7 @@ func reset_color_progress() -> void:
 	locked_colors = [Rune.COLOR.GREEN, Rune.COLOR.PURPLE, Rune.COLOR.ORANGE]
 
 
-func pause():
+func _pause():
 	pause = !pause
 	get_tree().paused = pause
 	toggle_runes_mask(pause)
@@ -192,7 +192,7 @@ func solve(chain_count_start:int) -> void:
 	var extra_padding_time: float = 0.1
 	var runes = get_tree().get_nodes_in_group("Rune")
 	if !runes.is_empty():
-		await wait_runes_touch_the_ground(runes).completed
+		await wait_runes_touch_the_ground(runes)
 		add_pitch(runes, chain_count_start)
 		check_runes(runes)
 		wait_runes_explode(runes)
@@ -242,7 +242,7 @@ func wait_runes_explode(runes) -> void:
 				continue_chain = true
 
 
-func _on_Player_place_runes(insta_position, pivot_rune, side_rune) -> void:
+func _on_player_runes_placed(insta_position: Variant, pivot_rune: Variant, side_rune: Variant) -> void:
 	put_new_rune(insta_position + pivot_rune.position, pivot_rune)
 	put_new_rune(insta_position + side_rune.position, side_rune)
 	solve(0)
@@ -256,7 +256,7 @@ func put_new_rune(rune_position, old_rune) -> void:
 	new_rune.fade_time = FADE_TIME
 	add_child(new_rune)
 	new_rune.color = old_rune.color
-	new_rune.connect("explode", Callable(self, "_on_Rune_explode"))
+	new_rune.connect("exploded", Callable(self, "_on_Rune_explode"))
 
 
 func get_color_chain_score() -> int:
@@ -272,7 +272,7 @@ func get_color_chain_score() -> int:
 func unlock_color(color_index:int) -> bool:
 	var locked_index = locked_colors.find(color_index)
 	if locked_index >= 0:
-		locked_colors.remove(color_index)
+		locked_colors.remove_at(color_index)
 		unlocked_colors.append(color_index)
 		return true
 	else:

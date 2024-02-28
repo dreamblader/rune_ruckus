@@ -2,16 +2,16 @@ extends MarginContainer
 
 enum LockType {PRIMARY, PURPLE, GREEN, ORANGE}
 
-@export (CompressedTexture2D) var red_symbol
-@export (CompressedTexture2D) var blue_symbol
-@export (CompressedTexture2D) var yellow_symbol
-@export (CompressedTexture2D) var green_symbol
-@export (CompressedTexture2D) var purple_symbol
-@export (CompressedTexture2D) var orange_symbol
-@export (SpriteFrames) var lock
+@export var red_symbol : CompressedTexture2D
+@export var blue_symbol : CompressedTexture2D
+@export var yellow_symbol : CompressedTexture2D
+@export var green_symbol : CompressedTexture2D
+@export var purple_symbol : CompressedTexture2D
+@export var orange_symbol : CompressedTexture2D
+@export var lock : SpriteFrames
 
-@export (Rune.COLOR) var my_symbol = -1: set = change_symbol
-@export (LockType) var my_lock
+@export var my_symbol: Rune.COLOR = -1: set = change_symbol
+@export var my_lock: LockType
 
 @onready var symbol:Sprite2D = $Sprite2D
 @onready var panel: Panel = $Panel
@@ -76,13 +76,13 @@ func change_symbol(new_symbol:int) -> void:
 func get_lock() -> void:
 	match my_lock:
 		LockType.ORANGE:
-			symbol.texture = lock.get_frame("default", 0)
+			symbol.texture = lock.get_frame_texture("default", 0)
 		LockType.PURPLE:
-			symbol.texture = lock.get_frame("default", 1)
+			symbol.texture = lock.get_frame_texture("default", 1)
 		LockType.GREEN:
-			symbol.texture = lock.get_frame("default", 2)
+			symbol.texture = lock.get_frame_texture("default", 2)
 		LockType.PRIMARY:
-			symbol.texture = lock.get_frame("default", 3)
+			symbol.texture = lock.get_frame_texture("default", 3)
 
 
 func yeet_symbol() -> void:

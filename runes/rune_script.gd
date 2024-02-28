@@ -7,19 +7,19 @@ enum COLOR { RED, YELLOW, BLUE, GREEN , PURPLE, ORANGE, NONE, SPECIAL}
 enum SPECIALS { PYG, ROY, GOB, BOY}
 enum SIDE {VERTICAL, HORIZONTAL}
 
-@export (SpriteFrames) var red_rune
-@export (SpriteFrames) var yellow_rune
-@export (SpriteFrames) var blue_rune
-@export (SpriteFrames) var green_rune
-@export (SpriteFrames) var purple_rune
-@export (SpriteFrames) var orange_rune
-@export (SpriteFrames) var none_rune
-@export (SpriteFrames) var pyg_rune
-@export (SpriteFrames) var roy_rune
-@export (SpriteFrames) var gob_rune
-@export (SpriteFrames) var boy_rune
+@export var red_rune : SpriteFrames
+@export  var yellow_rune : SpriteFrames
+@export var blue_rune : SpriteFrames
+@export var green_rune : SpriteFrames
+@export var purple_rune : SpriteFrames
+@export var orange_rune : SpriteFrames
+@export var none_rune : SpriteFrames
+@export var pyg_rune : SpriteFrames
+@export var roy_rune : SpriteFrames
+@export var gob_rune : SpriteFrames
+@export var boy_rune : SpriteFrames
 
-@export (COLOR) var color = COLOR.RED: set = set_color
+@export var color : COLOR = COLOR.RED: set = set_color
 var special_type : int = -1
 
 var MAX_POWER_CONST = 4
@@ -46,7 +46,7 @@ var update_tween:Tween
 
 var start_time
 
-signal explode(rune)
+signal exploded(rune)
 signal touch_the_ground
 signal updated
 
@@ -254,8 +254,8 @@ func reset_chains() -> void:
 		chain.clear()
 
 
-func get_class() -> String:
-	return my_class
+#func get_class() -> String:
+#	return my_class
 
 
 func set_pitch(pitch_add:float) -> void:
@@ -267,7 +267,7 @@ func end() -> void:
 
 
 func gone() -> void:
-	emit_signal("explode", position, color)
+	emit_signal("exploded", position, color)
 	queue_free()
 
 

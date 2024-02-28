@@ -1,6 +1,6 @@
 extends Control
 
-@export (Array, NodePath) var options
+@export var options: Array[NodePath]
 
 var resolutions: Array = [Vector2(1920, 1080), Vector2(1280, 720), Vector2(854, 480), Vector2(640, 360), Vector2(426, 240)]
 var max_volume_points: int = 10
@@ -103,7 +103,7 @@ func set_fullscreen_label(flag:bool) -> void:
 
 func set_resolution_label(resolution:Vector2) -> void:
 	var label: Label = $Menu/Main/Video/Resolution 
-	var value: String = String(resolution.x) + " x " + String(resolution.y)
+	var value: String = str(resolution.x) + " x " + str(resolution.y)
 	label.text = "Resolution: " + value
 
 

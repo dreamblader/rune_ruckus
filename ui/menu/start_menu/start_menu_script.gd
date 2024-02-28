@@ -1,7 +1,7 @@
 extends Menu
 
-@export (float) var min_glow_wait
-@export (float) var max_glow_wait
+@export var min_glow_wait: float
+@export var max_glow_wait: float
 
 
 @onready var title:AnimatedSprite2D = $AnimatedSprite2D

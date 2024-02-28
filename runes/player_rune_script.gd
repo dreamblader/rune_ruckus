@@ -2,14 +2,14 @@ extends Node2D
 
 enum COLOR { RED, YELLOW, BLUE, GREEN , PURPLE, ORANGE, NONE}
 
-@export (COLOR) var color : set = change_color
-@export (SpriteFrames) var red_animation
-@export (SpriteFrames) var blue_animation
-@export (SpriteFrames) var yellow_animation
-@export (SpriteFrames) var green_animation
-@export (SpriteFrames) var purple_animation
-@export (SpriteFrames) var orange_animation
-@export (bool) var pivot = false
+@export var color: COLOR : set = change_color
+@export var red_animation : SpriteFrames
+@export var blue_animation : SpriteFrames
+@export var yellow_animation : SpriteFrames
+@export var green_animation : SpriteFrames
+@export var purple_animation : SpriteFrames
+@export var orange_animation : SpriteFrames
+@export var pivot: bool = false
 
 @onready var sprite = $AnimatedSprite2D
 

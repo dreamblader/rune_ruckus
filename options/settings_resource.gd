@@ -28,6 +28,9 @@ func _ready() -> void:
 
 
 func set_fullscreen(new_value):
+	if !is_node_ready():
+		await ready
+	
 	fullscreen = new_value
 	if ((get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN) or (get_window().mode == Window.MODE_FULLSCREEN)) != fullscreen:
 		get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN if (fullscreen) else Window.MODE_WINDOWED
@@ -35,6 +38,9 @@ func set_fullscreen(new_value):
 
 
 func set_resolution(new_value):
+	if !is_node_ready():
+		await ready
+	
 	resolution = new_value
 	if get_window().get_size() != resolution:
 		get_window().set_size(resolution)
@@ -42,6 +48,9 @@ func set_resolution(new_value):
 
 
 func set_vsync(new_value):
+	if !is_node_ready():
+		await ready
+	
 	vsync = new_value
 	if (DisplayServer.window_get_vsync_mode() != DisplayServer.VSYNC_DISABLED) != vsync:
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if (vsync) else DisplayServer.VSYNC_DISABLED)

@@ -17,7 +17,7 @@ func _ready() -> void:
 
 func set_color() -> void:
 	var my_material = sprite.material as ShaderMaterial
-	var recolor = 	my_material.set_shader_parameter("recolor", get_color())
+	my_material.set_shader_parameter("recolor", get_color())
 
 
 func get_color() -> Color:

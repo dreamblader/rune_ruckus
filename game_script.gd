@@ -1,6 +1,6 @@
 extends Control
 
-@export (PackedScene) var orb_scene
+@export var orb_scene: PackedScene
 
 @onready var data = $Content/RightContainer/DataContent
 @onready var board_border = $Content/MidContainer/Control/ViewPortBorder

@@ -1,7 +1,7 @@
 extends Control
 
-@export (Array, Rune.COLOR) var preview_color_array : set = set_preview
-@export (PackedScene) var preview_rune
+@export var preview_color_array: Array[Rune.COLOR] : set = set_preview
+@export var preview_rune: PackedScene
 
 @onready var first_preview_panel = $PreviewNext
 @onready var second_preview_panel = $PreviewAfterNext

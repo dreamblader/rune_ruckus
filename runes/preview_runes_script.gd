@@ -1,11 +1,11 @@
 extends Node2D
 
-@export (Texture2D) var red_rune
-@export (Texture2D) var blue_rune
-@export (Texture2D) var yellow_rune
-@export (Texture2D) var green_rune
-@export (Texture2D) var purple_rune
-@export (Texture2D) var orange_rune
+@export var red_rune: Texture2D
+@export var blue_rune: Texture2D
+@export var yellow_rune: Texture2D
+@export var green_rune: Texture2D
+@export var purple_rune: Texture2D
+@export var orange_rune: Texture2D
 
 @onready var side_preview = $SidePreview
 @onready var pivot_preview = $PivotPreview

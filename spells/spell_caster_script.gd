@@ -23,24 +23,24 @@ func cast_spell(spell_code: Array, spell_effect:int, runes: Array) -> void:
 		Spells.Effect.XXX:
 			remove_all_runes(runes, spell_code[0])
 		Spells.Effect.XYX:
-			await switch_runes(runes, spell_code[0], spell_code[1]).completed
+			await switch_runes(runes, spell_code[0], spell_code[1])
 		Spells.Effect.BYG:
 			special_set_runes_explode(runes, 2)
 		Spells.Effect.RGB:
-			await switch_types(runes, ypo_runes, rgb_runes).completed
+			await switch_types(runes, ypo_runes, rgb_runes)
 		Spells.Effect.YPO:
-			await switch_types(runes, rgb_runes, ypo_runes).completed
+			await switch_types(runes, rgb_runes, ypo_runes)
 		Spells.Effect.POG:
 			emit_signal("set_score", 2)
 			remove_random_runes(runes, 1, 100, 10)
 		Spells.Effect.PYG:
-			await create_special_runes(runes, Rune.SPECIALS.PYG).completed
+			await create_special_runes(runes, Rune.SPECIALS.PYG)
 		Spells.Effect.ROY:
-			await create_special_runes(runes, Rune.SPECIALS.ROY).completed
+			await create_special_runes(runes, Rune.SPECIALS.ROY)
 		Spells.Effect.GOB:
-			await create_special_runes(runes, Rune.SPECIALS.GOB).completed
+			await create_special_runes(runes, Rune.SPECIALS.GOB)
 		Spells.Effect.BOY:
-			await create_special_runes(runes, Rune.SPECIALS.BOY).completed
+			await create_special_runes(runes, Rune.SPECIALS.BOY)
 		Spells.Effect.POO:
 			emit_signal("set_score", 0)
 			emit_signal("submit_score_multiplier", 0.75)
@@ -86,7 +86,7 @@ func switch_runes(runes: Array, rune_to_transform: int, rune_to_be_transform: in
 		if rune.color == rune_to_be_transform:
 			rune.switch_color(rune_to_transform)
 	
-	await wait_runes_to_update(runes).completed
+	await wait_runes_to_update(runes)
 
 
 func wait_runes_to_update(runes: Array) -> void:
@@ -108,7 +108,7 @@ func switch_types(runes: Array, from:Array, randomly_to:Array) -> void:
 			var new_color = randomly_to[random_index]
 			rune.switch_color(new_color)
 	
-	await wait_runes_to_update(runes).completed
+	await wait_runes_to_update(runes)
 
 
 func remove_random_runes(runes: Array, min_num: int, max_num:int, odds:int) -> void:
@@ -145,7 +145,7 @@ func create_special_runes(runes: Array, type:int) -> void:
 	for special_rune in special_runes:
 		special_rune.switch_color(Rune.COLOR.SPECIAL, type)
 	
-	await wait_runes_to_update(runes).completed
+	await wait_runes_to_update(runes)
 
 
 func sink_runes(runes: Array) -> void:
@@ -222,7 +222,7 @@ func roll_d20(runes: Array) -> void:
 func submit_random_spell(possible_combinations:Array) -> void:
 	var new_spell: Array = []
 	for i in range(3):
-			var random_index = rng.randi(0, possible_combinations.size()-1)
+			var random_index = rng.randi_range(0, possible_combinations.size()-1)
 			new_spell.push_back(possible_combinations[random_index])
 	emit_signal("submit_new_spell", new_spell)
 
