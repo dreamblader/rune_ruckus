@@ -100,6 +100,7 @@ theme_override_constants/margin_bottom = 0
 
 [node name="DataContent" parent="Content/RightContainer" instance=ExtResource("2")]
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="DeathMenu" parent="." instance=ExtResource("6")]
 visible = false

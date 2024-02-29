@@ -17,6 +17,7 @@ var extra_options: Array
 
 
 func _input(event: InputEvent) -> void:
+	super(event)
 	if event.is_action_pressed("ui_cancel") && menu_layer == 1:
 		set_start_menu()
 
