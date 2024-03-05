@@ -204,7 +204,7 @@ func _on_Board_game_over(menu_flag) -> void:
 		board_viewport_container.material.set_shader_parameter("enabled", true)
 
 
-func _on_Menu_option_selected(option) -> void:
+func _on_menu_option_selected(option: Variant) -> void:
 	match option:
 		"start":
 			open_board()
@@ -212,7 +212,7 @@ func _on_Menu_option_selected(option) -> void:
 			open_options()
 
 
-func _on_DeathMenu_option_selected(option) -> void:
+func _on_death_menu_option_selected(option: Variant) -> void:
 	match option:
 		"restart":
 			restart_game()

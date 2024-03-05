@@ -93,7 +93,7 @@ func wait_runes_to_update(runes: Array) -> void:
 	for rune in runes:
 		if rune != null && is_instance_valid(rune) && rune.update_tween != null:
 			await rune.updated
-	await get_tree().idle_frame
+	await get_tree().process_frame
 
 
 func special_set_runes_explode (runes: Array, new_max:int) -> void:

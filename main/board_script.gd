@@ -208,11 +208,11 @@ func solve(chain_count_start:int) -> void:
 	update_score()
 
 
-func wait_runes_touch_the_ground(runes) -> void:
+func wait_runes_touch_the_ground(runes: Array[Node]) -> void:
 	for rune in runes:
 		if rune != null && is_instance_valid(rune) && rune.is_floating:
 			await rune.touch_the_ground
-	await get_tree().idle_frame
+	await get_tree().process_frame
 
 
 func add_pitch(runes, chain_number) -> void:

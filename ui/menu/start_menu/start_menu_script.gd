@@ -81,7 +81,7 @@ func start_game() -> void:
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(self, "modulate:a", 0, 0.5)
-	tween.tween_callback(Callable(self, "menu_gone"))
+	tween.tween_callback(menu_gone)
 
 
 func select_start_menu() -> void:

@@ -1,58 +1,63 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=16 format=3 uid="uid://dab0phae0p8pb"]
 
-[ext_resource path="res://runes/yellow/yellow_rune.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://runes/rune_script.gd" type="Script" id=2]
-[ext_resource path="res://runes/red/red_rune.tres" type="SpriteFrames" id=3]
-[ext_resource path="res://runes/blue/blue_rune.tres" type="SpriteFrames" id=4]
-[ext_resource path="res://runes/green/green_rune.tres" type="SpriteFrames" id=5]
-[ext_resource path="res://runes/purple/purple_rune.tres" type="SpriteFrames" id=6]
-[ext_resource path="res://runes/orange/orange_rune.tres" type="SpriteFrames" id=7]
-[ext_resource path="res://runes/none/none_rune.tres" type="SpriteFrames" id=8]
-[ext_resource path="res://runes/rune_explode_sfx.mp3" type="AudioStream" id=9]
-[ext_resource path="res://runes/rune_drop_sfx.mp3" type="AudioStream" id=10]
-[ext_resource path="res://runes/specials/roy/roy_rune.tres" type="SpriteFrames" id=11]
-[ext_resource path="res://runes/specials/gob/gob_rune.tres" type="SpriteFrames" id=12]
-[ext_resource path="res://runes/specials/boy/boy_rune.tres" type="SpriteFrames" id=13]
-[ext_resource path="res://runes/specials/pyg/pyg_rune.tres" type="SpriteFrames" id=14]
+[ext_resource type="SpriteFrames" uid="uid://dc02xvjifctid" path="res://runes/yellow/yellow_rune.tres" id="1"]
+[ext_resource type="Script" path="res://runes/rune_script.gd" id="2"]
+[ext_resource type="SpriteFrames" uid="uid://b76vmv0gqsa52" path="res://runes/red/red_rune.tres" id="3"]
+[ext_resource type="SpriteFrames" uid="uid://pt1kv33t3nyl" path="res://runes/blue/blue_rune.tres" id="4"]
+[ext_resource type="SpriteFrames" uid="uid://clkmucey0msir" path="res://runes/green/green_rune.tres" id="5"]
+[ext_resource type="SpriteFrames" uid="uid://bjra5c85sno66" path="res://runes/purple/purple_rune.tres" id="6"]
+[ext_resource type="SpriteFrames" uid="uid://d3epepx5ay24q" path="res://runes/orange/orange_rune.tres" id="7"]
+[ext_resource type="SpriteFrames" uid="uid://cqf4i6g78u6jl" path="res://runes/none/none_rune.tres" id="8"]
+[ext_resource type="AudioStream" uid="uid://db3b6dy24tfdg" path="res://runes/rune_explode_sfx.mp3" id="9"]
+[ext_resource type="AudioStream" uid="uid://dd5k12stpxwb1" path="res://runes/rune_drop_sfx.mp3" id="10"]
+[ext_resource type="SpriteFrames" uid="uid://3pyt050ra48k" path="res://runes/specials/roy/roy_rune.tres" id="11"]
+[ext_resource type="SpriteFrames" uid="uid://c41033ktwl15c" path="res://runes/specials/gob/gob_rune.tres" id="12"]
+[ext_resource type="SpriteFrames" uid="uid://bcpxg47nucvpj" path="res://runes/specials/boy/boy_rune.tres" id="13"]
+[ext_resource type="SpriteFrames" uid="uid://b3mrrcb1qd7gj" path="res://runes/specials/pyg/pyg_rune.tres" id="14"]
 
-[sub_resource type="RectangleShape2D" id=18]
-extents = Vector2( 20, 40 )
+[sub_resource type="RectangleShape2D" id="18"]
+size = Vector2(40, 80)
 
 [node name="Rune" type="CharacterBody2D"]
-script = ExtResource( 2 )
-red_rune = ExtResource( 3 )
-yellow_rune = ExtResource( 1 )
-blue_rune = ExtResource( 4 )
-green_rune = ExtResource( 5 )
-purple_rune = ExtResource( 6 )
-orange_rune = ExtResource( 7 )
-none_rune = ExtResource( 8 )
-pyg_rune = ExtResource( 14 )
-roy_rune = ExtResource( 11 )
-gob_rune = ExtResource( 12 )
-boy_rune = ExtResource( 13 )
+script = ExtResource("2")
+red_rune = ExtResource("3")
+yellow_rune = ExtResource("1")
+blue_rune = ExtResource("4")
+green_rune = ExtResource("5")
+purple_rune = ExtResource("6")
+orange_rune = ExtResource("7")
+none_rune = ExtResource("8")
+pyg_rune = ExtResource("14")
+roy_rune = ExtResource("11")
+gob_rune = ExtResource("12")
+boy_rune = ExtResource("13")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2( 40, 40 )
-scale = Vector2( 2, 2 )
-frames = ExtResource( 1 )
+position = Vector2(40, 40)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 40, 40 )
-shape = SubResource( 18 )
+position = Vector2(40, 40)
+shape = SubResource("18")
+debug_color = Color(1, 1, 0, 0.419608)
 
 [node name="DetectUp" type="RayCast2D" parent="."]
-position = Vector2( 40, 0 )
+z_index = 2
+position = Vector2(40, 0)
 rotation = 3.14159
+hit_from_inside = true
 
 [node name="DetectRigth" type="RayCast2D" parent="."]
-position = Vector2( 80, 40 )
+z_index = 2
+position = Vector2(80, 40)
 rotation = -1.5708
+hit_from_inside = true
 
 [node name="ExplodeSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 9 )
-bus = "SFX"
+stream = ExtResource("9")
+bus = &"SFX"
 
 [node name="DropSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 10 )
-bus = "SFX"
+stream = ExtResource("10")
+bus = &"SFX"

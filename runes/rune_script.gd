@@ -1,8 +1,6 @@
 extends CharacterBody2D
 class_name Rune
 
-var my_class = "Rune"
-
 enum COLOR { RED, YELLOW, BLUE, GREEN , PURPLE, ORANGE, NONE, SPECIAL}
 enum SPECIALS { PYG, ROY, GOB, BOY}
 enum SIDE {VERTICAL, HORIZONTAL}
@@ -40,7 +38,7 @@ var tween:Tween
 var update_tween:Tween
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var detectors: Array = [ $DetectUp, $DetectRigth ]
+@onready var detectors: Array[RayCast2D] = [ $DetectUp, $DetectRigth ]
 @onready var explode_sound: AudioStreamPlayer = $ExplodeSound
 @onready var drop_sound: AudioStreamPlayer = $DropSound
 
@@ -64,7 +62,7 @@ func _process(_delta: float) -> void:
 		var collision = move_and_collide(Vector2(0, gravity))
 		position.x = column_pos
 		if collision != null:
-			collision_check(collision.collider)
+			collision_check(collision.get_collider())
 	elif does_exist && !is_floating:
 		emit_signal("touch_the_ground")
 
@@ -128,7 +126,7 @@ func finish_update() -> void:
 
 
 func collision_check(collider:Object) -> void:
-	if collider.get_class() == my_class && collider.does_exist:
+	if collider is Rune && collider.does_exist:
 		is_floating = collider.is_floating
 	elif collider.get_class() == "StaticBody2D":
 		is_floating = false
@@ -145,12 +143,13 @@ func init_chain_check() -> void:
 	update_sprite()
 	
 
-
+#TODO there is something breaking here in Godot 4
 func check_chain(at_side:int, chain:Array) -> Array:
 	var my_chain: Array = self.chains[at_side]
 	if my_chain.is_empty():
 		my_chain.append_array(chain) 
 		var collider = detect_body(at_side)
+		prints("Returned Collider:", collider)
 		if is_chainable_rune(collider):
 			var next_rune = collider as Rune
 			my_chain.append(next_rune)
@@ -158,6 +157,7 @@ func check_chain(at_side:int, chain:Array) -> Array:
 			my_chain.clear()
 			my_chain.append_array(result)
 	else:
+		print("ENTERED REVERSE CHECK")
 		var root = chain[0]
 		if !my_chain.has(root):
 			var need_to_update:Array = []
@@ -173,6 +173,7 @@ func check_chain(at_side:int, chain:Array) -> Array:
 
 func detect_body(at_side:int) -> Object:
 	var detector: RayCast2D = detectors[at_side]
+	prints("Using DETECTOR:", detector)
 	detector.force_raycast_update()
 	return detector.get_collider()
 
@@ -186,7 +187,7 @@ func chain_has_specials(body) -> bool:
 
 
 func is_rune(body) -> bool:
-	return body != null && body.get_class() == my_class
+	return body != null && body is Rune
 
 
 func update_chain(at_side:int, new_chain:Array) -> void:

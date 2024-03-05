@@ -133,7 +133,7 @@ func rotate_runes(direction:int) -> void:
 		var collide = move_and_collide(Vector2())
 		
 		if collide != null:
-			wall_bounce(collide.collider.position)
+			wall_bounce(collide.get_collider().position)
 		snap_position()
 
 
