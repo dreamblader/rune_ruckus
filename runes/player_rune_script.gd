@@ -21,7 +21,7 @@ func init_sprite() -> void:
 	sprite = sprite if sprite != null else $AnimatedSprite2D
 
 
-func change_color(new_color:int) -> void:
+func change_color(new_color:COLOR) -> void:
 	init_sprite()
 	match new_color:
 		COLOR.RED:

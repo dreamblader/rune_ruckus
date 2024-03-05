@@ -80,7 +80,7 @@ func switch_color(color_value:int, special_id: int = -1) -> void:
 		update_tween.tween_callback(Callable(self, "set_special").bind(special_id))
 
 
-func set_color(color_value: int) -> void:
+func set_color(color_value: Rune.COLOR) -> void:
 	color = color_value
 	match color_value:
 		COLOR.RED:

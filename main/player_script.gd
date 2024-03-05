@@ -82,7 +82,7 @@ func hold() -> void:
 	is_holding = true
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if is_holding:
 		match(last_input_flag):
 			InputFlag.LEFT:
@@ -95,8 +95,8 @@ func _process(delta: float) -> void:
 
 func move_horizontal(direction:int) -> void:
 	var snapshot_position_x = position.x
-	var collision = move_and_collide(Vector2(move*direction, 0.0))
-	if collision != null:
+	var collision_object = move_and_collide(Vector2(move*direction, 0.0))
+	if collision_object != null:
 		position.x = snapshot_position_x
 	snap_position()
 

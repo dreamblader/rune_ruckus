@@ -272,7 +272,7 @@ func get_color_chain_score() -> int:
 func unlock_color(color_index:int) -> bool:
 	var locked_index = locked_colors.find(color_index)
 	if locked_index >= 0:
-		locked_colors.remove_at(color_index)
+		locked_colors.remove_at(color_index) #TODO out of bound crash here
 		unlocked_colors.append(color_index)
 		return true
 	else:

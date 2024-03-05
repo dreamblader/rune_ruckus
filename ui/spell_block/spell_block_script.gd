@@ -10,7 +10,7 @@ enum LockType {PRIMARY, PURPLE, GREEN, ORANGE}
 @export var orange_symbol : CompressedTexture2D
 @export var lock : SpriteFrames
 
-@export var my_symbol: Rune.COLOR = -1: set = change_symbol
+@export var my_symbol: int = -1: set = change_symbol
 @export var my_lock: LockType
 
 @onready var symbol:Sprite2D = $Sprite2D
