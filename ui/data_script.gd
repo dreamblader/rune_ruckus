@@ -118,6 +118,7 @@ func move_spell_block(value:int) -> void:
 		var new_index = spell_index_change(spell_index, value)
 		
 		while spell_containter.get_child(new_index).my_symbol < 0:
+			#TODO maybe this is causing an infinite loop -need to check-
 			new_index = spell_index_change(new_index, value)
 		
 		set_spell_index(new_index)
