@@ -19,7 +19,7 @@ enum LockType {PRIMARY, PURPLE, GREEN, ORANGE}
 @onready var animation:AnimationPlayer = $AnimationPlayer
 
 var symbol_is_visible:bool = true
-
+var locked:bool = true
 
 func _ready() -> void:
 	get_lock()
@@ -27,6 +27,7 @@ func _ready() -> void:
 
 func lock_block() -> void:
 	my_symbol = -1
+	locked = true
 	get_lock()
 
 
@@ -51,7 +52,7 @@ func cast_spell(valid_spell:bool) -> void:
 
 
 func change_symbol(new_symbol:int) -> void:
-	if my_symbol >= 0:
+	if !locked:
 		my_symbol = new_symbol
 		
 		if my_symbol != Rune.COLOR.NONE && symbol_is_visible:
@@ -87,6 +88,7 @@ func get_lock() -> void:
 
 func yeet_symbol() -> void:
 	symbol_is_visible = false
+	locked = false
 	my_symbol = Rune.COLOR.NONE
 	animation.play("yeet")
 

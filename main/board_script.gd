@@ -216,13 +216,12 @@ func wait_runes_touch_the_ground(runes: Array[Node]) -> void:
 
 
 func add_pitch(runes, chain_number) -> void:
-	var chain_pitch = 0
+	var chain_pitch:float = 0
 	if chain_number > 1:
-		chain_pitch = floor(chain_number-1/CHAIN_MULT)/10
+		chain_pitch = floorf(chain_number/CHAIN_MULT)/10
 	for rune in runes:
 		if rune != null && is_instance_valid(rune):
-			#TODO set pitch is not working anymore
-			rune.set_pitch(chain_pitch)
+			rune.set_pitch(chain_pitch) #TODO chain_pitch is 0????
 
 
 func check_runes(runes) -> void:
