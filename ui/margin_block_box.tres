@@ -1,4 +1,4 @@
-[gd_resource type="StyleBoxFlat" format=2]
+[gd_resource type="StyleBoxFlat" format=3 uid="uid://c5uuvhqyetrbj"]
 
 [resource]
 resource_local_to_scene = true
@@ -6,4 +6,4 @@ border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color( 0.2, 0.2, 0.2, 1 )
+border_color = Color(0.2, 0.2, 0.2, 1)

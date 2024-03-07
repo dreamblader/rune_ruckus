@@ -104,13 +104,12 @@ func unlock_color_bar(color_index:int) -> void:
 			orange_progress.appear()
 			spell_orange.unlock_block()
 			set_spell_index(spell_orange.get_index())
-	
-	select_spell_block()
 
 
 func set_spell_index(value:int) -> void:
 	old_spell_index = spell_index
 	spell_index = value
+	select_spell_block()
 
 
 func move_spell_block(value:int) -> void:
@@ -118,11 +117,11 @@ func move_spell_block(value:int) -> void:
 		var new_index = spell_index_change(spell_index, value)
 		
 		while spell_containter.get_child(new_index).my_symbol < 0:
-			#TODO maybe this is causing an infinite loop -need to check-
+			#TODO maybe this is causing an infinite loop -something with symbol check-
+			prints("SYMBOL ->", spell_containter.get_child(new_index).my_symbol)
 			new_index = spell_index_change(new_index, value)
 		
 		set_spell_index(new_index)
-		select_spell_block()
 
 
 func spell_index_change(index:int, value:int) -> int:

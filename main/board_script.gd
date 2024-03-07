@@ -221,6 +221,7 @@ func add_pitch(runes, chain_number) -> void:
 		chain_pitch = floor(chain_number-1/CHAIN_MULT)/10
 	for rune in runes:
 		if rune != null && is_instance_valid(rune):
+			#TODO set pitch is not working anymore
 			rune.set_pitch(chain_pitch)
 
 

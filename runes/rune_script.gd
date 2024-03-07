@@ -58,6 +58,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	#TODO is floating call on upper runes are making they float... why?
 	if does_exist && is_floating:
 		var collision = move_and_collide(Vector2(0, gravity))
 		position.x = column_pos
