@@ -150,7 +150,6 @@ func check_chain(at_side:int, chain:Array) -> Array:
 	if my_chain.is_empty():
 		my_chain.append_array(chain) 
 		var collider = detect_body(at_side)
-		prints("Returned Collider:", collider)
 		if is_chainable_rune(collider):
 			var next_rune = collider as Rune
 			my_chain.append(next_rune)
@@ -158,7 +157,6 @@ func check_chain(at_side:int, chain:Array) -> Array:
 			my_chain.clear()
 			my_chain.append_array(result)
 	else:
-		print("ENTERED REVERSE CHECK")
 		var root = chain[0]
 		if !my_chain.has(root):
 			var need_to_update:Array = []
@@ -174,7 +172,6 @@ func check_chain(at_side:int, chain:Array) -> Array:
 
 func detect_body(at_side:int) -> Object:
 	var detector: RayCast2D = detectors[at_side]
-	prints("Using DETECTOR:", detector)
 	detector.force_raycast_update()
 	return detector.get_collider()
 

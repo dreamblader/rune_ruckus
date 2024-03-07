@@ -20,8 +20,7 @@ func update_size() -> void:
 
 
 func appear() -> void:
-	tween = get_tree().create_tween()
-	#tween.set_process_mode(process_mode)
+	tween = create_tween()
 	animation.play("hover")
 	tween.tween_property(label, "visible_characters", text.length(), text_show_time)
 

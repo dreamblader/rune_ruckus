@@ -3,9 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://b4o8he21emryp" path="res://misc/backgrounds/board_backdrop.png" id="1"]
 [ext_resource type="Script" path="res://main/board_script.gd" id="2"]
 [ext_resource type="PackedScene" path="res://main/player.tscn" id="3"]
-[ext_resource type="PackedScene" path="res://main/death_tile.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://b7r5whj0u3s4n" path="res://main/death_tile.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://dab0phae0p8pb" path="res://runes/rune_scene.tscn" id="5"]
-[ext_resource type="PackedScene" path="res://misc/backgrounds/death_scene.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://dyei81gbj8kio" path="res://misc/backgrounds/death_scene.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://b5cqxx05omaki" path="res://ui/moving_label/moving_label_scene.tscn" id="7"]
 [ext_resource type="AudioStream" uid="uid://chakj2f6dttlm" path="res://misc/backgrounds/death_bell.mp3" id="8"]
 [ext_resource type="AudioStream" uid="uid://tmud2axo15cx" path="res://misc/backgrounds/die_laugh.mp3" id="9"]
@@ -89,10 +89,11 @@ position = Vector2(280, 40)
 
 [node name="UDiedLabel" type="Node2D" parent="."]
 z_index = 3
-position = Vector2(27.5, 480)
+position = Vector2(10, 510)
 
 [node name="MovingLabel" parent="UDiedLabel" instance=ExtResource("7")]
-offset_right = 561.0
+offset_right = 540.0
+offset_bottom = 159.0
 text = " YOU ANGERED THE SPIRITS! "
 text_show_time = 0.5
 
@@ -101,9 +102,10 @@ z_index = 3
 position = Vector2(210, 440)
 
 [node name="MovingLabel" parent="PauseLabel" instance=ExtResource("7")]
-process_mode = 3
+process_mode = 2
 custom_minimum_size = Vector2(140, 80)
-offset_right = 140.0
+offset_right = 233.0
+offset_bottom = 155.0
 text = " PAUSE"
 text_show_time = 0.25
 
