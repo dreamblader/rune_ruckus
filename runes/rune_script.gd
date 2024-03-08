@@ -57,14 +57,16 @@ func _ready() -> void:
 	set_color(color)
 
 
-func _process(_delta: float) -> void:
-	#TODO is floating call on upper runes are making they float... why?
+func _physics_process(delta: float) -> void:
 	if does_exist && is_floating:
 		var collision = move_and_collide(Vector2(0, gravity))
 		position.x = column_pos
 		if collision != null:
 			collision_check(collision.get_collider())
-	elif does_exist && !is_floating:
+
+
+func _process(_delta: float) -> void:
+	if does_exist && !is_floating:
 		emit_signal("touch_the_ground")
 
 

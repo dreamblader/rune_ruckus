@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b4o8he21emryp" path="res://misc/backgrounds/board_backdrop.png" id="1"]
 [ext_resource type="Script" path="res://main/board_script.gd" id="2"]
-[ext_resource type="PackedScene" path="res://main/player.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://bux8p8t3rjfst" path="res://main/player.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://b7r5whj0u3s4n" path="res://main/death_tile.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://dab0phae0p8pb" path="res://runes/rune_scene.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://dyei81gbj8kio" path="res://misc/backgrounds/death_scene.tscn" id="6"]

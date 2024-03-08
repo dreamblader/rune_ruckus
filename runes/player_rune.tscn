@@ -1,38 +1,37 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=10 format=3 uid="uid://ho4x7tck4c78"]
 
-[ext_resource path="res://runes/player_rune_script.gd" type="Script" id=1]
-[ext_resource path="res://runes/red/red_active.tres" type="SpriteFrames" id=2]
-[ext_resource path="res://runes/outline_shader.gdshader" type="Shader" id=3]
-[ext_resource path="res://runes/blue/blue_active.tres" type="SpriteFrames" id=4]
-[ext_resource path="res://runes/yellow/yellow_active.tres" type="SpriteFrames" id=5]
-[ext_resource path="res://runes/green/green_active.tres" type="SpriteFrames" id=6]
-[ext_resource path="res://runes/orange/orange_active.tres" type="SpriteFrames" id=7]
-[ext_resource path="res://runes/purple/purple_active.tres" type="SpriteFrames" id=8]
+[ext_resource type="Script" path="res://runes/player_rune_script.gd" id="1"]
+[ext_resource type="SpriteFrames" uid="uid://0p8ajg8eemx5" path="res://runes/red/red_active.tres" id="2"]
+[ext_resource type="Shader" path="res://runes/outline_shader.gdshader" id="3"]
+[ext_resource type="SpriteFrames" uid="uid://dvnh1e2lax3ex" path="res://runes/blue/blue_active.tres" id="4"]
+[ext_resource type="SpriteFrames" uid="uid://b2lxrrmekugbl" path="res://runes/yellow/yellow_active.tres" id="5"]
+[ext_resource type="SpriteFrames" uid="uid://b0n4kpa6xb4ih" path="res://runes/green/green_active.tres" id="6"]
+[ext_resource type="SpriteFrames" uid="uid://bptm8dacn2gth" path="res://runes/orange/orange_active.tres" id="7"]
+[ext_resource type="SpriteFrames" uid="uid://bs453lhohe1lf" path="res://runes/purple/purple_active.tres" id="8"]
 
-[sub_resource type="ShaderMaterial" id=1]
+[sub_resource type="ShaderMaterial" id="1"]
 resource_local_to_scene = true
-shader = ExtResource( 3 )
-shader_param/color = Color( 1, 1, 1, 1 )
-shader_param/width = 1.0
-shader_param/pattern = 1
-shader_param/inside = false
-shader_param/add_margins = true
-shader_param/speed = 2.5
-shader_param/active = true
+shader = ExtResource("3")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/speed = 2.5
+shader_parameter/active = true
 
 [node name="PlayerRune" type="Node2D"]
-scale = Vector2( 2, 2 )
-script = ExtResource( 1 )
-red_animation = ExtResource( 2 )
-blue_animation = ExtResource( 4 )
-yellow_animation = ExtResource( 5 )
-green_animation = ExtResource( 6 )
-purple_animation = ExtResource( 8 )
-orange_animation = ExtResource( 7 )
+scale = Vector2(2, 2)
+script = ExtResource("1")
+red_animation = ExtResource("2")
+blue_animation = ExtResource("4")
+yellow_animation = ExtResource("5")
+green_animation = ExtResource("6")
+purple_animation = ExtResource("8")
+orange_animation = ExtResource("7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource( 1 )
-position = Vector2( 20, 20 )
-frames = ExtResource( 2 )
+material = SubResource("1")
+position = Vector2(20, 20)
+sprite_frames = ExtResource("2")
 frame = 3
-playing = true

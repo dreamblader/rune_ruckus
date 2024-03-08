@@ -26,6 +26,21 @@ gravity = Vector3(0, -30, 0)
 scale_curve = SubResource("3")
 color_ramp = SubResource("GradientTexture1D_2u8x7")
 
+[sub_resource type="Animation" id="Animation_yyvqq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0, 0, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_ry7sx"]
 resource_name = "blink"
 length = 2.0
@@ -43,21 +58,6 @@ tracks/0/keys = {
 "values": [Color(1, 0, 0, 1), Color(1, 0, 0, 0), Color(1, 0, 0, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_yyvqq"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PointLight2D:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0, 0, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6abcf"]
 _data = {
 "RESET": SubResource("Animation_yyvqq"),
@@ -69,6 +69,7 @@ scale = Vector2(2, 2)
 script = ExtResource("2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 2
 texture = ExtResource("1")
 
 [node name="Detector" type="RayCast2D" parent="."]
@@ -84,6 +85,7 @@ speed_scale = 5.0
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(1, 0, 0, 1)
+range_item_cull_mask = 2
 texture = ExtResource("3_nywuc")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
