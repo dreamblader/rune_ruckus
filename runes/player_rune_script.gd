@@ -23,6 +23,7 @@ func init_sprite() -> void:
 
 func change_color(new_color:COLOR) -> void:
 	init_sprite()
+	var active_frame: int = 2 if pivot else 0
 	match new_color:
 		COLOR.RED:
 			sprite.frames = red_animation
@@ -38,6 +39,7 @@ func change_color(new_color:COLOR) -> void:
 			sprite.frames = orange_animation
 		_: #NONE
 			push_error("INCORRECT SET COLOR EXCEPTION @ PlayerRune")
+	sprite.frame = active_frame
 	color = new_color
 
 

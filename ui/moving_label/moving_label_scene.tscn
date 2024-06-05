@@ -46,8 +46,8 @@ custom_minimum_size = Vector2(100, 80)
 layout_mode = 3
 anchor_right = 0.0520833
 anchor_bottom = 0.0740741
-offset_right = 1700.0
-offset_bottom = 1360.0
+offset_right = 1800.0
+offset_bottom = 1440.0
 script = ExtResource("1")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]

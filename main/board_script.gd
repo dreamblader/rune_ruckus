@@ -57,7 +57,7 @@ signal submit_level(level)
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("spell"):
+	if event.is_action_pressed("spell") && !pause:
 		apply_spell([Rune.COLOR.PURPLE, Rune.COLOR.YELLOW, Rune.COLOR.GREEN]) # TODO TESTER
 		#emit_signal("cast_spell")
 	
