@@ -1,44 +1,57 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://dme6y10m58eex"]
 
-[ext_resource path="res://misc/backgrounds/wall.jpg" type="Texture2D" id=1]
-[ext_resource path="res://font/Anton-Regular.ttf" type="FontFile" id=2]
-[ext_resource path="res://font/impact_font.tres" type="FontFile" id=3]
-[ext_resource path="res://options/options_script.gd" type="Script" id=4]
+[ext_resource type="Texture2D" uid="uid://duv3svkonxctm" path="res://misc/backgrounds/wall.jpg" id="1"]
+[ext_resource type="FontFile" uid="uid://busfghxs8iyp0" path="res://font/Anton-Regular.ttf" id="2"]
+[ext_resource type="Script" path="res://options/options_script.gd" id="4"]
 
-[sub_resource type="FontFile" id=1]
-size = 80
-outline_size = 5
-font_data = ExtResource( 2 )
-
-[sub_resource type="FontFile" id=2]
-size = 65
-outline_size = 5
-font_data = ExtResource( 2 )
+[sub_resource type="FontFile" id="2"]
+fallbacks = Array[Font]([ExtResource("2")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/60/0 = Vector2(0, 0)
+cache/0/60/0/ascent = 0.0
+cache/0/60/0/descent = 0.0
+cache/0/60/0/underline_position = 0.0
+cache/0/60/0/underline_thickness = 0.0
+cache/0/60/0/scale = 1.0
+cache/0/60/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/60/0/kerning_overrides/60/0 = Vector2(0, 0)
 
 [node name="Options" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 4 )
-options = [ NodePath("Menu/Main/Video/Fullscreen"), NodePath("Menu/Main/Video/Resolution"), NodePath("Menu/Main/Audio/Master"), NodePath("Menu/Main/Audio/Music"), NodePath("Menu/Main/Audio/Sounds"), NodePath("Menu/Main/Misc/Default"), NodePath("Menu/Main/Misc/Back") ]
+script = ExtResource("4")
+options = Array[NodePath]([NodePath("Menu/Main/Video/Fullscreen"), NodePath("Menu/Main/Video/Resolution"), NodePath("Menu/Main/Audio/Master"), NodePath("Menu/Main/Audio/Music"), NodePath("Menu/Main/Audio/Sounds"), NodePath("Menu/Main/Misc/Default"), NodePath("Menu/Main/Misc/Back")])
 
 [node name="Background" type="TextureRect" parent="."]
-modulate = Color( 0.1512, 0.1512, 0.27, 1 )
+modulate = Color(0.1512, 0.1512, 0.27, 1)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 1 )
-expand = true
+texture = ExtResource("1")
+expand_mode = 1
 
 [node name="Options" type="Label" parent="."]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -120.0
 offset_right = 120.0
 offset_bottom = 122.0
-theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = SubResource( 1 )
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 80
 text = "Options"
 
 [node name="Menu" type="CenterContainer" parent="."]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
@@ -47,101 +60,90 @@ offset_top = 120.0
 offset_right = 320.0
 
 [node name="Main" type="VBoxContainer" parent="Menu"]
-offset_left = 82.0
-offset_top = 47.0
-offset_right = 558.0
-offset_bottom = 912.0
+layout_mode = 2
+theme_override_constants/separation = 40
 
 [node name="Video" type="VBoxContainer" parent="Menu/Main"]
-offset_right = 476.0
-offset_bottom = 259.0
+layout_mode = 2
 
 [node name="Title" type="Label" parent="Menu/Main/Video"]
-offset_right = 476.0
-offset_bottom = 99.0
-theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = SubResource( 2 )
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 60
 text = "Video"
-align = 1
 
 [node name="Fullscreen" type="Label" parent="Menu/Main/Video"]
-offset_top = 103.0
-offset_right = 476.0
-offset_bottom = 179.0
-theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 3 )
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 50
 text = "Fullscreen: Off"
 
 [node name="Resolution" type="Label" parent="Menu/Main/Video"]
-offset_top = 183.0
-offset_right = 476.0
-offset_bottom = 259.0
-theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 3 )
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 50
 text = "Resolution: 1920 x 1080"
 
 [node name="Audio" type="VBoxContainer" parent="Menu/Main"]
-offset_top = 263.0
-offset_right = 476.0
-offset_bottom = 602.0
+layout_mode = 2
 
 [node name="Title" type="Label" parent="Menu/Main/Audio"]
-offset_right = 476.0
-offset_bottom = 99.0
-theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = SubResource( 2 )
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 60
 text = "Audio"
-align = 1
 
 [node name="Master" type="Label" parent="Menu/Main/Audio"]
-offset_top = 103.0
-offset_right = 476.0
-offset_bottom = 179.0
-theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 3 )
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 50
 text = "Master Volume: |||||......"
 
 [node name="Music" type="Label" parent="Menu/Main/Audio"]
-offset_top = 183.0
-offset_right = 476.0
-offset_bottom = 259.0
-theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 3 )
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 50
 text = "Music Volume: |||||......"
 
 [node name="Sounds" type="Label" parent="Menu/Main/Audio"]
-offset_top = 263.0
-offset_right = 476.0
-offset_bottom = 339.0
-theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 3 )
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 50
 text = "Sounds Volume: |||||......"
 
 [node name="Misc" type="VBoxContainer" parent="Menu/Main"]
-offset_top = 606.0
-offset_right = 476.0
-offset_bottom = 865.0
+layout_mode = 2
 
 [node name="Title" type="Label" parent="Menu/Main/Misc"]
-offset_right = 476.0
-offset_bottom = 99.0
-theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = SubResource( 2 )
-align = 1
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("2")
 
 [node name="Default" type="Label" parent="Menu/Main/Misc"]
-offset_top = 103.0
-offset_right = 476.0
-offset_bottom = 179.0
-theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 3 )
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 50
 text = "Back to Default Settings"
 
 [node name="Back" type="Label" parent="Menu/Main/Misc"]
-offset_top = 183.0
-offset_right = 476.0
-offset_bottom = 259.0
-theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 3 )
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 50
 text = "Back to Menu"
-align = 1
