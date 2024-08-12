@@ -59,7 +59,7 @@ func on_option_selected() -> void:
 	push_error("MenuException: _on_option_selected not implemented for "+name) 
 
 
-func _set_options(new_options:Array) -> void:
+func _set_options(new_options:Array[String]) -> void:
 	options = new_options
 	clear_menu()
 	init_menu()

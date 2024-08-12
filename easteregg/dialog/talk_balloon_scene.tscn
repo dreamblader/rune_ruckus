@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://e4so0cxhu8xj"]
+
+[ext_resource type="StyleBox" uid="uid://btsj87geyjyjb" path="res://easteregg/dialog/dialog_box.tres" id="1_lsyrh"]
+[ext_resource type="FontFile" uid="uid://busfghxs8iyp0" path="res://font/Anton-Regular.ttf" id="2_sbaw0"]
+
+[node name="Talk_Balloon" type="Node2D"]
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(20, 20)
+offset_right = 20.0
+offset_bottom = 20.0
+theme_override_styles/panel = ExtResource("1_lsyrh")
+
+[node name="Label" type="Label" parent="PanelContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_sbaw0")
+theme_override_font_sizes/font_size = 50
+
+[node name="Tail" type="Polygon2D" parent="."]
+position = Vector2(-6, 48)
+color = Color(0.882353, 0.882353, 0.882353, 1)
+polygon = PackedVector2Array(0, 0, -40, 20, -20, 20, 0, 20)

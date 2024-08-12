@@ -12,8 +12,8 @@ var tween:Tween
 var label_snapshot_pos_y:float
 var menu_layer: int = 0
 
-var start_options: Array
-var extra_options: Array
+var start_options: Array[String]
+var extra_options: Array[String]
 
 
 func _input(event: InputEvent) -> void:
