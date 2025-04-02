@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://m8ajicrqc1a7"]
 
-[ext_resource type="StyleBox" path="res://ui/margin_block_box.tres" id="2"]
-[ext_resource type="Script" path="res://ui/score_label/score_label_script.gd" id="3"]
+[ext_resource type="StyleBox" uid="uid://c5uuvhqyetrbj" path="res://ui/margin_block_box.tres" id="2"]
+[ext_resource type="Script" uid="uid://df8ubappgqity" path="res://ui/score_label/score_label_script.gd" id="3"]
 [ext_resource type="FontFile" uid="uid://qm41pjw6s1wh" path="res://font/Stick-Regular.ttf" id="3_w7n3g"]
 
 [sub_resource type="FontFile" id="FontFile_6lhb0"]

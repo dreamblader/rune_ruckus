@@ -1,25 +1,25 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://ycmjxtlih4sw"]
 
-[ext_resource path="res://runes/red/rune_r_sprite_sheet.png" type="Texture2D" id=1]
-[ext_resource path="res://runes/yellow/rune_y_sprite_sheet.png" type="Texture2D" id=2]
-[ext_resource path="res://runes/blue/rune_b_sprite_sheet.png" type="Texture2D" id=3]
-[ext_resource path="res://runes/preview_runes_script.gd" type="Script" id=4]
-[ext_resource path="res://runes/green/rune_g_sprite_sheet.png" type="Texture2D" id=5]
-[ext_resource path="res://runes/orange/rune_o_sprite_sheet.png" type="Texture2D" id=6]
-[ext_resource path="res://runes/purple/rune_p_sprite_sheet.png" type="Texture2D" id=7]
+[ext_resource type="Texture2D" uid="uid://b3dr7460v75iw" path="res://runes/red/rune_r_sprite_sheet.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://c5q6h6mbweoqh" path="res://runes/yellow/rune_y_sprite_sheet.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://b4pocpeu7uhuo" path="res://runes/blue/rune_b_sprite_sheet.png" id="3"]
+[ext_resource type="Script" uid="uid://dxb07i67h0qij" path="res://runes/preview_runes_script.gd" id="4"]
+[ext_resource type="Texture2D" uid="uid://cmvj68461chra" path="res://runes/green/rune_g_sprite_sheet.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://dw4a3py0a72qs" path="res://runes/orange/rune_o_sprite_sheet.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://bctbl3ma6ekix" path="res://runes/purple/rune_p_sprite_sheet.png" id="7"]
 
 [node name="PreviewRunes" type="Node2D"]
-script = ExtResource( 4 )
-red_rune = ExtResource( 1 )
-blue_rune = ExtResource( 3 )
-yellow_rune = ExtResource( 2 )
-green_rune = ExtResource( 5 )
-purple_rune = ExtResource( 7 )
-orange_rune = ExtResource( 6 )
+script = ExtResource("4")
+red_rune = ExtResource("1")
+blue_rune = ExtResource("3")
+yellow_rune = ExtResource("2")
+green_rune = ExtResource("5")
+purple_rune = ExtResource("7")
+orange_rune = ExtResource("6")
 
 [node name="SidePreview" type="Sprite2D" parent="."]
 hframes = 4
 
 [node name="PivotPreview" type="Sprite2D" parent="."]
-position = Vector2( 0, 40 )
+position = Vector2(0, 40)
 hframes = 4

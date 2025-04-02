@@ -84,6 +84,9 @@ func switch_color(color_value:int, special_id: int = -1) -> void:
 
 
 func set_color(color_value: Rune.COLOR) -> void:
+	if !self.is_node_ready():
+		return
+	
 	color = color_value
 	match color_value:
 		COLOR.RED:

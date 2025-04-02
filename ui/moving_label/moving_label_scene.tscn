@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://b5cqxx05omaki"]
 
-[ext_resource type="Script" path="res://ui/moving_label/moving_label_script.gd" id="1"]
+[ext_resource type="Script" uid="uid://35667857ltab" path="res://ui/moving_label/moving_label_script.gd" id="1"]
 [ext_resource type="FontFile" uid="uid://cwlop8tlk0phk" path="res://font/Impact.ttf" id="2"]
 
 [sub_resource type="Animation" id="5"]
@@ -37,8 +37,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6e6gm"]
 _data = {
-"RESET": SubResource("5"),
-"hover": SubResource("6")
+&"RESET": SubResource("5"),
+&"hover": SubResource("6")
 }
 
 [node name="MovingLabel" type="Control"]

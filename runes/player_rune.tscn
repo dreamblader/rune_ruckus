@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://ho4x7tck4c78"]
 
-[ext_resource type="Script" path="res://runes/player_rune_script.gd" id="1"]
+[ext_resource type="Script" uid="uid://cyerurrewr8rg" path="res://runes/player_rune_script.gd" id="1"]
 [ext_resource type="SpriteFrames" uid="uid://0p8ajg8eemx5" path="res://runes/red/red_active.tres" id="2"]
-[ext_resource type="Shader" path="res://runes/outline_shader.gdshader" id="3"]
+[ext_resource type="Shader" uid="uid://516g7bse7utr" path="res://runes/outline_shader.gdshader" id="3"]
 [ext_resource type="SpriteFrames" uid="uid://dvnh1e2lax3ex" path="res://runes/blue/blue_active.tres" id="4"]
 [ext_resource type="SpriteFrames" uid="uid://b2lxrrmekugbl" path="res://runes/yellow/yellow_active.tres" id="5"]
 [ext_resource type="SpriteFrames" uid="uid://b0n4kpa6xb4ih" path="res://runes/green/green_active.tres" id="6"]

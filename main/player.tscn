@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bux8p8t3rjfst"]
 
-[ext_resource type="Script" path="res://main/player_script.gd" id="1"]
+[ext_resource type="Script" uid="uid://dmj1f6voe6dx" path="res://main/player_script.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://ho4x7tck4c78" path="res://runes/player_rune.tscn" id="2"]
 [ext_resource type="AudioStream" uid="uid://cl77b2sa720ty" path="res://runes/rune_rotate_sfx.mp3" id="3"]
 [ext_resource type="AudioStream" uid="uid://d22h50ce5u5ht" path="res://runes/rune_move_sfx.mp3" id="4"]

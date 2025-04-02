@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=3 uid="uid://dueq7funaao34"]
 
-[ext_resource type="Script" path="res://ui/spell_block/spell_block_script.gd" id="1"]
+[ext_resource type="Script" uid="uid://dy4nhniyefmga" path="res://ui/spell_block/spell_block_script.gd" id="1"]
 [ext_resource type="StyleBox" uid="uid://c5uuvhqyetrbj" path="res://ui/margin_block_box.tres" id="2"]
 [ext_resource type="Texture2D" uid="uid://mdvnu2m8etc5" path="res://ui/symbols/b_symbol.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://polafq370t5k" path="res://ui/symbols/r_symbol.png" id="4"]
@@ -142,8 +142,8 @@ tracks/4/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8ys1h"]
 _data = {
-"RESET": SubResource("8"),
-"blink": SubResource("9")
+&"RESET": SubResource("8"),
+&"blink": SubResource("9")
 }
 
 [sub_resource type="Animation" id="1"]
@@ -379,12 +379,12 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wjcdf"]
 _data = {
-"RESET": SubResource("1"),
-"appear": SubResource("4"),
-"consume": SubResource("5"),
-"disappear": SubResource("6"),
-"shake": SubResource("3"),
-"yeet": SubResource("2")
+&"RESET": SubResource("1"),
+&"appear": SubResource("4"),
+&"consume": SubResource("5"),
+&"disappear": SubResource("6"),
+&"shake": SubResource("3"),
+&"yeet": SubResource("2")
 }
 
 [node name="SpellBlock" type="MarginContainer"]

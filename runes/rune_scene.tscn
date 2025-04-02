@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://dab0phae0p8pb"]
 
 [ext_resource type="SpriteFrames" uid="uid://dc02xvjifctid" path="res://runes/yellow/yellow_rune.tres" id="1"]
-[ext_resource type="Script" path="res://runes/rune_script.gd" id="2"]
+[ext_resource type="Script" uid="uid://l4s8ginfhtg5" path="res://runes/rune_script.gd" id="2"]
 [ext_resource type="SpriteFrames" uid="uid://b76vmv0gqsa52" path="res://runes/red/red_rune.tres" id="3"]
 [ext_resource type="SpriteFrames" uid="uid://pt1kv33t3nyl" path="res://runes/blue/blue_rune.tres" id="4"]
 [ext_resource type="SpriteFrames" uid="uid://clkmucey0msir" path="res://runes/green/green_rune.tres" id="5"]
@@ -31,6 +31,7 @@ pyg_rune = ExtResource("14")
 roy_rune = ExtResource("11")
 gob_rune = ExtResource("12")
 boy_rune = ExtResource("13")
+color = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(40, 40)

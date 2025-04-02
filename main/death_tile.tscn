@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://b7r5whj0u3s4n"]
 
 [ext_resource type="Texture2D" uid="uid://cg4ddoie8gcjv" path="res://misc/backgrounds/death_tile.png" id="1"]
-[ext_resource type="Script" path="res://main/death_tile_script.gd" id="2"]
+[ext_resource type="Script" uid="uid://jbm4chn1nl3h" path="res://main/death_tile_script.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://bq6qqpey1yla2" path="res://misc/orb/orb.png" id="3_nywuc"]
 
 [sub_resource type="Gradient" id="Gradient_xgfqq"]
@@ -60,8 +60,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6abcf"]
 _data = {
-"RESET": SubResource("Animation_yyvqq"),
-"blink": SubResource("Animation_ry7sx")
+&"RESET": SubResource("Animation_yyvqq"),
+&"blink": SubResource("Animation_ry7sx")
 }
 
 [node name="DeathTile" type="Node2D"]

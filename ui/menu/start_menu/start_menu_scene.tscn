@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://ce305l5hydebd"]
 
-[ext_resource type="Script" path="res://ui/menu/start_menu/start_menu_script.gd" id="1"]
+[ext_resource type="Script" uid="uid://c2yj5uoc5arky" path="res://ui/menu/start_menu/start_menu_script.gd" id="1"]
 [ext_resource type="FontFile" uid="uid://busfghxs8iyp0" path="res://font/Anton-Regular.ttf" id="2"]
 [ext_resource type="Texture2D" uid="uid://cvfeox571i71c" path="res://ui/menu/start_menu/title_card_sprite_sheet.png" id="3"]
 

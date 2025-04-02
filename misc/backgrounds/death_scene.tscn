@@ -70,9 +70,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5jjmp"]
 _data = {
-"RESET": SubResource("4"),
-"float": SubResource("5"),
-"hover": SubResource("6")
+&"RESET": SubResource("4"),
+&"float": SubResource("5"),
+&"hover": SubResource("6")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="7"]

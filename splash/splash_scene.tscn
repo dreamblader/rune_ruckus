@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cqtvciigq2tg8" path="res://splash/logo/tilted_sword.svg" id="1"]
 [ext_resource type="Texture2D" uid="uid://dbc7gpiam4lg1" path="res://splash/logo/logo_text.svg" id="2"]
-[ext_resource type="Script" path="res://splash/splash_script.gd" id="3"]
+[ext_resource type="Script" uid="uid://oqttg4stgsgc" path="res://splash/splash_script.gd" id="3"]
 [ext_resource type="PackedScene" uid="uid://d0xjn3dbvovkp" path="res://game_scene.tscn" id="4"]
 
 [sub_resource type="Curve" id="3"]
@@ -139,8 +139,8 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_303s5"]
 _data = {
-"RESET": SubResource("1"),
-"splash": SubResource("2")
+&"RESET": SubResource("1"),
+&"splash": SubResource("2")
 }
 
 [node name="Splash" type="Control"]

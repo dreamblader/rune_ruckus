@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://0cc672lgw4ka"]
 
-[ext_resource type="Script" path="res://ui/menu/death_menu/death_menu_script.gd" id="1"]
+[ext_resource type="Script" uid="uid://b36ts5ewt2gft" path="res://ui/menu/death_menu/death_menu_script.gd" id="1"]
 [ext_resource type="FontFile" uid="uid://qm41pjw6s1wh" path="res://font/Stick-Regular.ttf" id="2"]
 [ext_resource type="StyleBox" uid="uid://c5uuvhqyetrbj" path="res://ui/margin_block_box.tres" id="4"]
 

@@ -1,15 +1,15 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=11 format=3 uid="uid://bpqi14l2sw6ac"]
 
-[ext_resource path="res://ui/progress_bar/remove_bar_under.png" type="Texture2D" id=1]
-[ext_resource path="res://ui/progress_bar/remove_bar_over.png" type="Texture2D" id=2]
-[ext_resource path="res://ui/progress_bar/remove_bar_progress.png" type="Texture2D" id=3]
-[ext_resource path="res://ui/progress_bar/progress_bar_script.gd" type="Script" id=4]
-[ext_resource path="res://ui/symbols/r_symbol.png" type="Texture2D" id=5]
-[ext_resource path="res://ui/symbols/b_symbol.png" type="Texture2D" id=6]
-[ext_resource path="res://ui/symbols/y_symbol.png" type="Texture2D" id=7]
-[ext_resource path="res://ui/symbols/g_symbol.png" type="Texture2D" id=8]
-[ext_resource path="res://ui/symbols/o_symbol.png" type="Texture2D" id=9]
-[ext_resource path="res://ui/symbols/p_symbol.png" type="Texture2D" id=10]
+[ext_resource type="Texture2D" uid="uid://c22h6wx5bb5pe" path="res://ui/progress_bar/remove_bar_under.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://ch07lub6laau0" path="res://ui/progress_bar/remove_bar_over.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://wo7t8f412ac2" path="res://ui/progress_bar/remove_bar_progress.png" id="3"]
+[ext_resource type="Script" uid="uid://bawjwimraxu40" path="res://ui/progress_bar/progress_bar_script.gd" id="4"]
+[ext_resource type="Texture2D" uid="uid://polafq370t5k" path="res://ui/symbols/r_symbol.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://mdvnu2m8etc5" path="res://ui/symbols/b_symbol.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://du5rh35hlvlkk" path="res://ui/symbols/y_symbol.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://dqllw2hs1rd62" path="res://ui/symbols/g_symbol.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://dai6341j31w5" path="res://ui/symbols/o_symbol.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://ljoyjacxi0qn" path="res://ui/symbols/p_symbol.png" id="10"]
 
 [node name="ColorProgress" type="Control"]
 anchor_top = 0.5
@@ -17,20 +17,20 @@ anchor_bottom = 0.5
 offset_top = -540.0
 offset_right = 100.0
 offset_bottom = 10.0
-custom_minimum_size = Vector2( 120, 0 )
-scale = Vector2( 2, 2 )
-script = ExtResource( 4 )
-red_symbol = ExtResource( 5 )
-blue_symbol = ExtResource( 6 )
-yellow_symbol = ExtResource( 7 )
-green_symbol = ExtResource( 8 )
-purple_symbol = ExtResource( 10 )
-orange_symbol = ExtResource( 9 )
+custom_minimum_size = Vector2(120, 0)
+scale = Vector2(2, 2)
+script = ExtResource("4")
+red_symbol = ExtResource("5")
+blue_symbol = ExtResource("6")
+yellow_symbol = ExtResource("7")
+green_symbol = ExtResource("8")
+purple_symbol = ExtResource("10")
+orange_symbol = ExtResource("9")
 
 [node name="Label" type="TextureRect" parent="."]
 offset_right = 120.0
 offset_bottom = 120.0
-custom_minimum_size = Vector2( 120, 0 )
+custom_minimum_size = Vector2(120, 0)
 expand = true
 
 [node name="ProgressBar" type="TextureProgressBar" parent="."]
@@ -38,14 +38,14 @@ offset_left = 40.0
 offset_top = 120.0
 offset_right = 60.0
 offset_bottom = 320.0
-custom_minimum_size = Vector2( 20, 0 )
-scale = Vector2( 2, 2 )
+custom_minimum_size = Vector2(20, 0)
+scale = Vector2(2, 2)
 size_flags_horizontal = 5
 size_flags_vertical = 5
 max_value = 20.0
 step = 0.1
-texture_under = ExtResource( 1 )
-texture_over = ExtResource( 2 )
-texture_progress = ExtResource( 3 )
+texture_under = ExtResource("1")
+texture_over = ExtResource("2")
+texture_progress = ExtResource("3")
 fill_mode = 3
 nine_patch_stretch = true
