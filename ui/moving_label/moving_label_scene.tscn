@@ -49,6 +49,7 @@ anchor_bottom = 0.0740741
 offset_right = 1800.0
 offset_bottom = 1440.0
 script = ExtResource("1")
+text = "TEST"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 texture_filter = 2
@@ -62,13 +63,15 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
 theme_override_fonts/normal_font = ExtResource("2")
 theme_override_font_sizes/normal_font_size = 50
+text = "TEST"
 scroll_active = false
-visible_characters = 0
+shortcut_keys_enabled = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_6e6gm")
+&"": SubResource("AnimationLibrary_6e6gm")
 }

@@ -11,6 +11,7 @@ var tween:Tween
 
 func _ready() -> void:
 	label.text = text
+	label.visible_ratio = 0
 	#update_size()
 
 
@@ -22,7 +23,7 @@ func update_size() -> void:
 func appear() -> void:
 	tween = create_tween()
 	animation.play("hover")
-	tween.tween_property(label, "visible_characters", text.length(), text_show_time)
+	tween.tween_property(label, "visible_ratio", 1, text_show_time)
 
 
 func force_appear() -> void:
