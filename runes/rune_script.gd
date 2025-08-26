@@ -30,8 +30,11 @@ var is_floating:bool = true
 var does_exist:bool = true
 var chain_pitch:float = 1.0
 
+var group: Dictionary
+var visited: bool = false
 var v_power:int = 1
 var h_power:int = 1
+var power: int = 1
 var max_power:int = 4
 
 var tween:Tween
@@ -55,6 +58,7 @@ func _ready() -> void:
 	sprite.frame = 0
 	column_pos = snap_x
 	set_color(color)
+	reset_chains()
 
 
 func _physics_process(delta: float) -> void:
@@ -101,6 +105,8 @@ func set_color(color_value: Rune.COLOR) -> void:
 			sprite.frames = purple_rune
 		COLOR.ORANGE:
 			sprite.frames = orange_rune
+		COLOR.SPECIAL:
+			pass
 		_:
 			push_error("INCORRECT SET COLOR EXCEPTION @ Rune")
 	finish_update()
@@ -141,24 +147,57 @@ func collision_check(collider:Object) -> void:
 		drop_sound.play()
 
 
-func init_chain_check() -> void:
+func init_chain_check(mode: int) -> void:
 	for side in SIDE.values():
-		check_chain(side, [self])
+		if mode == 0:
+			check_chain_A(side, self.group, color)
+		else:
+			check_chain_B(side, [self])
+	self.visited = true
 	v_power = chains[SIDE.VERTICAL].size()
 	h_power = chains[SIDE.HORIZONTAL].size()
-	update_sprite()
-	
+	update_power()
 
-#TODO there is something breaking here in Godot 4
-func check_chain(at_side:int, chain:Array) -> Array:
+
+func update_power() -> void:
+	power = group.size()
+	update_sprite()
+
+
+func check_chain_A(at_side:int, chain:Dictionary, color_chain: COLOR) -> void:
+	if chain != self.group:
+		chain.merge(self.group)
+		for rune_name in group:
+			var rune = group[rune_name]
+			rune.group = chain
+			rune.update_power()
+	
+	if visited:
+		return
+	
+	var collider = detect_body(at_side)
+
+	if !is_rune(collider):
+		return
+
+	var next_rune = collider as Rune
+	var color_of_chain = color_chain if color_chain != COLOR.SPECIAL else next_rune.color
+	if is_chainable_rune_A(collider, color_of_chain):
+		self.group[next_rune.name] = next_rune
+		for side in SIDE.values():
+			next_rune.check_chain_A(side, self.group, color_of_chain)
+		next_rune.visited = true
+
+
+func check_chain_B(at_side:int, chain:Array) -> Array:
 	var my_chain: Array = self.chains[at_side]
 	if my_chain.is_empty():
 		my_chain.append_array(chain) 
 		var collider = detect_body(at_side)
-		if is_chainable_rune(collider):
+		if is_chainable_rune_B(collider):
 			var next_rune = collider as Rune
 			my_chain.append(next_rune)
-			var result = next_rune.check_chain(at_side, my_chain)
+			var result = next_rune.check_chain_B(at_side, my_chain)
 			my_chain.clear()
 			my_chain.append_array(result)
 	else:
@@ -181,7 +220,11 @@ func detect_body(at_side:int) -> Object:
 	return detector.get_collider()
 
 
-func is_chainable_rune(body) -> bool:
+func is_chainable_rune_A(rune, color) -> bool:
+	return (rune.color == color || rune.color == COLOR.SPECIAL)
+
+
+func is_chainable_rune_B(body) -> bool:
 	return is_rune(body) && (body.color == self.color || chain_has_specials(body))
 
 
@@ -250,10 +293,12 @@ func gravity_call() -> void:
 
 
 func get_power() -> float:
-	return max(v_power, h_power)
+	return max(v_power, h_power, power)
 
 
 func reset_chains() -> void:
+	group = {self.name: self}
+	visited = false
 	for chain in chains:
 		chain.clear()
 

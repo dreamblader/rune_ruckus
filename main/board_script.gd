@@ -55,6 +55,8 @@ signal cast_spell()
 signal submit_spell_code(code)
 signal submit_level(level)
 
+enum GAMEMODE {A, B}
+
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("spell") && !pause:
@@ -227,7 +229,7 @@ func add_pitch(runes, chain_number) -> void:
 func check_runes(runes) -> void:
 	for rune in runes:
 		if rune != null && is_instance_valid(rune):
-			rune.init_chain_check()
+			rune.init_chain_check(GAMEMODE.A)
 
 
 func wait_runes_explode(runes) -> void:
