@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://cwk18juqak2d2"]
+
+[ext_resource type="Texture2D" uid="uid://pwybiciocnek" path="res://ui/rune_tablet/rune_tablet_complete.png" id="1_7h7ua"]
+[ext_resource type="Shader" uid="uid://b7cq3bp6m4cs5" path="res://ui/rune_tablet/rune_tablet_glow.gdshader" id="1_nnu1i"]
+[ext_resource type="Script" uid="uid://erth65jpt4rw" path="res://ui/rune_tablet/rune_tablet_script.gd" id="1_qqobq"]
+[ext_resource type="FontFile" uid="uid://qm41pjw6s1wh" path="res://font/Stick-Regular.ttf" id="2_rtoru"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rtoru"]
+shader = ExtResource("1_nnu1i")
+shader_parameter/glow_color = Color(1, 0, 0, 1)
+shader_parameter/enable = false
+shader_parameter/full_glow = false
+shader_parameter/glow_velocity = 1.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nnu1i"]
+shader = ExtResource("1_nnu1i")
+shader_parameter/glow_color = Color(1, 0, 0, 1)
+shader_parameter/enable = false
+shader_parameter/full_glow = false
+shader_parameter/glow_velocity = 1.5
+
+[node name="RuneTablet" type="MarginContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(2, 2)
+script = ExtResource("1_qqobq")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+material = SubResource("ShaderMaterial_rtoru")
+layout_mode = 2
+texture = ExtResource("1_7h7ua")
+patch_margin_left = 40
+patch_margin_top = 40
+patch_margin_right = 40
+patch_margin_bottom = 40
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="Label" type="Label" parent="MarginContainer"]
+material = SubResource("ShaderMaterial_nnu1i")
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_rtoru")
+theme_override_font_sizes/font_size = 25
+text = "TESTING SOME STUFF"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -109,7 +109,7 @@ visible = false
 position = Vector2(452.5, 640)
 
 [node name="Menu" parent="." instance=ExtResource("8")]
-position = Vector2(520, 360)
+position = Vector2(520, 118)
 options = Array[String](["Start", "Extras", "Options", "Quit Game"])
 menu_font_size = 50
 menu_font = ExtResource("9_ou38g")

@@ -28,5 +28,11 @@ func get_color() -> Color:
 			return Color(1,1,0)
 		Rune.COLOR.BLUE:
 			return Color(0,0,1)
+		Rune.COLOR.GREEN:
+			return Color(0,1,0)
+		Rune.COLOR.PURPLE:
+			return Color(1,0,1)
+		Rune.COLOR.ORANGE:
+			return Color(1,0.5,0)
 		_:
 			return Color(1,1,1)
