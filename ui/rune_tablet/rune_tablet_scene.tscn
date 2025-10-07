@@ -6,17 +6,21 @@
 [ext_resource type="FontFile" uid="uid://qm41pjw6s1wh" path="res://font/Stick-Regular.ttf" id="2_rtoru"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rtoru"]
+resource_local_to_scene = true
 shader = ExtResource("1_nnu1i")
 shader_parameter/glow_color = Color(1, 0, 0, 1)
 shader_parameter/enable = false
 shader_parameter/full_glow = false
+shader_parameter/animate = true
 shader_parameter/glow_velocity = 1.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nnu1i"]
+resource_local_to_scene = true
 shader = ExtResource("1_nnu1i")
 shader_parameter/glow_color = Color(1, 0, 0, 1)
 shader_parameter/enable = false
 shader_parameter/full_glow = false
+shader_parameter/animate = true
 shader_parameter/glow_velocity = 1.5
 
 [node name="RuneTablet" type="MarginContainer"]

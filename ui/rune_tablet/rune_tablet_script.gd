@@ -1,4 +1,5 @@
 extends MarginContainer
+class_name RuneTablet
 
 @onready var tablet = $NinePatchRect
 @onready var text = $MarginContainer/Label
@@ -19,6 +20,7 @@ func _ready() -> void:
 	
 	text_material.set_shader_parameter("glow_color", glow_color)
 	tablet_material.set_shader_parameter("glow_color", glow_color)
+	tablet_material.set_shader_parameter("animate", false)
 
 
 func select() -> void:

@@ -59,13 +59,13 @@ enum GAMEMODE {A, B}
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("spell") && !pause:
+	if event.is_action_pressed("spell") && !pause && is_playing:
 		apply_spell([Rune.COLOR.PURPLE, Rune.COLOR.YELLOW, Rune.COLOR.GREEN]) # TODO TESTER
 		#emit_signal("cast_spell")
 	
 	if is_over && event.is_action_pressed("ui_accept"):
 		skip_death_animation()
-	elif death_tween == null && is_playing && event.is_action_pressed("ui_accept"):
+	elif is_playing && event.is_action_pressed("ui_accept"):
 		_pause()
 
 
@@ -140,6 +140,7 @@ func spawn_player() -> void:
 
 
 func start_game_over() -> void:
+	is_playing = false
 	emit_signal("game_over", false)
 	player.is_holding = false
 	next_runes.clear()

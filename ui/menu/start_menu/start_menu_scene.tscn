@@ -1,21 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://ce305l5hydebd"]
+[gd_scene load_steps=17 format=3 uid="uid://ce305l5hydebd"]
 
 [ext_resource type="Script" uid="uid://c2yj5uoc5arky" path="res://ui/menu/start_menu/start_menu_script.gd" id="1"]
-[ext_resource type="FontFile" uid="uid://busfghxs8iyp0" path="res://font/Anton-Regular.ttf" id="2"]
 [ext_resource type="Texture2D" uid="uid://cvfeox571i71c" path="res://ui/menu/start_menu/title_card_sprite_sheet.png" id="3"]
 [ext_resource type="PackedScene" uid="uid://cwk18juqak2d2" path="res://ui/rune_tablet/rune_tablet_scene.tscn" id="4_g6jo0"]
-
-[sub_resource type="FontFile" id="15"]
-fallbacks = Array[Font]([ExtResource("2")])
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
 [sub_resource type="AtlasTexture" id="2"]
 atlas = ExtResource("3")
@@ -113,20 +100,20 @@ animations = [{
 script = ExtResource("1")
 min_glow_wait = 1.5
 max_glow_wait = 3.5
-options = Array[String](["Start", "Extras", "Options"])
-menu_font = SubResource("15")
-root_path = NodePath("Content")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(2, 2)
+scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("14")
 speed_scale = 2.0
 
 [node name="Content" type="CenterContainer" parent="."]
 custom_minimum_size = Vector2(300, 300)
+offset_left = -176.0
 offset_top = 120.0
-offset_bottom = 120.0
+offset_right = 136.0
+offset_bottom = 700.0
 grow_horizontal = 2
+scale = Vector2(1.25, 1.25)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Content"]
 layout_mode = 2
