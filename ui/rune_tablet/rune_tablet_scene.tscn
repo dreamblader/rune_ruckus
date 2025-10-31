@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cwk18juqak2d2"]
+[gd_scene load_steps=9 format=3 uid="uid://cwk18juqak2d2"]
 
 [ext_resource type="Texture2D" uid="uid://pwybiciocnek" path="res://ui/rune_tablet/rune_tablet_complete.png" id="1_7h7ua"]
 [ext_resource type="Shader" uid="uid://b7cq3bp6m4cs5" path="res://ui/rune_tablet/rune_tablet_glow.gdshader" id="1_nnu1i"]
 [ext_resource type="Script" uid="uid://erth65jpt4rw" path="res://ui/rune_tablet/rune_tablet_script.gd" id="1_qqobq"]
 [ext_resource type="FontFile" uid="uid://qm41pjw6s1wh" path="res://font/Stick-Regular.ttf" id="2_rtoru"]
+[ext_resource type="AudioStream" uid="uid://db3b6dy24tfdg" path="res://runes/rune_explode_sfx.mp3" id="5_givhq"]
+[ext_resource type="AudioStream" uid="uid://d22h50ce5u5ht" path="res://runes/rune_move_sfx.mp3" id="6_qt121"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rtoru"]
 resource_local_to_scene = true
@@ -56,3 +58,10 @@ theme_override_font_sizes/font_size = 25
 text = "TESTING SOME STUFF"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Accept" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_givhq")
+
+[node name="Move" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_qt121")
+pitch_scale = 0.37

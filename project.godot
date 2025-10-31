@@ -18,6 +18,7 @@ config/icon="res://game_icon.png"
 [autoload]
 
 SettingsControl="*res://options/settings_control.gd"
+GameData="*res://main/game_data_script.gd"
 
 [display]
 
