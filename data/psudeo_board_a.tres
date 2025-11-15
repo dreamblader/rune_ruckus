@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="PseudoBoard" load_steps=13 format=3 uid="uid://mykrrlb74h24"]
+
+[ext_resource type="Script" uid="uid://buwlnn0ox50vt" path="res://data/score_data_resource.gd" id="1_eiajk"]
+[ext_resource type="Script" uid="uid://b0g6ki58t7slu" path="res://data/pseudo_leaderboard.gd" id="2_t15c2"]
+
+[sub_resource type="Resource" id="Resource_eiajk"]
+script = ExtResource("1_eiajk")
+player_name = "Test"
+score = 1000
+metadata/_custom_type_script = "uid://buwlnn0ox50vt"
+
+[sub_resource type="Resource" id="Resource_t15c2"]
+script = ExtResource("1_eiajk")
+metadata/_custom_type_script = "uid://buwlnn0ox50vt"
+
+[sub_resource type="Resource" id="Resource_siexm"]
+script = ExtResource("1_eiajk")
+metadata/_custom_type_script = "uid://buwlnn0ox50vt"
+
+[sub_resource type="Resource" id="Resource_bbek6"]
+script = ExtResource("1_eiajk")
+metadata/_custom_type_script = "uid://buwlnn0ox50vt"
+
+[sub_resource type="Resource" id="Resource_if6iy"]
+script = ExtResource("1_eiajk")
+metadata/_custom_type_script = "uid://buwlnn0ox50vt"
+
+[sub_resource type="Resource" id="Resource_bb2my"]
+script = ExtResource("1_eiajk")
+metadata/_custom_type_script = "uid://buwlnn0ox50vt"
+
+[sub_resource type="Resource" id="Resource_3cic0"]
+script = ExtResource("1_eiajk")
+metadata/_custom_type_script = "uid://buwlnn0ox50vt"
+
+[sub_resource type="Resource" id="Resource_frs7e"]
+script = ExtResource("1_eiajk")
+metadata/_custom_type_script = "uid://buwlnn0ox50vt"
+
+[sub_resource type="Resource" id="Resource_pjoud"]
+script = ExtResource("1_eiajk")
+metadata/_custom_type_script = "uid://buwlnn0ox50vt"
+
+[sub_resource type="Resource" id="Resource_8ly4a"]
+script = ExtResource("1_eiajk")
+metadata/_custom_type_script = "uid://buwlnn0ox50vt"
+
+[resource]
+script = ExtResource("2_t15c2")
+board = Array[ExtResource("1_eiajk")]([SubResource("Resource_eiajk"), SubResource("Resource_t15c2"), SubResource("Resource_siexm"), SubResource("Resource_bbek6"), SubResource("Resource_if6iy"), SubResource("Resource_bb2my"), SubResource("Resource_3cic0"), SubResource("Resource_frs7e"), SubResource("Resource_pjoud"), SubResource("Resource_8ly4a")])
+metadata/_custom_type_script = "uid://b0g6ki58t7slu"

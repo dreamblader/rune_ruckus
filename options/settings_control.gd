@@ -1,7 +1,7 @@
 extends Node
 
 var settings: Settings = Settings.new()
-var PATH: String = "user://settings.cfg"
+const PATH: String = "user://settings.cfg"
 var audio_mute_treshold:float = -50.0
 
 #KEYs
