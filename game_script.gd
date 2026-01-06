@@ -199,6 +199,8 @@ func open_options() -> void:
 
 func _on_Board_game_over(menu_flag) -> void:
 	if menu_flag:
+		#TODO get all ScoreData after name input and then add to game_data singleton
+		#round_data = ScoreData.new()
 		death_menu.visible = true
 	else:
 		board_viewport_container.material.set_shader_parameter("enabled", true)

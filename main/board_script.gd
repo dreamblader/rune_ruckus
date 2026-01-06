@@ -14,6 +14,11 @@ var LEVEL: int = 0
 var SCORE: float = 1.0
 var DROP_SCORE: float = 1.0
 
+#SCORE
+var spells_count: Dictionary = {}
+var game_time: float = 0
+
+#FLAGS
 var is_playing:bool = false
 var pause: bool = false
 var is_over:bool = false
@@ -74,6 +79,12 @@ func _ready() -> void:
 	spellcaster.ARENA_SIZE = background.size*2
 
 
+func _process(delta: float) -> void:
+	if is_playing && !pause:
+		game_time += delta
+		game_time = snapped(game_time, 0.0001)
+
+
 func start():
 	rng.randomize()
 	generate_runes()
@@ -82,6 +93,8 @@ func start():
 	player.move = GRID_SIZE.x
 	player.score = DROP_SCORE
 	spawn_player()
+	game_time = 0
+	spells_count.clear()
 	is_over = false
 	is_playing = true
 
@@ -291,6 +304,7 @@ func apply_spell(spell_code:Array) -> void:
 	
 	if spell_effect != Spells.Effect.NONE:
 		player.disable_player()
+		spells_count[spell_effect] = spells_count.get(spell_effect,0)+1
 		
 	spellcaster.cast_spell(spell_code, spell_effect, get_tree().get_nodes_in_group("Rune"))
 

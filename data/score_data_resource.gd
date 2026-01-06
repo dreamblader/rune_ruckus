@@ -12,6 +12,7 @@ const SCORE_KEY = "score"
 const GAME_TIME_KEY = "time"
 const SPELLS_CAST_KEY = "spells_cast"
 
+
 func _init(_player_name: String, _score:int, _game_time:int, _spells_cast:int) -> void:
 	self.player_name = _player_name
 	self.score = _score

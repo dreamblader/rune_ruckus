@@ -44,7 +44,7 @@ var game_data = {
 
 var view_board = {
 	"A":[],
-	"B:":[]
+	"B":[]
 }
 
 func _ready() -> void:
