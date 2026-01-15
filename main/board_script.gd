@@ -18,6 +18,8 @@ var DROP_SCORE: float = 1.0
 var spells_count: Dictionary = {}
 var game_time: float = 0
 
+var current_mode: GameData.GAMEMODE = GameData.GAMEMODE.A
+
 #FLAGS
 var is_playing:bool = false
 var pause: bool = false
@@ -60,8 +62,6 @@ signal cast_spell()
 signal submit_spell_code(code)
 signal submit_level(level)
 
-enum GAMEMODE {A, B}
-
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("spell") && !pause && is_playing:
@@ -80,12 +80,13 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if is_playing && !pause:
+	if is_playing && !pause && !is_over:
 		game_time += delta
 		game_time = snapped(game_time, 0.0001)
 
 
-func start():
+func start(mode: GameData.GAMEMODE):
+	current_mode = mode
 	rng.randomize()
 	generate_runes()
 	player.tick_move = TICK_MOVE 
@@ -243,7 +244,7 @@ func add_pitch(runes, chain_number) -> void:
 func check_runes(runes) -> void:
 	for rune in runes:
 		if rune != null && is_instance_valid(rune):
-			rune.init_chain_check(GAMEMODE.A)
+			rune.init_chain_check(current_mode)
 
 
 func wait_runes_explode(runes) -> void:

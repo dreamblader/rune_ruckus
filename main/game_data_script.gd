@@ -2,6 +2,7 @@ extends Node
 
 const PATH = "user://score.save"
 const MAX_BOARD_SIZE = 25
+enum GAMEMODE {A, B}
 #TODO add psudeo board resource here and create it for real for A and B GameModes
 
 var pseudo_leaderboard_scores = {
@@ -66,6 +67,14 @@ func save_file() -> void:
 	var file = FileAccess.open(PATH, FileAccess.WRITE)
 	file.store_var(game_data)
 	file.close()
+
+
+func get_rank(mode: int, score: float) -> int:
+	var current_rank = 1
+	var current_view_board = view_board[mode]
+	while score < current_view_board[current_rank -1]:
+		current_rank += 1
+	return current_rank
 
 
 func update_view_board(type:String) -> void:

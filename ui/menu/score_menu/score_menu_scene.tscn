@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqpmupeccd0a1"]
+
+[ext_resource type="Script" uid="uid://c6l65rmmqs37f" path="res://ui/menu/score_menu/score_menu_script.gd" id="1_qt3pk"]
+[ext_resource type="StyleBox" uid="uid://c5uuvhqyetrbj" path="res://ui/margin_block_box.tres" id="2_8hobf"]
+
+[node name="ScoreBoard" type="Node2D"]
+script = ExtResource("1_qt3pk")
+
+[node name="Content" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(40, 40)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 250.0
+offset_bottom = 75.0
+theme_override_styles/panel = ExtResource("2_8hobf")

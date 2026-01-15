@@ -123,16 +123,6 @@ script = ExtResource("10")
 [node name="SpellCaster" type="Node" parent="."]
 script = ExtResource("11")
 
-[node name="Label" type="Label" parent="."]
-offset_left = 99.0
-offset_top = 685.0
-offset_right = 455.0
-offset_bottom = 934.0
-theme_override_font_sizes/font_size = 35
-text = "0000"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [connection signal="runes_placed" from="Player" to="." method="_on_player_runes_placed"]
 [connection signal="send_score" from="Player" to="." method="_on_Player_send_score"]
 [connection signal="add_difficulty" from="SpellCaster" to="." method="_on_SpellCaster_add_difficulty"]

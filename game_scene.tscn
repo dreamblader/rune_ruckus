@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://d0xjn3dbvovkp"]
+[gd_scene load_steps=14 format=3 uid="uid://d0xjn3dbvovkp"]
 
 [ext_resource type="PackedScene" uid="uid://csqcpm74o3l7y" path="res://main/board.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://bypr18e3kutp5" path="res://ui/data_content_scene.tscn" id="2"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://0cc672lgw4ka" path="res://ui/menu/death_menu/death_menu_scene.tscn" id="6"]
 [ext_resource type="Shader" path="res://misc/backgrounds/death_shader.tres" id="7"]
 [ext_resource type="PackedScene" uid="uid://ce305l5hydebd" path="res://ui/menu/start_menu/start_menu_scene.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://bqpmupeccd0a1" path="res://ui/menu/score_menu/score_menu_scene.tscn" id="10_miq82"]
 [ext_resource type="PackedScene" uid="uid://bbd57tyn2rq8g" path="res://easteregg/easter_egg_scene.tscn" id="10_w6euy"]
 
 [sub_resource type="Environment" id="1"]
@@ -112,6 +113,10 @@ position = Vector2(520, 118)
 
 [node name="EasterEgg" parent="." instance=ExtResource("10_w6euy")]
 position = Vector2(-110, 1210)
+
+[node name="ScoreBoard" parent="." instance=ExtResource("10_miq82")]
+visible = false
+position = Vector2(452.5, 640)
 
 [connection signal="cast_spell" from="Content/MidContainer/Control/ViewPortBorder/SubViewportContainer/SubViewport/Board" to="." method="_on_Board_cast_spell"]
 [connection signal="emit_chain" from="Content/MidContainer/Control/ViewPortBorder/SubViewportContainer/SubViewport/Board" to="." method="_on_Board_emit_chain"]

@@ -9,6 +9,7 @@ extends Control
 @onready var board = $Content/MidContainer/Control/ViewPortBorder/SubViewportContainer/SubViewport/Board
 @onready var left_panel = $Content/LeftPadding
 @onready var death_menu = $DeathMenu
+@onready var score_menu = $ScoreBoard
 
 var orb_travel_time:float = 0.65
 var multiplier: int = 1
@@ -18,9 +19,19 @@ var color_mix_pool:int = -1
 
 var current_rune_score = 0
 var current_rune_chain = 1
+var selected_mode: GameData.GAMEMODE = GameData.GAMEMODE.A
 
-var score:int = 0
-var high_score:int = 10000
+var score:float = 0
+var high_score:float = 10000
+
+#CONTROLLER CHECK
+var is_controller_mode = false
+
+func _input(event: InputEvent) -> void:
+	var is_this_input_controller_mode = event is InputEventJoypadButton || event is InputEventJoypadMotion
+	if is_this_input_controller_mode != is_controller_mode:
+		is_controller_mode = is_this_input_controller_mode
+		change_mode()
 
 
 func _ready() -> void:
@@ -56,7 +67,7 @@ func open_board() -> void:
 	tween.set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(board_viewport, "size:y", 960, open_time)
 	tween.parallel().tween_property(board_viewport_container, "size:y", 960, open_time)
-	tween.tween_callback(Callable(board, "start"))
+	tween.tween_callback(Callable(board, "start").bind(selected_mode))
 
 
 func update_score() -> void:
@@ -181,6 +192,11 @@ func is_color_from_the_mix(color_check:int, mix_check:int) -> bool:
 			return false
 
 
+func change_mode() -> void:
+	score_menu.controller_mode = is_controller_mode
+	#TODO add to tutorial buttons tip
+
+
 func is_a_purple_mix(color_check:int) -> bool:
 	return color_check == Rune.COLOR.RED || color_check == Rune.COLOR.BLUE
 
@@ -201,6 +217,9 @@ func _on_Board_game_over(menu_flag) -> void:
 	if menu_flag:
 		#TODO get all ScoreData after name input and then add to game_data singleton
 		#round_data = ScoreData.new()
+		var rank = GameData.get_rank(selected_mode, score)
+		if rank <= GameData.MAX_BOARD_SIZE:
+			score_menu.start_record(rank, score, board.spells_count, board.game_time)
 		death_menu.visible = true
 	else:
 		board_viewport_container.material.set_shader_parameter("enabled", true)
