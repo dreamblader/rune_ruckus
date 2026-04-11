@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://bptm8dacn2gth"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://bptm8dacn2gth"]
 
 [ext_resource type="Texture2D" uid="uid://dw4a3py0a72qs" path="res://runes/orange/rune_o_sprite_sheet.png" id="1"]
 

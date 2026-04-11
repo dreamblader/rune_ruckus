@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cwk18juqak2d2"]
+[gd_scene format=3 uid="uid://cwk18juqak2d2"]
 
 [ext_resource type="Texture2D" uid="uid://pwybiciocnek" path="res://ui/rune_tablet/rune_tablet_complete.png" id="1_7h7ua"]
 [ext_resource type="Shader" uid="uid://b7cq3bp6m4cs5" path="res://ui/rune_tablet/rune_tablet_glow.gdshader" id="1_nnu1i"]
@@ -25,13 +25,13 @@ shader_parameter/full_glow = false
 shader_parameter/animate = true
 shader_parameter/glow_velocity = 1.5
 
-[node name="RuneTablet" type="MarginContainer"]
+[node name="RuneTablet" type="MarginContainer" unique_id=2072040127]
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(2, 2)
 script = ExtResource("1_qqobq")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=2049697294]
 material = SubResource("ShaderMaterial_rtoru")
 layout_mode = 2
 texture = ExtResource("1_7h7ua")
@@ -42,12 +42,12 @@ patch_margin_bottom = 40
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1535401845]
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_right = 15
 
-[node name="Label" type="Label" parent="MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer" unique_id=1271264956]
 material = SubResource("ShaderMaterial_nnu1i")
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -59,9 +59,9 @@ text = "TESTING SOME STUFF"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Accept" type="AudioStreamPlayer" parent="."]
+[node name="Accept" type="AudioStreamPlayer" parent="." unique_id=1799961572]
 stream = ExtResource("5_givhq")
 
-[node name="Move" type="AudioStreamPlayer" parent="."]
+[node name="Move" type="AudioStreamPlayer" parent="." unique_id=1019001132]
 stream = ExtResource("6_qt121")
 pitch_scale = 0.37

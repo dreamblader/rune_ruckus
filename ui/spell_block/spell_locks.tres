@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://desxlbvcvs5na"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://desxlbvcvs5na"]
 
 [ext_resource type="Texture2D" uid="uid://uwkfojslwa0f" path="res://ui/spell_block/lock_sprite_sheet.png" id="1"]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d0xjn3dbvovkp"]
+[gd_scene format=3 uid="uid://d0xjn3dbvovkp"]
 
 [ext_resource type="PackedScene" uid="uid://csqcpm74o3l7y" path="res://main/board.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://bypr18e3kutp5" path="res://ui/data_content_scene.tscn" id="2"]
@@ -28,7 +28,7 @@ border_color = Color(0.2, 0.2, 0.2, 1)
 shader = ExtResource("7")
 shader_parameter/enabled = false
 
-[node name="Game" type="Control"]
+[node name="Game" type="Control" unique_id=534701331]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -39,10 +39,10 @@ grow_vertical = 2
 script = ExtResource("3")
 orb_scene = ExtResource("5")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=849619163]
 environment = SubResource("1")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=1134613819]
 modulate = Color(0.1512, 0.1512, 0.27, 1)
 layout_mode = 0
 anchor_right = 1.0
@@ -50,13 +50,13 @@ anchor_bottom = 1.0
 texture = ExtResource("4")
 expand_mode = 1
 
-[node name="Content" type="HBoxContainer" parent="."]
+[node name="Content" type="HBoxContainer" parent="." unique_id=1155443034]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme_override_constants/separation = 0
 
-[node name="LeftPadding" type="MarginContainer" parent="Content"]
+[node name="LeftPadding" type="MarginContainer" parent="Content" unique_id=1591438311]
 custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
 theme_override_constants/margin_left = 0
@@ -64,35 +64,35 @@ theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="MidContainer" type="MarginContainer" parent="Content"]
+[node name="MidContainer" type="MarginContainer" parent="Content" unique_id=699046166]
 custom_minimum_size = Vector2(560, 0)
 layout_mode = 2
 
-[node name="Control" type="Control" parent="Content/MidContainer"]
+[node name="Control" type="Control" parent="Content/MidContainer" unique_id=1056595143]
 layout_mode = 2
 
-[node name="ViewPortBorder" type="PanelContainer" parent="Content/MidContainer/Control"]
+[node name="ViewPortBorder" type="PanelContainer" parent="Content/MidContainer/Control" unique_id=1185124483]
 layout_mode = 0
 offset_top = 57.0
 offset_right = 566.0
 offset_bottom = 1023.0
 theme_override_styles/panel = SubResource("2")
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="Content/MidContainer/Control/ViewPortBorder"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Content/MidContainer/Control/ViewPortBorder" unique_id=200282764]
 material = SubResource("3")
 custom_minimum_size = Vector2(560, 0)
 layout_mode = 2
 
-[node name="SubViewport" type="SubViewport" parent="Content/MidContainer/Control/ViewPortBorder/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="Content/MidContainer/Control/ViewPortBorder/SubViewportContainer" unique_id=163444556]
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 audio_listener_enable_2d = true
 size = Vector2i(560, 960)
 render_target_update_mode = 4
 
-[node name="Board" parent="Content/MidContainer/Control/ViewPortBorder/SubViewportContainer/SubViewport" instance=ExtResource("1")]
+[node name="Board" parent="Content/MidContainer/Control/ViewPortBorder/SubViewportContainer/SubViewport" unique_id=115339271 instance=ExtResource("1")]
 
-[node name="RightContainer" type="MarginContainer" parent="Content"]
+[node name="RightContainer" type="MarginContainer" parent="Content" unique_id=263364479]
 custom_minimum_size = Vector2(1020, 1080)
 layout_mode = 2
 theme_override_constants/margin_left = 0
@@ -100,23 +100,21 @@ theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="DataContent" parent="Content/RightContainer" instance=ExtResource("2")]
+[node name="DataContent" parent="Content/RightContainer" unique_id=390885839 instance=ExtResource("2")]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="DeathMenu" parent="." instance=ExtResource("6")]
+[node name="DeathMenu" parent="." unique_id=675048003 instance=ExtResource("6")]
 visible = false
 position = Vector2(452.5, 640)
 
-[node name="Menu" parent="." instance=ExtResource("8")]
+[node name="Menu" parent="." unique_id=2033544867 instance=ExtResource("8")]
 position = Vector2(520, 118)
 
-[node name="EasterEgg" parent="." instance=ExtResource("10_w6euy")]
+[node name="EasterEgg" parent="." unique_id=156624816 instance=ExtResource("10_w6euy")]
 position = Vector2(-110, 1210)
 
-[node name="ScoreBoard" parent="." instance=ExtResource("10_miq82")]
-visible = false
-position = Vector2(452.5, 640)
+[node name="ScoreBoard" parent="." unique_id=1194574516 instance=ExtResource("10_miq82")]
 
 [connection signal="cast_spell" from="Content/MidContainer/Control/ViewPortBorder/SubViewportContainer/SubViewport/Board" to="." method="_on_Board_cast_spell"]
 [connection signal="emit_chain" from="Content/MidContainer/Control/ViewPortBorder/SubViewportContainer/SubViewport/Board" to="." method="_on_Board_emit_chain"]

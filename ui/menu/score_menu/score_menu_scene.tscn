@@ -1,16 +1,254 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqpmupeccd0a1"]
+[gd_scene format=3 uid="uid://bqpmupeccd0a1"]
 
 [ext_resource type="Script" uid="uid://c6l65rmmqs37f" path="res://ui/menu/score_menu/score_menu_script.gd" id="1_qt3pk"]
-[ext_resource type="StyleBox" uid="uid://c5uuvhqyetrbj" path="res://ui/margin_block_box.tres" id="2_8hobf"]
+[ext_resource type="Shader" uid="uid://b7cq3bp6m4cs5" path="res://ui/rune_tablet/rune_tablet_glow.gdshader" id="2_xlu82"]
+[ext_resource type="Texture2D" uid="uid://pwybiciocnek" path="res://ui/rune_tablet/rune_tablet_complete.png" id="3_5bul2"]
+[ext_resource type="FontFile" uid="uid://qm41pjw6s1wh" path="res://font/Stick-Regular.ttf" id="4_ijf4m"]
+[ext_resource type="FontFile" uid="uid://busfghxs8iyp0" path="res://font/Anton-Regular.ttf" id="5_i3srx"]
 
-[node name="ScoreBoard" type="Node2D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ijf4m"]
+resource_local_to_scene = true
+shader = ExtResource("2_xlu82")
+shader_parameter/glow_color = Color(1, 0, 0, 1)
+shader_parameter/enable = false
+shader_parameter/full_glow = false
+shader_parameter/animate = true
+shader_parameter/glow_velocity = 1.5
+
+[sub_resource type="Animation" id="Animation_i3srx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(140, 215)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NinePatchRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1200, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Content:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vk5bk"]
+resource_name = "enter_end_mode"
+length = 1.2666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(140, 215), Vector2(140, 215)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NinePatchRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [Vector2(1200, 1200), Vector2(1200, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Content:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.75, 1.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xye5v"]
+resource_name = "enter_menu_mode"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(290, 200)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NinePatchRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [Vector2(250, 1200), Vector2(250, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_02dk7"]
+_data = {
+&"RESET": SubResource("Animation_i3srx"),
+&"enter_end_mode": SubResource("Animation_vk5bk"),
+&"enter_menu_mode": SubResource("Animation_xye5v")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vk5bk"]
+resource_local_to_scene = true
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="ScoreBoard" type="Node2D" unique_id=1035513763]
 script = ExtResource("1_qt3pk")
 
-[node name="Content" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(40, 40)
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1367993449]
+material = SubResource("ShaderMaterial_ijf4m")
+offset_left = 1200.0
+offset_right = 1340.0
+offset_bottom = 215.0
+scale = Vector2(5, 5)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("3_5bul2")
+patch_margin_left = 40
+patch_margin_top = 40
+patch_margin_right = 40
+patch_margin_bottom = 40
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect" unique_id=818990697]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 250.0
-offset_bottom = 75.0
-theme_override_styles/panel = ExtResource("2_8hobf")
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="RichTextLabel" type="RichTextLabel" parent="NinePatchRect/MarginContainer" unique_id=653447328]
+layout_mode = 2
+text = "1- X
+2- XX
+3 - XXX
+4 - XXXX
+5 - XXXXXX
+6 - XXXXXXX
+7 - XXXXXXXX
+8 - XXXXXXXXX
+9 - XXXXXXXXXX"
+scroll_active = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=996962270]
+libraries/ = SubResource("AnimationLibrary_02dk7")
+
+[node name="Content" type="PanelContainer" parent="." unique_id=450087359]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 160.0
+offset_top = 500.0
+offset_right = 880.0
+offset_bottom = 955.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(360, 227.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_vk5bk")
+metadata/_edit_group_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Content" unique_id=1736325149]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="MenuContainer" type="VBoxContainer" parent="Content/MarginContainer" unique_id=1364286622]
+layout_mode = 2
+
+[node name="RankInfo" type="Label" parent="Content/MarginContainer/MenuContainer" unique_id=1015743804]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("4_ijf4m")
+theme_override_font_sizes/font_size = 35
+text = "You got Xth place on the Score Rank
+Please input your name to save your score
+"
+horizontal_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="Content/MarginContainer/MenuContainer" unique_id=1525540305]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_i3srx")
+theme_override_font_sizes/font_size = 45
+placeholder_text = "MY NAME"
+alignment = 1
+context_menu_enabled = false
+emoji_menu_enabled = false
+
+[node name="Save" type="Label" parent="Content/MarginContainer/MenuContainer" unique_id=1166025468]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_ijf4m")
+theme_override_font_sizes/font_size = 35
+text = "
+SAVE SCORE"
+horizontal_alignment = 1
+
+[node name="Skip" type="Label" parent="Content/MarginContainer/MenuContainer" unique_id=200357578]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_ijf4m")
+theme_override_font_sizes/font_size = 35
+text = "SKIP"
+horizontal_alignment = 1

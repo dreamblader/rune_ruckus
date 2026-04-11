@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://pt1kv33t3nyl"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://pt1kv33t3nyl"]
 
 [ext_resource type="Texture2D" uid="uid://b4pocpeu7uhuo" path="res://runes/blue/rune_b_sprite_sheet.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://cc37augboxc1j" path="res://runes/blue/rune_b_chain_sprite_sheet.png" id="2"]

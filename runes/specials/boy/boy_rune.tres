@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://bcpxg47nucvpj"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://bcpxg47nucvpj"]
 
 [ext_resource type="Texture2D" uid="uid://o1vwt7f45w7o" path="res://runes/specials/boy/rune_special_boy_sprite_sheet.png" id="1"]
 
