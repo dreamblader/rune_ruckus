@@ -53,6 +53,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MarginContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_vk5bk"]
 resource_name = "enter_end_mode"
@@ -92,6 +104,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MarginContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.01, 1.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_xye5v"]
@@ -136,6 +160,42 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0.2, 0.2, 0.2, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijf4m"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3srx"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
 [node name="ScoreBoard" type="Node2D" unique_id=1035513763]
 script = ExtResource("1_qt3pk")
 
@@ -155,20 +215,25 @@ patch_margin_bottom = 40
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect" unique_id=818990697]
-layout_mode = 1
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=818990697]
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1203.0
+offset_right = 1904.0
+offset_bottom = 1075.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
 
-[node name="RichTextLabel" type="RichTextLabel" parent="NinePatchRect/MarginContainer" unique_id=653447328]
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer" unique_id=653447328]
 layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("4_ijf4m")
+theme_override_font_sizes/normal_font_size = 35
 text = "1- X
 2- XX
 3 - XXX
@@ -177,7 +242,16 @@ text = "1- X
 6 - XXXXXXX
 7 - XXXXXXXX
 8 - XXXXXXXXX
-9 - XXXXXXXXXX"
+9 - XXXXXXXXXX
+10 - XXXXXXXXXX
+11 - XXXXXXXXXXXX
+12 - XXXXXXXXXXXXX
+13 - XXXXXXXXXXXXXX
+14 - XXXXXXXXXXXXXXXX
+15 - XXXXXXXXXXXXXXXXX
+16 - XXXXXXXXXXXXXXXXXX
+17 - XXXXXXXXXXXXXXXXXXX
+18 - XXXXXXXXXXXXXXXXXXXX"
 scroll_active = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=996962270]
@@ -227,6 +301,8 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("5_i3srx")
 theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_ijf4m")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i3srx")
 placeholder_text = "MY NAME"
 alignment = 1
 context_menu_enabled = false

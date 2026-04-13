@@ -115,6 +115,7 @@ position = Vector2(520, 118)
 position = Vector2(-110, 1210)
 
 [node name="ScoreBoard" parent="." unique_id=1194574516 instance=ExtResource("10_miq82")]
+visible = false
 
 [connection signal="cast_spell" from="Content/MidContainer/Control/ViewPortBorder/SubViewportContainer/SubViewport/Board" to="." method="_on_Board_cast_spell"]
 [connection signal="emit_chain" from="Content/MidContainer/Control/ViewPortBorder/SubViewportContainer/SubViewport/Board" to="." method="_on_Board_emit_chain"]
