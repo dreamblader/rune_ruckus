@@ -15,6 +15,28 @@ shader_parameter/full_glow = false
 shader_parameter/animate = true
 shader_parameter/glow_velocity = 1.5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3srx"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
 [sub_resource type="Animation" id="Animation_i3srx"]
 length = 0.001
 tracks/0/type = "value"
@@ -64,6 +86,66 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Content/MarginContainer/MenuContainer/LineEdit:theme_override_styles/focus")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("StyleBoxFlat_i3srx")]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Content/MarginContainer/MenuContainer/Save:theme_override_colors/font_outline_color")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Content/MarginContainer/MenuContainer/Save:theme_override_constants/outline_size")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Content/MarginContainer/MenuContainer/Skip:theme_override_colors/font_outline_color")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Content/MarginContainer/MenuContainer/Skip:theme_override_constants/outline_size")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
 }
 
 [sub_resource type="Animation" id="Animation_vk5bk"]
@@ -145,11 +227,71 @@ tracks/1/keys = {
 "values": [Vector2(250, 1200), Vector2(250, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_ijf4m"]
+resource_name = "save_select"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Content/MarginContainer/MenuContainer/Save:theme_override_colors/font_outline_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 0, 0, 1), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Content/MarginContainer/MenuContainer/Save:theme_override_constants/outline_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [20]
+}
+
+[sub_resource type="Animation" id="Animation_02dk7"]
+resource_name = "skip_select"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Content/MarginContainer/MenuContainer/Skip:theme_override_colors/font_outline_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 0, 0, 1), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Content/MarginContainer/MenuContainer/Skip:theme_override_constants/outline_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [20]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_02dk7"]
 _data = {
 &"RESET": SubResource("Animation_i3srx"),
 &"enter_end_mode": SubResource("Animation_vk5bk"),
-&"enter_menu_mode": SubResource("Animation_xye5v")
+&"enter_menu_mode": SubResource("Animation_xye5v"),
+&"save_select": SubResource("Animation_ijf4m"),
+&"skip_select": SubResource("Animation_02dk7")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vk5bk"]
@@ -173,28 +315,6 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3srx"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(1, 1, 1, 0.75)
-draw_center = false
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(1, 0, 0, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
 
 [node name="ScoreBoard" type="Node2D" unique_id=1035513763]
 script = ExtResource("1_qt3pk")
@@ -225,34 +345,50 @@ offset_right = 1904.0
 offset_bottom = 1075.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 50
+theme_override_constants/margin_left = 55
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 55
 theme_override_constants/margin_bottom = 50
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer" unique_id=653447328]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=803326700]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("4_ijf4m")
-theme_override_font_sizes/normal_font_size = 35
-text = "1- X
-2- XX
-3 - XXX
-4 - XXXX
-5 - XXXXXX
-6 - XXXXXXX
-7 - XXXXXXXX
-8 - XXXXXXXXX
-9 - XXXXXXXXXX
-10 - XXXXXXXXXX
-11 - XXXXXXXXXXXX
-12 - XXXXXXXXXXXXX
-13 - XXXXXXXXXXXXXX
-14 - XXXXXXXXXXXXXXXX
-15 - XXXXXXXXXXXXXXXXX
-16 - XXXXXXXXXXXXXXXXXX
-17 - XXXXXXXXXXXXXXXXXXX
-18 - XXXXXXXXXXXXXXXXXXXX"
-scroll_active = false
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer" unique_id=212000275]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="Name" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=1070923777]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_ijf4m")
+theme_override_font_sizes/font_size = 35
+text = "NAME"
+horizontal_alignment = 1
+
+[node name="Score" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=693951022]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_ijf4m")
+theme_override_font_sizes/font_size = 35
+text = "SCORE"
+horizontal_alignment = 1
+
+[node name="DetailInfo" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1339619907]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_ijf4m")
+theme_override_font_sizes/font_size = 35
+text = "Time Played: XX: XX
+You did X spell X times
+Most used spell was XXX
+"
+horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=996962270]
 libraries/ = SubResource("AnimationLibrary_02dk7")

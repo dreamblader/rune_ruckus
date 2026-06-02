@@ -9,9 +9,23 @@ class_name RuneTablet
 @export var display_text: String = ""
 @export var glow_color: Color = Color(1,0,0)
 
+signal selected
+
 var is_selected = false
 var text_material:ShaderMaterial
 var tablet_material: ShaderMaterial
+
+
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT && self.has_focus():
+			confirm()
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_select") && self.has_focus():
+		confirm()
+		
 
 
 func _ready() -> void:
@@ -37,6 +51,20 @@ func deselect() -> void:
 
 
 func confirm() -> void:
+	release_focus()
 	accept_sound.play()
 	text_material.set_shader_parameter("full_glow", true)
 	tablet_material.set_shader_parameter("full_glow", true)
+	selected.emit()
+
+
+func _on_focus_entered() -> void:
+	select()
+
+
+func _on_focus_exited() -> void:
+	deselect()
+
+
+func _on_mouse_entered() -> void:
+	grab_focus()

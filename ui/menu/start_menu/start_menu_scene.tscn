@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ce305l5hydebd"]
+[gd_scene format=3 uid="uid://ce305l5hydebd"]
 
 [ext_resource type="Script" uid="uid://c2yj5uoc5arky" path="res://ui/menu/start_menu/start_menu_script.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://cvfeox571i71c" path="res://ui/menu/start_menu/title_card_sprite_sheet.png" id="3"]
@@ -96,17 +96,18 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Menu" type="Node2D"]
+[node name="Menu" type="Node2D" unique_id=359430970]
 script = ExtResource("1")
 min_glow_wait = 1.5
 max_glow_wait = 3.5
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1432974095]
+unique_name_in_owner = true
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("14")
 speed_scale = 2.0
 
-[node name="Content" type="CenterContainer" parent="."]
+[node name="Content" type="CenterContainer" parent="." unique_id=614042706]
 custom_minimum_size = Vector2(300, 300)
 offset_left = -176.0
 offset_top = 120.0
@@ -115,42 +116,53 @@ offset_bottom = 700.0
 grow_horizontal = 2
 scale = Vector2(1.25, 1.25)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Content"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Content" unique_id=1115332167]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="START" parent="Content/VBoxContainer" instance=ExtResource("4_g6jo0")]
+[node name="START" parent="Content/VBoxContainer" unique_id=548321350 instance=ExtResource("4_g6jo0")]
+unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_top = NodePath("../QUIT")
 display_text = "START"
 
-[node name="SPELLBOOK" parent="Content/VBoxContainer" instance=ExtResource("4_g6jo0")]
+[node name="SPELLBOOK" parent="Content/VBoxContainer" unique_id=441703539 instance=ExtResource("4_g6jo0")]
 layout_mode = 2
 display_text = "SPELLBOOK"
 glow_color = Color(0, 0, 1, 1)
 
-[node name="LEADERBOARD" parent="Content/VBoxContainer" instance=ExtResource("4_g6jo0")]
+[node name="LEADERBOARD" parent="Content/VBoxContainer" unique_id=6891917 instance=ExtResource("4_g6jo0")]
 layout_mode = 2
 display_text = "LEADERBOARD"
 glow_color = Color(1, 1, 0, 1)
 
-[node name="OPTIONS" parent="Content/VBoxContainer" instance=ExtResource("4_g6jo0")]
+[node name="OPTIONS" parent="Content/VBoxContainer" unique_id=293177598 instance=ExtResource("4_g6jo0")]
 layout_mode = 2
 display_text = "OPTIONS"
 glow_color = Color(0, 1, 0, 1)
 
-[node name="CREDITS" parent="Content/VBoxContainer" instance=ExtResource("4_g6jo0")]
+[node name="CREDITS" parent="Content/VBoxContainer" unique_id=1097064276 instance=ExtResource("4_g6jo0")]
 layout_mode = 2
 display_text = "CREDITS"
 glow_color = Color(1, 0, 1, 1)
 
-[node name="QUIT" parent="Content/VBoxContainer" instance=ExtResource("4_g6jo0")]
+[node name="QUIT" parent="Content/VBoxContainer" unique_id=1829755569 instance=ExtResource("4_g6jo0")]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../START")
 display_text = "QUIT"
 glow_color = Color(1, 0.498039, 0, 1)
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=351541358]
+unique_name_in_owner = true
 wait_time = 1.5
 autostart = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="selected" from="Content/VBoxContainer/START" to="." method="_on_start_selected"]
+[connection signal="selected" from="Content/VBoxContainer/SPELLBOOK" to="." method="_on_spellbook_selected"]
+[connection signal="selected" from="Content/VBoxContainer/LEADERBOARD" to="." method="_on_leaderboard_selected"]
+[connection signal="selected" from="Content/VBoxContainer/OPTIONS" to="." method="_on_options_selected"]
+[connection signal="selected" from="Content/VBoxContainer/CREDITS" to="." method="_on_credits_selected"]
+[connection signal="selected" from="Content/VBoxContainer/QUIT" to="." method="_on_quit_selected"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

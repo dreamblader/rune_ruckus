@@ -29,6 +29,7 @@ shader_parameter/glow_velocity = 1.5
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(2, 2)
+focus_mode = 2
 script = ExtResource("1_qqobq")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=2049697294]
@@ -65,3 +66,8 @@ stream = ExtResource("5_givhq")
 [node name="Move" type="AudioStreamPlayer" parent="." unique_id=1019001132]
 stream = ExtResource("6_qt121")
 pitch_scale = 0.37
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
