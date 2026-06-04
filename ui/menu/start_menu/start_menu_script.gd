@@ -12,9 +12,6 @@ signal option_selected(option)
 
 var rng:RandomNumberGenerator = RandomNumberGenerator.new()
 var tween:Tween
-var label_snapshot_pos_y:float
-
-enum MENU_OPTIONS {START, SPELLBOOK, LEADERBOARD, OPTIONS, CREDITS, QUIT}
 
 
 func _ready() -> void:

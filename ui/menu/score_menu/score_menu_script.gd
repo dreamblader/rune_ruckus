@@ -4,7 +4,9 @@ extends Node2D
 @onready var rank_info_label = $Content/MarginContainer/MenuContainer/RankInfo
 @onready var detail_info_label = $MarginContainer/VBoxContainer/DetailInfo
 
-@onready var enter_name_edit = $Content/MarginContainer/MenuContainer/LineEdit
+@onready var enter_name_edit = %LineEdit
+@onready var save_option = %Save
+@onready var skip_option = %Skip
 
 var view_ranks: Array[ScoreData] = []
 var controller_mode: bool = false
@@ -20,33 +22,36 @@ var tween: Tween
 enum MenuMode{ RECORD, VIEW }
 
 func _input(event: InputEvent) -> void:
-	if can_use_menu:
-		match menu_mode:
-			MenuMode.RECORD:
-				check_record_menu_input(event)
-			MenuMode.VIEW:
-				pass
+	pass
+	#if can_use_menu:
+		#match menu_mode:
+			#MenuMode.RECORD:
+				#check_record_menu_input(event)
+			#MenuMode.VIEW:
+				#pass
 
-func check_record_menu_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_down"):
-		move_menu(1)
-	if event.is_action("ui_up"):
-		move_menu(-1)
+#func check_record_menu_input(event: InputEvent) -> void:
+	#if event.is_action_pressed("ui_down"):
+		#move_menu(1)
+	#if event.is_action("ui_up"):
+		#move_menu(-1)
+#
+#
+#func move_menu(value:int) -> void:
+	#menu_index = (menu_index+value)%menu_size
+	#if menu_index < 0: 
+		#menu_index = menu_size-1
+	#update_menu()
 
-
-func move_menu(value:int) -> void:
-	menu_index = (menu_index+value)%menu_size
-	if menu_index < 0: 
-		menu_index = menu_size-1
-	update_menu()
-
+func _ready() -> void:
+	#DEBUG
+	start_record(1,1000,{}, 5.3)
 
 func start_record(rank:int, score:float, spells_count:Dictionary, game_time:float) -> void:
 	var score_data: ScoreData = gerenate_score_data(score, spells_count, game_time)
 	animation.play("enter_end_mode")
 	self.visible = true
 	setup_record_labels(rank, score_data)
-	start_save_score_menu()
 
 
 func setup_record_labels(rank:int, score:ScoreData) -> void:
@@ -82,9 +87,8 @@ func get_ordinal(num:int) -> String:
 
 func start_save_score_menu() -> void:
 	menu_mode = MenuMode.RECORD
-	menu_size = 3
-	can_use_menu = true
-	update_menu()
+	enter_name_edit.grab_focus()
+	#update_menu()
 
 
 func update_menu() -> void:
@@ -118,14 +122,17 @@ func start_view_score_menu() -> void:
 
 
 func round_time(seconds:float) -> String:
-	var minutes := int(seconds / 60)
+	var display_string = ""
+	var whole_minutes := int(seconds / 60)
 	@warning_ignore("integer_division")
-	var hours := int(minutes /60)
+	var hours := int(whole_minutes /60)
+	var minutes := whole_minutes%60
 	var remaining_seconds := fmod(seconds, 60.0)
 	if hours > 0:
-		return "%d:%02d:%05.2f" % [hours, minutes, remaining_seconds]
-	else:
-		return "%02d:%05.2f" % [minutes, remaining_seconds]
+		display_string += "%d:" % [hours]
+	display_string += "%02d:" % [minutes]
+	display_string += "%02d" % [remaining_seconds] if fmod(remaining_seconds,1.0) == 0 else "%06.3f" % [remaining_seconds]
+	return display_string
 
 
 func get_spell_count(spell_dict:Dictionary) -> int:
@@ -136,9 +143,9 @@ func get_spell_count(spell_dict:Dictionary) -> int:
 
 
 func get_most_used_spell(spell_dict:Dictionary) -> String:
-	var most_used_spell = null
+	var most_used_spell = ""
 	for spell in spell_dict:
-		if most_used_spell == null || spell_dict[spell] > spell_dict[most_used_spell]:
+		if most_used_spell == "" || spell_dict[spell] > spell_dict[most_used_spell]:
 			most_used_spell = spell
 	return most_used_spell
 
@@ -156,3 +163,16 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 			start_save_score_menu()
 		"enter_menu_mode":
 			start_view_score_menu()
+
+
+func _on_line_edit_focus_entered() -> void:
+	var styleBox: StyleBoxFlat = enter_name_edit.get_theme_stylebox("focus")
+	tween = create_tween()
+	tween.tween_property(styleBox, "border_color", Color(1,0,0), 1)
+	tween.tween_property(styleBox, "border_color", Color(1,1,1), 1)
+	tween.set_loops()
+
+
+func _on_line_edit_focus_exited() -> void:
+	tween.stop()
+	tween = null

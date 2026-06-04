@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cb1mx7sweiycm"]
+
+[ext_resource type="FontFile" uid="uid://qm41pjw6s1wh" path="res://font/Stick-Regular.ttf" id="1_auvd1"]
+[ext_resource type="Script" uid="uid://rc3p8nwobg78" path="res://ui/menu/score_menu/label_menu_button_script.gd" id="2_yo078"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ijf4m"]
+
+[node name="LabelMenu" type="Label" unique_id=847506243]
+size_flags_vertical = 1
+focus_mode = 2
+mouse_filter = 1
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("1_auvd1")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ijf4m")
+text = "PLACEHOLDER"
+horizontal_alignment = 1
+script = ExtResource("2_yo078")
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
