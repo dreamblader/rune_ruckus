@@ -1,5 +1,4 @@
 extends Resource
-
 class_name ScoreData
 
 @export var player_name:String = ""

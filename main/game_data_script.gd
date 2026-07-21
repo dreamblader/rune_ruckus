@@ -3,33 +3,24 @@ extends Node
 const PATH = "user://score.save"
 const MAX_BOARD_SIZE = 25
 enum GAMEMODE {A, B}
-#TODO add psudeo board resource here and create it for real for A and B GameModes
+
+var pseudo_board: Array[ScoreData] = [
+	ScoreData.new("Test1", 10000, "", 0, ""),
+	ScoreData.new("Test2", 5000, "", 0, ""),
+	ScoreData.new("Test3", 2500, "", 0, ""),
+	ScoreData.new("Test4", 2000, "", 0, ""),
+	ScoreData.new("Test5", 1500, "", 0, ""),
+	ScoreData.new("Test6", 1000, "", 0, ""),
+	ScoreData.new("Test7", 800, "", 0, ""),
+	ScoreData.new("Test8", 700, "", 0, ""),
+	ScoreData.new("Test9", 500, "", 0, ""),
+	ScoreData.new("Test10", 250, "", 0, "")
+]
+
 
 var pseudo_leaderboard_scores = {
-	"A": [{
-		"A": 100, 
-		"B": 100 , 
-		"C": 100 , 
-		"D": 100, 
-		"E": 100, 
-		"F": 100, 
-		"G":100 , 
-		"H": 100, 
-		"I":100, 
-		"J":100
-		}],
-	"B": [{
-		"A": 100, 
-		"B": 100 , 
-		"C": 100 , 
-		"D": 100, 
-		"E": 100, 
-		"F": 100, 
-		"G":100 , 
-		"H": 100, 
-		"I":100, 
-		"J":100
-		}],
+	"A": pseudo_board,
+	"B": pseudo_board,
 	}
 
 var game_data = {
@@ -78,21 +69,21 @@ func get_rank(mode: int, score: float) -> int:
 
 
 func update_view_board(type:String) -> void:
+	#FIXME
 	var current_game_score_data =  game_data.score[type]
 	var current_view_board = view_board[type]
-	var current_pseudo_leaderboard = pseudo_leaderboard_scores[type]
+	var current_pseudo_leaderboard: Array[ScoreData] = pseudo_leaderboard_scores[type]
 	
 	if current_game_score_data.size() == 0:
-		current_view_board = current_pseudo_leaderboard
+		current_view_board.clear()
+		current_view_board.append_array(current_pseudo_leaderboard)
 	else:
 		var data_index = 0
 		var pseudo_index = 0
 		while current_view_board.size() < MAX_BOARD_SIZE && data_index < current_game_score_data.size() && pseudo_index < current_pseudo_leaderboard.size():
-			if current_game_score_data[data_index] > current_pseudo_leaderboard[pseudo_index]:
+			if current_game_score_data[data_index].score > current_pseudo_leaderboard[pseudo_index].score:
 				current_view_board.append(current_game_score_data[data_index])
 				data_index += 1
 			else:
 				current_view_board.append(current_pseudo_leaderboard[pseudo_index])
 				pseudo_index += 1
-	
-	prints(type, view_board[type])

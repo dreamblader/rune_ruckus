@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://b7cq3bp6m4cs5" path="res://ui/rune_tablet/rune_tablet_glow.gdshader" id="2_xlu82"]
 [ext_resource type="Texture2D" uid="uid://pwybiciocnek" path="res://ui/rune_tablet/rune_tablet_complete.png" id="3_5bul2"]
 [ext_resource type="FontFile" uid="uid://qm41pjw6s1wh" path="res://font/Stick-Regular.ttf" id="4_ijf4m"]
-[ext_resource type="FontFile" uid="uid://busfghxs8iyp0" path="res://font/Anton-Regular.ttf" id="5_i3srx"]
+[ext_resource type="PackedScene" uid="uid://brrndyodfxrpl" path="res://ui/menu/score_menu/line_edit_scene.tscn" id="5_i3srx"]
 [ext_resource type="PackedScene" uid="uid://cb1mx7sweiycm" path="res://ui/menu/score_menu/label_menu_button_scene.tscn" id="6_i3srx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ijf4m"]
@@ -219,20 +219,6 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0.2, 0.2, 0.2, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijf4m"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-
 [node name="ScoreBoard" type="Node2D" unique_id=1035513763]
 script = ExtResource("1_qt3pk")
 
@@ -350,21 +336,14 @@ horizontal_alignment = 1
 [node name="Menu" type="VBoxContainer" parent="Content/MarginContainer/MenuContainer" unique_id=914306508]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="Content/MarginContainer/MenuContainer/Menu" unique_id=1525540305]
+[node name="LineEdit" parent="Content/MarginContainer/MenuContainer/Menu" unique_id=1483717966 instance=ExtResource("5_i3srx")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-mouse_filter = 1
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("5_i3srx")
-theme_override_font_sizes/font_size = 45
-theme_override_styles/normal = SubResource("StyleBoxFlat_ijf4m")
+focus_neighbor_top = NodePath("../Skip")
+theme_override_constants/caret_width = 4
 theme_override_styles/focus = SubResource("StyleBoxFlat_i3srx")
-placeholder_text = "MY NAME"
-alignment = 1
-context_menu_enabled = false
-emoji_menu_enabled = false
+max_length = 20
+caret_blink = true
 
 [node name="Save" parent="Content/MarginContainer/MenuContainer/Menu" unique_id=847506243 instance=ExtResource("6_i3srx")]
 unique_name_in_owner = true
@@ -374,10 +353,9 @@ text = "SAVE"
 [node name="Skip" parent="Content/MarginContainer/MenuContainer/Menu" unique_id=1016442224 instance=ExtResource("6_i3srx")]
 unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../LineEdit")
 text = "SKIP"
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="focus_entered" from="Content/MarginContainer/MenuContainer/Menu/LineEdit" to="." method="_on_line_edit_focus_entered"]
 [connection signal="focus_exited" from="Content/MarginContainer/MenuContainer/Menu/LineEdit" to="." method="_on_line_edit_focus_exited"]
-[connection signal="focus_entered" from="Content/MarginContainer/MenuContainer/Menu/Save" to="." method="_on_save_focus_entered"]
-[connection signal="focus_exited" from="Content/MarginContainer/MenuContainer/Menu/Save" to="." method="_on_save_focus_exited"]

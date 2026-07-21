@@ -17,7 +17,6 @@ func _ready() -> void:
 
 func update_size() -> void:
 	label.custom_minimum_size = label.get_font("normal_font").get_string_size(text)
-	print(label.custom_minimum_size)
 
 
 func appear() -> void:

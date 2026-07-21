@@ -8,6 +8,8 @@ extends Node2D
 @onready var save_option = %Save
 @onready var skip_option = %Skip
 
+@export var save_view_page_size: int = 15
+
 var view_ranks: Array[ScoreData] = []
 var controller_mode: bool = false
 var rank_info_text: String = "You got %s place on the Score Rank\nPlease input your name to save your score"
@@ -15,43 +17,22 @@ var detail_info_text: String = "Time Played: %s\nUsed spells %d times\nMost used
 var menu_index: int = 0
 var menu_size: int = 2
 var menu_mode: MenuMode = MenuMode.RECORD
-var can_use_menu:bool = false
 
 var tween: Tween
 
 enum MenuMode{ RECORD, VIEW }
 
-func _input(event: InputEvent) -> void:
-	pass
-	#if can_use_menu:
-		#match menu_mode:
-			#MenuMode.RECORD:
-				#check_record_menu_input(event)
-			#MenuMode.VIEW:
-				#pass
-
-#func check_record_menu_input(event: InputEvent) -> void:
-	#if event.is_action_pressed("ui_down"):
-		#move_menu(1)
-	#if event.is_action("ui_up"):
-		#move_menu(-1)
-#
-#
-#func move_menu(value:int) -> void:
-	#menu_index = (menu_index+value)%menu_size
-	#if menu_index < 0: 
-		#menu_index = menu_size-1
-	#update_menu()
 
 func _ready() -> void:
 	#DEBUG
-	start_record(1,1000,{}, 5.3)
+	start_record(GameData.GAMEMODE.A,6,1000,{}, 5.3)
 
-func start_record(rank:int, score:float, spells_count:Dictionary, game_time:float) -> void:
+func start_record(game_mode:GameData.GAMEMODE, rank:int, score:float, spells_count:Dictionary, game_time:float) -> void:
 	var score_data: ScoreData = gerenate_score_data(score, spells_count, game_time)
 	animation.play("enter_end_mode")
 	self.visible = true
 	setup_record_labels(rank, score_data)
+	populate_rank_view(score_data, rank, GameData.GAMEMODE.find_key(game_mode))
 
 
 func setup_record_labels(rank:int, score:ScoreData) -> void:
@@ -61,7 +42,35 @@ func setup_record_labels(rank:int, score:ScoreData) -> void:
 	var detail_spell_count = "Used spells %d time\n" % score.spells_cast if score.spells_cast == 1 else "Used spells %d times\n" % score.spells_cast
 	var detail_most_used = "Most used spell was %s" % score.most_used_spell if score.most_used_spell != null else "You did not used any spells\nTry using them next time"
 	detail_info_label.text = detail_time + detail_spell_count + detail_most_used
-	#if(rank < )
+
+
+func populate_rank_view(score_data: ScoreData, rank: int, game_mode:String) -> void:
+	var scores = []
+	var current_view = GameData.view_board[game_mode]
+	var max_page_size = min(save_view_page_size, current_view.size()+1)
+	
+	scores.append(score_data)
+	
+	var l = rank-2
+	var r = rank-1
+	while scores.size() < max_page_size:
+		if l >= 0:
+			scores.push_front(current_view[l])
+			l-=1
+		
+		if r < current_view.size():
+			scores.push_back(current_view[r])
+			r+=1
+	
+	var i = 1
+	for s: ScoreData in scores:
+		prints(i, s.player_name, s.score)
+		i+=1
+	#populate_board(scores, rank)
+
+
+func populate_board(score_list: Array[ScoreData], current_rank:int = -1) -> void:
+	pass
 
 
 func start_view() -> void:
@@ -88,37 +97,10 @@ func get_ordinal(num:int) -> String:
 func start_save_score_menu() -> void:
 	menu_mode = MenuMode.RECORD
 	enter_name_edit.grab_focus()
-	#update_menu()
-
-
-func update_menu() -> void:
-	match menu_index:
-		0:
-			animation.stop()
-			flash_edit_box()
-		1:
-			flash_edit_box(true)
-			animation.play("save_select")
-		2:
-			flash_edit_box(true)
-			animation.play("skip_select")
-
-
-func flash_edit_box(stop:bool = false) -> void:
-	if stop:
-		enter_name_edit.release_focus()
-		if tween != null:
-			tween.stop()
-			tween.kill()
-	else:
-		enter_name_edit.grab_focus()
-		tween = create_tween()
-		#tween.tween_property(enter_name_edit, "")
 
 
 func start_view_score_menu() -> void:
 	menu_mode = MenuMode.VIEW
-	can_use_menu = true
 
 
 func round_time(seconds:float) -> String:
