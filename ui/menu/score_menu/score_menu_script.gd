@@ -19,6 +19,7 @@ var menu_size: int = 2
 var menu_mode: MenuMode = MenuMode.RECORD
 
 var tween: Tween
+var current_player_name_label:Label = null
 
 enum MenuMode{ RECORD, VIEW }
 
@@ -36,7 +37,7 @@ func start_record(game_mode:GameData.GAMEMODE, rank:int, score:float, spells_cou
 
 
 func setup_record_labels(rank:int, score:ScoreData) -> void:
-	var rank_str = str(rank)+get_ordinal(rank)
+	var rank_str = get_ordinal(rank)
 	rank_info_label.text = rank_info_text % rank_str
 	var detail_time = "Time Played: %s\n" % score.game_time
 	var detail_spell_count = "Used spells %d time\n" % score.spells_cast if score.spells_cast == 1 else "Used spells %d times\n" % score.spells_cast
@@ -62,15 +63,47 @@ func populate_rank_view(score_data: ScoreData, rank: int, game_mode:String) -> v
 			scores.push_back(current_view[r])
 			r+=1
 	
-	var i = 1
-	for s: ScoreData in scores:
-		prints(i, s.player_name, s.score)
-		i+=1
-	#populate_board(scores, rank)
+	populate_board(scores, rank)
 
 
-func populate_board(score_list: Array[ScoreData], current_rank:int = -1) -> void:
-	pass
+func populate_board(score_list, current_rank:int = -1) -> void:
+	var board = %GridContainer
+	var r = 1
+	for score in score_list:
+		var name_text = "%s -  %s" % [get_ordinal(r), score.player_name]
+		var name_label = generate_score_label(name_text)
+		var score_label = generate_score_label(str(score.score))
+		if r == current_rank:
+			current_player_name_label = name_label
+			add_blink_tween_to_label(name_label)
+			add_blink_tween_to_label(score_label)
+		board.add_child(name_label)
+		board.add_child(score_label)
+		r+=1
+
+
+func add_blink_tween_to_label(label:Label) -> void:
+	var duration = 1
+	var label_tween = create_tween()
+	label.add_theme_constant_override("outline_size", 20)
+	label.add_theme_color_override("font_outline_color", Color.BLACK)
+	label_tween.tween_property(label, "theme_override_colors/font_outline_color", Color.RED, duration)
+	label_tween.tween_property(label, "theme_override_colors/font_outline_color", Color.BLACK, duration)
+	label_tween.set_loops()
+
+
+func generate_score_label(text:String) -> Label:
+	var label = Label.new()
+	var label_font = load("res://font/Stick-Regular.ttf")
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	label.add_theme_color_override("font_color", Color.WHITE)
+	label.add_theme_color_override("font_outline_color", Color.WHITE)
+	label.add_theme_constant_override("outline_size", 5)
+	label.add_theme_font_override("font", label_font)
+	label.add_theme_font_size_override("font_size", 35)
+	label.text = text
+	return label
 
 
 func start_view() -> void:
@@ -80,18 +113,18 @@ func start_view() -> void:
 
 func get_ordinal(num:int) -> String:
 	if num >= 11 && num <= 13:
-		return "th"
+		return str(num)+"th"
 	
 	var first_digit = int(str(num)[0])
 	match first_digit:
 		1:
-			return "st"
+			return str(num)+"st"
 		2:
-			return "nd"
+			return str(num)+"nd"
 		3:
-			return "rd"
+			return str(num)+"rd"
 		_:
-			return "th"
+			return str(num)+"th"
 
 
 func start_save_score_menu() -> void:
@@ -158,3 +191,15 @@ func _on_line_edit_focus_entered() -> void:
 func _on_line_edit_focus_exited() -> void:
 	tween.stop()
 	tween = null
+
+
+func _on_line_edit_text_changed(new_text: String) -> void:
+	if current_player_name_label == null:
+		return
+	
+	var name_sections = current_player_name_label.text.split("-", false, 2)
+	
+	if new_text.is_empty():
+		current_player_name_label.text = name_sections[0]+"-  ???"
+	else:
+		current_player_name_label.text = name_sections[0]+"-  "+new_text
