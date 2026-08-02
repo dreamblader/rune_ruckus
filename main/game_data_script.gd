@@ -60,16 +60,15 @@ func save_file() -> void:
 	file.close()
 
 
-func get_rank(mode: int, score: float) -> int:
+func get_rank(mode: String, score: float) -> int:
 	var current_rank = 1
 	var current_view_board = view_board[mode]
-	while score < current_view_board[current_rank -1]:
+	while current_rank <= current_view_board.size() && score < current_view_board[current_rank -1].score:
 		current_rank += 1
 	return current_rank
 
 
 func update_view_board(type:String) -> void:
-	#FIXME
 	var current_game_score_data =  game_data.score[type]
 	var current_view_board = view_board[type]
 	var current_pseudo_leaderboard: Array[ScoreData] = pseudo_leaderboard_scores[type]
@@ -87,3 +86,14 @@ func update_view_board(type:String) -> void:
 			else:
 				current_view_board.append(current_pseudo_leaderboard[pseudo_index])
 				pseudo_index += 1
+
+
+func can_save(game_mode:GAMEMODE, score:ScoreData) -> bool:
+	var game_mode_key = GameData.GAMEMODE.find_key(game_mode)
+	var current_save_board: Array = game_data.score[game_mode_key]
+	
+	if current_save_board.size() < MAX_BOARD_SIZE:
+		return true
+	
+	var final_score = current_save_board[-1].score
+	return score.score >= final_score

@@ -298,13 +298,14 @@ horizontal_alignment = 1
 libraries/ = SubResource("AnimationLibrary_02dk7")
 
 [node name="Content" type="PanelContainer" parent="." unique_id=450087359]
+unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 160.0
-offset_top = 500.0
-offset_right = 880.0
-offset_bottom = 955.0
+offset_left = 210.0
+offset_top = 675.0
+offset_right = 930.0
+offset_bottom = 1045.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(360, 227.5)
@@ -319,6 +320,7 @@ theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 5
 
 [node name="MenuContainer" type="VBoxContainer" parent="Content/MarginContainer" unique_id=1364286622]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="RankInfo" type="Label" parent="Content/MarginContainer/MenuContainer" unique_id=1015743804]

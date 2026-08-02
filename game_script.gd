@@ -22,7 +22,7 @@ var current_rune_chain = 1
 var selected_mode: GameData.GAMEMODE = GameData.GAMEMODE.A
 
 var score:float = 0
-var high_score:float = 10000
+var high_score:float = 0
 
 #CONTROLLER CHECK
 var is_controller_mode = false
@@ -63,6 +63,8 @@ func open_board() -> void:
 	var tween = create_tween()
 	board_viewport_container.material.set_shader_parameter("enabled", false)
 	board_border.visible = true
+	high_score = GameData.view_board[GameData.GAMEMODE.find_key(selected_mode)][0].score
+	update_high_score()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(board_viewport, "size:y", 960, open_time)
@@ -209,6 +211,10 @@ func is_a_orange_mix(color_check:int) -> bool:
 	return color_check == Rune.COLOR.RED || color_check == Rune.COLOR.YELLOW
 
 
+func open_score() -> void:
+	score_menu.start_view()
+
+
 func open_options() -> void:
 	get_tree().change_scene_to_file("res://options/options_scene.tscn")
 
@@ -217,10 +223,9 @@ func _on_Board_game_over(menu_flag) -> void:
 	if menu_flag:
 		#TODO get all ScoreData after name input and then add to game_data singleton
 		#round_data = ScoreData.new()
-		var rank = GameData.get_rank(selected_mode, score)
-		if rank <= GameData.MAX_BOARD_SIZE:
-			score_menu.start_record(rank, score, board.spells_count, board.game_time)
-		death_menu.visible = true
+		var rank = GameData.get_rank(GameData.GAMEMODE.find_key(selected_mode), score)
+		score_menu.start_record(selected_mode, rank, score, board.spells_count, board.game_time)
+		#death_menu.visible = true
 	else:
 		board_viewport_container.material.set_shader_parameter("enabled", true)
 
@@ -229,6 +234,8 @@ func _on_menu_option_selected(option: Variant) -> void:
 	match option:
 		"start":
 			open_board()
+		"score":
+			open_score()
 		"options":
 			open_options()
 

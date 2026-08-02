@@ -23,17 +23,17 @@ func lock_menu_controls() -> void:
 	menu_container.mouse_behavior_recursive = Control.MOUSE_BEHAVIOR_DISABLED
 
 
-func menu_gone() -> void:
+func menu_gone(option:String) -> void:
 	self.visible = false
-	emit_signal("option_selected", "start")
+	option_selected.emit(option)
 
 
-func start_game() -> void:
+func start_transition(option:String) -> void:
 	tween = create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(self, "modulate:a", 0, 0.5)
-	tween.tween_callback(menu_gone)
+	tween.tween_callback(menu_gone.bind(option))
 
 
 func _on_AnimatedSprite_animation_finished() -> void:
@@ -48,7 +48,7 @@ func _on_Timer_timeout() -> void:
 
 func _on_start_selected() -> void:
 	lock_menu_controls()
-	start_game()
+	start_transition("start")
 
 
 func _on_spellbook_selected() -> void:
@@ -58,6 +58,7 @@ func _on_spellbook_selected() -> void:
 
 func _on_leaderboard_selected() -> void:
 	lock_menu_controls()
+	start_transition("score")
 	pass # Replace with function body.
 
 

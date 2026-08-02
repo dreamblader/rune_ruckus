@@ -128,6 +128,7 @@ focus_neighbor_top = NodePath("../QUIT")
 display_text = "START"
 
 [node name="SPELLBOOK" parent="Content/VBoxContainer" unique_id=441703539 instance=ExtResource("4_g6jo0")]
+visible = false
 layout_mode = 2
 display_text = "SPELLBOOK"
 glow_color = Color(0, 0, 1, 1)
@@ -143,6 +144,7 @@ display_text = "OPTIONS"
 glow_color = Color(0, 1, 0, 1)
 
 [node name="CREDITS" parent="Content/VBoxContainer" unique_id=1097064276 instance=ExtResource("4_g6jo0")]
+visible = false
 layout_mode = 2
 display_text = "CREDITS"
 glow_color = Color(1, 0, 1, 1)

@@ -4,15 +4,18 @@ extends Node2D
 @onready var rank_info_label = $Content/MarginContainer/MenuContainer/RankInfo
 @onready var detail_info_label = $MarginContainer/VBoxContainer/DetailInfo
 
+@onready var content_record_box = %Content
+@onready var menu_record_container = %MenuContainer
 @onready var enter_name_edit = %LineEdit
 @onready var save_option = %Save
 @onready var skip_option = %Skip
+
 
 @export var save_view_page_size: int = 15
 
 var view_ranks: Array[ScoreData] = []
 var controller_mode: bool = false
-var rank_info_text: String = "You got %s place on the Score Rank\nPlease input your name to save your score"
+var rank_info_text: String = "You got %s place on the Score Rank\nPlease input your name to save your score\n"
 var detail_info_text: String = "Time Played: %s\nUsed spells %d times\nMost used spell was %s"
 var menu_index: int = 0
 var menu_size: int = 2
@@ -26,23 +29,55 @@ enum MenuMode{ RECORD, VIEW }
 
 func _ready() -> void:
 	#DEBUG
-	start_record(GameData.GAMEMODE.A,6,1000,{}, 5.3)
+	#start_record(GameData.GAMEMODE.A,-1,1000,{}, 5.3)
+	pass
+
 
 func start_record(game_mode:GameData.GAMEMODE, rank:int, score:float, spells_count:Dictionary, game_time:float) -> void:
 	var score_data: ScoreData = gerenate_score_data(score, spells_count, game_time)
 	animation.play("enter_end_mode")
 	self.visible = true
-	setup_record_labels(rank, score_data)
-	populate_rank_view(score_data, rank, GameData.GAMEMODE.find_key(game_mode))
+	enter_name_edit.visible = true
+	save_option.visible = true
+	
+	if rank <= 0 || rank > GameData.MAX_BOARD_SIZE:
+		setup_record_low_rank(score_data, game_mode)
+	else:
+		var mode_string = GameData.GAMEMODE.find_key(game_mode)
+		setup_record_normal(rank, score_data, mode_string)
 
 
-func setup_record_labels(rank:int, score:ScoreData) -> void:
-	var rank_str = get_ordinal(rank)
-	rank_info_label.text = rank_info_text % rank_str
+func setup_record_normal(rank:int, score_data:ScoreData, mode:String) -> void:
+	rank_info_text = rank_info_text % get_ordinal(rank)
+	setup_record_labels(score_data)
+	populate_rank_view(score_data, rank, mode)
+
+
+func setup_record_labels(score:ScoreData) -> void:
+	rank_info_label.text = rank_info_text 
 	var detail_time = "Time Played: %s\n" % score.game_time
-	var detail_spell_count = "Used spells %d time\n" % score.spells_cast if score.spells_cast == 1 else "Used spells %d times\n" % score.spells_cast
-	var detail_most_used = "Most used spell was %s" % score.most_used_spell if score.most_used_spell != null else "You did not used any spells\nTry using them next time"
+	var detail_spell_count = "Used spells %d time\n" % score.spells_cast if score.spells_cast == 1 else "" if score.spells_cast <=0 else "Used spells %d times\n" % score.spells_cast
+	var detail_most_used = "Most used spell was %s" % score.most_used_spell if !score.most_used_spell.is_empty() else "You did not used any spells\nTry using them next time"
 	detail_info_label.text = detail_time + detail_spell_count + detail_most_used
+
+
+func setup_record_low_rank(score_data:ScoreData, game_mode: GameData.GAMEMODE) -> void:
+	rank_info_text = "You rank is too low to be on the scoreboard\n"
+	if GameData.can_save(game_mode, score_data):
+		rank_info_text += "However, you can save and see it in the player board\n"
+	else:
+		enter_name_edit.visible = false
+		save_option.visible = false
+		menu_record_container.alignment = BoxContainer.ALIGNMENT_CENTER
+		content_record_box.size.y = 200 
+		skip_option.text = "\nOK"
+	
+	setup_record_labels(score_data)
+	var mode_string = GameData.GAMEMODE.find_key(game_mode)
+	var current_view = GameData.view_board[mode_string]
+	var max_page_size = min(save_view_page_size, current_view.size())
+	var scores = current_view.slice(current_view.size()-max_page_size, current_view.size())
+	populate_board(scores)
 
 
 func populate_rank_view(score_data: ScoreData, rank: int, game_mode:String) -> void:
@@ -115,8 +150,8 @@ func get_ordinal(num:int) -> String:
 	if num >= 11 && num <= 13:
 		return str(num)+"th"
 	
-	var first_digit = int(str(num)[0])
-	match first_digit:
+	var last_digit = int(str(num)[-1])
+	match last_digit:
 		1:
 			return str(num)+"st"
 		2:
@@ -129,7 +164,10 @@ func get_ordinal(num:int) -> String:
 
 func start_save_score_menu() -> void:
 	menu_mode = MenuMode.RECORD
-	enter_name_edit.grab_focus()
+	if enter_name_edit.visible:
+		enter_name_edit.grab_focus()
+	else:
+		skip_option.grab_focus()
 
 
 func start_view_score_menu() -> void:
@@ -171,6 +209,7 @@ func gerenate_score_data(score:float, spells_count:Dictionary, game_time:float) 
 	var most_used_spell = get_most_used_spell(spells_count)
 	return ScoreData.new("???", score, time, spell_count, most_used_spell)
 
+#TODO Grab signals from custom menus... add signals to them
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	match anim_name:
