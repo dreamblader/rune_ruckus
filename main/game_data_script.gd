@@ -47,11 +47,26 @@ func load_leaderboard() -> void:
 	var file = FileAccess.open(PATH, FileAccess.READ)
 	
 	if file:
-		game_data = file.get_var(game_data)
+		game_data = file.get_var()
 		file.close()
+	else:
+		printerr("Failed to open save file")
 	
 	update_view_board("A")
 	update_view_board("B")
+
+
+func add_player_score(mode:GAMEMODE, score:ScoreData) -> void:
+	var mode_key = GAMEMODE.find_key(mode)
+	var current_board:Array = game_data["score"][mode_key]
+	current_board.append(score.to_dictionary())
+	current_board.sort_custom(sort_score_descending)
+	save_file()
+	update_view_board(mode_key)
+
+
+func sort_score_descending(a,b) -> bool:
+	return a.score > b.score
 
 
 func save_file() -> void:
@@ -69,6 +84,7 @@ func get_rank(mode: String, score: float) -> int:
 
 
 func update_view_board(type:String) -> void:
+	#FIXME This looks like is not working properly
 	var current_game_score_data =  game_data.score[type]
 	var current_view_board = view_board[type]
 	var current_pseudo_leaderboard: Array[ScoreData] = pseudo_leaderboard_scores[type]
@@ -86,6 +102,7 @@ func update_view_board(type:String) -> void:
 			else:
 				current_view_board.append(current_pseudo_leaderboard[pseudo_index])
 				pseudo_index += 1
+	print(current_view_board)
 
 
 func can_save(game_mode:GAMEMODE, score:ScoreData) -> bool:

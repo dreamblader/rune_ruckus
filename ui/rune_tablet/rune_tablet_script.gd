@@ -51,10 +51,12 @@ func deselect() -> void:
 
 
 func confirm() -> void:
+	move_sound.volume_db = -80
 	release_focus()
 	accept_sound.play()
 	text_material.set_shader_parameter("full_glow", true)
 	tablet_material.set_shader_parameter("full_glow", true)
+	#move_sound.volume_db = 0
 	selected.emit()
 
 

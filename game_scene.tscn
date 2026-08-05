@@ -130,3 +130,4 @@ visible = false
 [connection signal="bar_complete" from="Content/RightContainer/DataContent" to="." method="_on_DataContent_bar_complete"]
 [connection signal="option_selected" from="DeathMenu" to="." method="_on_death_menu_option_selected"]
 [connection signal="option_selected" from="Menu" to="." method="_on_menu_option_selected"]
+[connection signal="dismiss" from="ScoreBoard" to="." method="_on_score_board_dismiss"]

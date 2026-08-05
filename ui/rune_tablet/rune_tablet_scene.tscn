@@ -62,6 +62,7 @@ vertical_alignment = 1
 
 [node name="Accept" type="AudioStreamPlayer" parent="." unique_id=1799961572]
 stream = ExtResource("5_givhq")
+volume_db = 10.0
 
 [node name="Move" type="AudioStreamPlayer" parent="." unique_id=1019001132]
 stream = ExtResource("6_qt121")

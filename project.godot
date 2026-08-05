@@ -16,6 +16,8 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Rune Ruckus"
 run/main_scene="res://splash/splash_scene.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="Dreamblade/RuneRuckus"
 config/features=PackedStringArray("4.6")
 config/icon="res://game_icon.png"
 

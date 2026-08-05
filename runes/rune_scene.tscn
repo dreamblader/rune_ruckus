@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dab0phae0p8pb"]
+[gd_scene format=3 uid="uid://dab0phae0p8pb"]
 
 [ext_resource type="SpriteFrames" uid="uid://dc02xvjifctid" path="res://runes/yellow/yellow_rune.tres" id="1"]
 [ext_resource type="Script" uid="uid://l4s8ginfhtg5" path="res://runes/rune_script.gd" id="2"]
@@ -18,7 +18,7 @@
 [sub_resource type="RectangleShape2D" id="18"]
 size = Vector2(40, 80)
 
-[node name="Rune" type="CharacterBody2D"]
+[node name="Rune" type="CharacterBody2D" unique_id=1777133139]
 script = ExtResource("2")
 red_rune = ExtResource("3")
 yellow_rune = ExtResource("1")
@@ -33,32 +33,32 @@ gob_rune = ExtResource("12")
 boy_rune = ExtResource("13")
 color = 3
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=129371125]
 position = Vector2(40, 40)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("1")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1563172149]
 position = Vector2(40, 40)
 shape = SubResource("18")
 debug_color = Color(1, 1, 0, 0.419608)
 
-[node name="DetectUp" type="RayCast2D" parent="."]
+[node name="DetectUp" type="RayCast2D" parent="." unique_id=1220560208]
 z_index = 2
 position = Vector2(40, 0)
 rotation = 3.14159
 hit_from_inside = true
 
-[node name="DetectRigth" type="RayCast2D" parent="."]
+[node name="DetectRigth" type="RayCast2D" parent="." unique_id=1299063439]
 z_index = 2
 position = Vector2(80, 40)
 rotation = -1.5708
 hit_from_inside = true
 
-[node name="ExplodeSound" type="AudioStreamPlayer" parent="."]
+[node name="ExplodeSound" type="AudioStreamPlayer" parent="." unique_id=1633746724]
 stream = ExtResource("9")
 bus = &"SFX"
 
-[node name="DropSound" type="AudioStreamPlayer" parent="."]
+[node name="DropSound" type="AudioStreamPlayer" parent="." unique_id=1472846865]
 stream = ExtResource("10")
 bus = &"SFX"

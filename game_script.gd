@@ -257,3 +257,7 @@ func _on_Board_submit_spell_code(code) -> void:
 func _on_Board_submit_level(level) -> void:
 	#TODO send LEVEL value to Data Content to show
 	pass # Replace with function body.
+
+
+func _on_score_board_dismiss() -> void:
+	death_menu.visible = true

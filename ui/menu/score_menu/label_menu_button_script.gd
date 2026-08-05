@@ -2,6 +2,13 @@ extends Label
 
 var tween: Tween
 
+signal selected
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_select") && self.has_focus():
+		confirm()
+
+
 func deselect() -> void:
 	if tween != null:
 		tween.stop()
@@ -19,6 +26,12 @@ func select() -> void:
 	tween.tween_property(self,"theme_override_colors/font_outline_color",color_start,1)
 	tween.tween_property(self,"theme_override_colors/font_outline_color",color_end,1)
 	tween.set_loops()
+
+
+func confirm() -> void:
+	release_focus()
+	#accept_sound.play()
+	selected.emit()
 
 
 func _on_focus_entered() -> void:
