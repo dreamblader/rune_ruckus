@@ -7,9 +7,9 @@ class_name ScoreData
 @export var spells_cast:int = 0
 @export var most_used_spell:String = ""
 
-const NAME_KEY = "name"
+const NAME_KEY = "player_name"
 const SCORE_KEY = "score"
-const GAME_TIME_KEY = "time"
+const GAME_TIME_KEY = "game_time"
 const SPELLS_CAST_KEY = "spells_cast"
 const MOST_CAST_KEY = "most_used_spell"
 
@@ -20,6 +20,10 @@ func _init(_player_name: String, _score:float, _game_time:String, _spells_cast:i
 	self.game_time = _game_time
 	self.spells_cast = _spells_cast
 	self.most_used_spell = _most_used_spell
+
+
+static func from_dictionary(dict:Dictionary) -> ScoreData:
+	return ScoreData.new(dict[NAME_KEY], dict[SCORE_KEY], dict[GAME_TIME_KEY], dict[SPELLS_CAST_KEY], dict[MOST_CAST_KEY])
 
 
 func to_dictionary() -> Dictionary:

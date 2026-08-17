@@ -12,7 +12,7 @@ extends Node2D
 @onready var skip_option = %Skip
 
 
-@export var save_view_page_size: int = 15
+@export var save_view_page_size: int = 13
 
 var score_data: ScoreData
 var current_mode : GameData.GAMEMODE = GameData.GAMEMODE.A
@@ -46,7 +46,6 @@ func start_record(game_mode:GameData.GAMEMODE, rank:int, score:float, spells_cou
 	if rank <= 0 || rank > GameData.MAX_BOARD_SIZE:
 		setup_record_low_rank()
 	else:
-		var mode_string = GameData.GAMEMODE.find_key(game_mode)
 		setup_record_normal(rank)
 
 
@@ -84,6 +83,7 @@ func setup_record_low_rank() -> void:
 
 
 func populate_rank_view(rank: int) -> void:
+	#FIXME Somehow the Score is looping back and get the 1st scores to populate back the stack
 	var scores = []
 	var mode_string = GameData.GAMEMODE.find_key(current_mode)
 	var current_view = GameData.view_board[mode_string]
@@ -102,11 +102,11 @@ func populate_rank_view(rank: int) -> void:
 			scores.push_back(current_view[r])
 			r+=1
 	
-	populate_board(scores, rank)
+	populate_board(scores, rank, l+2)
 
 
-func populate_board(score_list, current_rank:int = -1) -> void:
-	var r = 1
+func populate_board(score_list, current_rank:int = -1, start_rank:int = 1) -> void:
+	var r = start_rank
 	for score in score_list:
 		var name_text = "%s -  %s" % [get_ordinal(r), score.player_name]
 		var name_label = generate_score_label(name_text)
@@ -127,6 +127,7 @@ func add_blink_tween_to_label(label:Label) -> void:
 	label.add_theme_color_override("font_outline_color", Color.BLACK)
 	label_tween.tween_property(label, "theme_override_colors/font_outline_color", Color.RED, duration)
 	label_tween.tween_property(label, "theme_override_colors/font_outline_color", Color.BLACK, duration)
+	#FIXME CHECK THIS
 	label_tween.set_loops()
 
 
@@ -148,6 +149,7 @@ func start_view() -> void:
 	animation.play("enter_menu_mode")
 	content_record_box.visible = false
 	self.visible = true
+	populate_board(GameData.view_board["A"])
 
 
 func get_ordinal(num:int) -> String:
@@ -214,9 +216,9 @@ func gerenate_score_data(score:float, spells_count:Dictionary, game_time:float) 
 
 
 func end_menu() -> void:
-	var tween = create_tween()
-	tween.tween_property(self, "modulate:a", 0, 1)
-	tween.tween_callback(dismiss_menu)
+	var menu_tween = create_tween()
+	menu_tween.tween_property(self, "modulate:a", 0, 1)
+	menu_tween.tween_callback(dismiss_menu)
 
 
 func dismiss_menu() -> void:
@@ -242,6 +244,7 @@ func _on_line_edit_focus_entered() -> void:
 	tween = create_tween()
 	tween.tween_property(styleBox, "border_color", Color(1,0,0), 1)
 	tween.tween_property(styleBox, "border_color", Color(1,1,1), 1)
+	#FIXME CHECK THIS
 	tween.set_loops()
 
 

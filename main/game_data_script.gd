@@ -1,7 +1,7 @@
 extends Node
 
 const PATH = "user://score.save"
-const MAX_BOARD_SIZE = 25
+const MAX_BOARD_SIZE = 30
 enum GAMEMODE {A, B}
 
 var pseudo_board: Array[ScoreData] = [
@@ -95,14 +95,22 @@ func update_view_board(type:String) -> void:
 	else:
 		var data_index = 0
 		var pseudo_index = 0
-		while current_view_board.size() < MAX_BOARD_SIZE && data_index < current_game_score_data.size() && pseudo_index < current_pseudo_leaderboard.size():
-			if current_game_score_data[data_index].score > current_pseudo_leaderboard[pseudo_index].score:
-				current_view_board.append(current_game_score_data[data_index])
+		
+		while current_view_board.size() < MAX_BOARD_SIZE:
+			var player_score_data = current_game_score_data[data_index] if data_index < current_game_score_data.size() else null
+			var pseudo_score_data = current_pseudo_leaderboard[pseudo_index] if pseudo_index < current_pseudo_leaderboard.size() else null
+			
+			if player_score_data == null && pseudo_score_data == null:
+				break
+			
+			if pseudo_score_data == null || player_score_data.score > pseudo_score_data.score:
+				current_view_board.append(ScoreData.from_dictionary(player_score_data))
+				prints("ADDED PLAYER:", player_score_data.player_name, player_score_data.score)
 				data_index += 1
 			else:
-				current_view_board.append(current_pseudo_leaderboard[pseudo_index])
+				current_view_board.append(pseudo_score_data)
+				prints("ADDED PSEUDO:", pseudo_score_data.player_name, pseudo_score_data.score)
 				pseudo_index += 1
-	print(current_view_board)
 
 
 func can_save(game_mode:GAMEMODE, score:ScoreData) -> bool:
