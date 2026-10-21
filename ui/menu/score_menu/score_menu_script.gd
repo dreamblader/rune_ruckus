@@ -13,11 +13,15 @@ extends Node2D
 
 
 @export var save_view_page_size: int = 13
+@export var view_page_size: int = 15
+@export var max_view_pages: int = 2
 
+var current_view_page: int = 1
 var score_data: ScoreData
 var current_mode : GameData.GAMEMODE = GameData.GAMEMODE.A
 var rank_info_text: String = "You got %s place on the Score Rank\nPlease input your name to save your score\n"
 var detail_info_text: String = "Time Played: %s\nUsed spells %d times\nMost used spell was %s"
+var headers:Array[String] = ["NAME", "SCORE", "TIME", "SPELL\nCOUNT", "FAVORITE\nSPELL"]
 
 var tween: Tween
 var current_player_name_label:Label = null
@@ -30,6 +34,7 @@ signal dismiss
 func _ready() -> void:
 	#DEBUG
 	#start_record(GameData.GAMEMODE.A,-1,1000,{}, 5.3)
+	start_view()
 	pass
 
 
@@ -42,6 +47,8 @@ func start_record(game_mode:GameData.GAMEMODE, rank:int, score:float, spells_cou
 	content_record_box.visible = true
 	enter_name_edit.visible = true
 	save_option.visible = true
+	board.columns = 2
+	add_board_headers(headers.slice(0, 2))
 	
 	if rank <= 0 || rank > GameData.MAX_BOARD_SIZE:
 		setup_record_low_rank()
@@ -105,9 +112,16 @@ func populate_rank_view(rank: int) -> void:
 	populate_board(scores, rank, l+2)
 
 
+func add_board_headers(selected_headers:Array[String]) -> void:
+	for text in selected_headers:
+		var label = generate_score_label(text)
+		board.add_child(label)
+
+
 func populate_board(score_list, current_rank:int = -1, start_rank:int = 1) -> void:
 	var r = start_rank
-	for score in score_list:
+	
+	for score:ScoreData in score_list:
 		var name_text = "%s -  %s" % [get_ordinal(r), score.player_name]
 		var name_label = generate_score_label(name_text)
 		var score_label = generate_score_label(str(score.score))
@@ -117,6 +131,14 @@ func populate_board(score_list, current_rank:int = -1, start_rank:int = 1) -> vo
 			add_blink_tween_to_label(score_label)
 		board.add_child(name_label)
 		board.add_child(score_label)
+		
+		if board.columns > 2:
+			var time_label = generate_score_label(score.game_time)
+			var spell_num_label = generate_score_label(str(score.spells_cast))
+			var spell_most_used_label = generate_score_label(score.most_used_spell)
+			board.add_child(time_label)
+			board.add_child(spell_num_label)
+			board.add_child(spell_most_used_label)
 		r+=1
 
 
@@ -146,10 +168,17 @@ func generate_score_label(text:String) -> Label:
 
 
 func start_view() -> void:
+	var pages = []
 	animation.play("enter_menu_mode")
 	content_record_box.visible = false
 	self.visible = true
-	populate_board(GameData.view_board["A"])
+	board.columns = 5
+	add_board_headers(headers)
+	for i in range(max_view_pages):
+		pages.append(GameData.view_board["A"].slice(i*view_page_size, view_page_size*(i+1)))
+	#TODO is ust showing 14 because there is just 14 stuff
+	#TODO Disable Page 2 if size is smaller than 15
+	populate_board(pages[current_view_page])
 
 
 func get_ordinal(num:int) -> String:
@@ -225,7 +254,7 @@ func dismiss_menu() -> void:
 	self.visible = false
 	self.modulate.a = 1
 	enter_name_edit.clear()
-	var score_labels = board.get_children().slice(2)
+	var score_labels = board.get_children()
 	for label in score_labels:
 		label.queue_free()
 	dismiss.emit()
@@ -268,6 +297,7 @@ func _on_line_edit_text_changed(new_text: String) -> void:
 func _on_save_selected() -> void:
 	score_data.player_name = enter_name_edit.text
 	GameData.add_player_score(current_mode, score_data)
+	#TRANSITION TO ANOTHER MENU TO REMOVE DEATH MENU
 	end_menu()
 
 

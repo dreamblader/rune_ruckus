@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://qm41pjw6s1wh" path="res://font/Stick-Regular.ttf" id="4_ijf4m"]
 [ext_resource type="PackedScene" uid="uid://brrndyodfxrpl" path="res://ui/menu/score_menu/line_edit_scene.tscn" id="5_i3srx"]
 [ext_resource type="PackedScene" uid="uid://cb1mx7sweiycm" path="res://ui/menu/score_menu/label_menu_button_scene.tscn" id="6_i3srx"]
+[ext_resource type="PackedScene" uid="uid://cwk18juqak2d2" path="res://ui/rune_tablet/rune_tablet_scene.tscn" id="7_vk5bk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ijf4m"]
 resource_local_to_scene = true
@@ -79,7 +80,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("MarginContainer:modulate")
+tracks/3/path = NodePath("ScoreTablet:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -127,7 +128,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("MarginContainer:size")
+tracks/7/path = NodePath("ScoreTablet:size")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -139,7 +140,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("MarginContainer:position")
+tracks/8/path = NodePath("ScoreTablet:position")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -151,7 +152,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("MarginContainer/VBoxContainer/DetailInfo:visible")
+tracks/9/path = NodePath("ScoreTablet/VBoxContainer/DetailInfo:visible")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -159,6 +160,30 @@ tracks/9/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("ScoreToolMenu:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("ScoreToolMenu:modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_vk5bk"]
@@ -203,7 +228,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("MarginContainer:modulate")
+tracks/3/path = NodePath("ScoreTablet:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -215,7 +240,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("MarginContainer/VBoxContainer/DetailInfo:visible")
+tracks/4/path = NodePath("ScoreTablet/VBoxContainer/DetailInfo:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -238,7 +263,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(290, 200)]
+"values": [Vector2(290, 210)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -250,12 +275,12 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(2, 2),
 "update": 0,
-"values": [Vector2(250, 1200), Vector2(250, 0)]
+"values": [Vector2(450, 1200), Vector2(450, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("MarginContainer:modulate")
+tracks/2/path = NodePath("ScoreTablet:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -267,31 +292,31 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("MarginContainer:size")
+tracks/3/path = NodePath("ScoreTablet:size")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(701, 1075), Vector2(1457, 1001)]
+"values": [Vector2(701, 1075), Vector2(1457, 1060)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("MarginContainer:position")
+tracks/4/path = NodePath("ScoreTablet:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1203, 0), Vector2(253, -10)]
+"values": [Vector2(1203, 0), Vector2(453, -10)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("MarginContainer/VBoxContainer/DetailInfo:visible")
+tracks/5/path = NodePath("ScoreTablet/VBoxContainer/DetailInfo:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -299,6 +324,30 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ScoreToolMenu:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("ScoreToolMenu:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 0.9647059)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_02dk7"]
@@ -336,7 +385,7 @@ patch_margin_bottom = 40
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=818990697]
+[node name="ScoreTablet" type="MarginContainer" parent="." unique_id=818990697]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
@@ -351,38 +400,16 @@ theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 55
 theme_override_constants/margin_bottom = 50
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=803326700]
+[node name="VBoxContainer" type="VBoxContainer" parent="ScoreTablet" unique_id=803326700]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer" unique_id=212000275]
+[node name="GridContainer" type="GridContainer" parent="ScoreTablet/VBoxContainer" unique_id=212000275]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 columns = 2
 
-[node name="Name" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=1070923777]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("4_ijf4m")
-theme_override_font_sizes/font_size = 35
-text = "NAME"
-horizontal_alignment = 1
-
-[node name="Score" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=693951022]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("4_ijf4m")
-theme_override_font_sizes/font_size = 35
-text = "SCORE"
-horizontal_alignment = 1
-
-[node name="DetailInfo" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1339619907]
+[node name="DetailInfo" type="Label" parent="ScoreTablet/VBoxContainer" unique_id=1339619907]
 visible = false
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_ijf4m")
@@ -458,6 +485,48 @@ unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../LineEdit")
 text = "SKIP"
+
+[node name="ScoreToolMenu" type="VBoxContainer" parent="." unique_id=1791956900]
+unique_name_in_owner = true
+visible = false
+offset_top = 128.0
+offset_right = 449.0
+offset_bottom = 1083.0
+
+[node name="GameModeLabel" type="Label" parent="ScoreToolMenu" unique_id=1798911122]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_ijf4m")
+theme_override_font_sizes/font_size = 35
+text = "GAME MODE"
+horizontal_alignment = 1
+
+[node name="PageLabel" type="Label" parent="ScoreToolMenu" unique_id=206585111]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_ijf4m")
+theme_override_font_sizes/font_size = 35
+text = "PAGE"
+horizontal_alignment = 1
+
+[node name="ScoreTypeLabel" type="Label" parent="ScoreToolMenu" unique_id=714704537]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_ijf4m")
+theme_override_font_sizes/font_size = 35
+text = "SCORE TYPE"
+horizontal_alignment = 1
+
+[node name="Back" parent="ScoreToolMenu" unique_id=2072040127 instance=ExtResource("7_vk5bk")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_top = NodePath("../QUIT")
+display_text = "BACK"
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="focus_entered" from="Content/MarginContainer/MenuContainer/Menu/LineEdit" to="." method="_on_line_edit_focus_entered"]
