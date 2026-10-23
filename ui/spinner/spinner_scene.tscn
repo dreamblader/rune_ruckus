@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://38ci25byanr8"]
+
+[ext_resource type="Script" uid="uid://bgpyvce4seo86" path="res://ui/spinner/spinner_script.gd" id="1_j6t2o"]
+[ext_resource type="FontFile" uid="uid://qm41pjw6s1wh" path="res://font/Stick-Regular.ttf" id="1_wsp6t"]
+
+[node name="Spinner" type="HBoxContainer" unique_id=585554159]
+focus_mode = 2
+theme_override_constants/separation = 35
+alignment = 1
+script = ExtResource("1_j6t2o")
+
+[node name="L" type="Label" parent="." unique_id=399337469]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("1_wsp6t")
+theme_override_font_sizes/font_size = 35
+text = "◀"
+horizontal_alignment = 1
+
+[node name="Text" type="Label" parent="." unique_id=1803730727]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("1_wsp6t")
+theme_override_font_sizes/font_size = 35
+text = "TEST"
+horizontal_alignment = 1
+
+[node name="R" type="Label" parent="." unique_id=1923229116]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("1_wsp6t")
+theme_override_font_sizes/font_size = 35
+text = "▶"
+horizontal_alignment = 1
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="gui_input" from="L" to="." method="_on_l_gui_input"]
+[connection signal="gui_input" from="R" to="." method="_on_r_gui_input"]

@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://brrndyodfxrpl" path="res://ui/menu/score_menu/line_edit_scene.tscn" id="5_i3srx"]
 [ext_resource type="PackedScene" uid="uid://cb1mx7sweiycm" path="res://ui/menu/score_menu/label_menu_button_scene.tscn" id="6_i3srx"]
 [ext_resource type="PackedScene" uid="uid://cwk18juqak2d2" path="res://ui/rune_tablet/rune_tablet_scene.tscn" id="7_vk5bk"]
+[ext_resource type="PackedScene" uid="uid://38ci25byanr8" path="res://ui/spinner/spinner_scene.tscn" id="7_xye5v"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ijf4m"]
 resource_local_to_scene = true
@@ -498,16 +499,19 @@ layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("4_ijf4m")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 45
 text = "GAME MODE"
 horizontal_alignment = 1
+
+[node name="Spinner" parent="ScoreToolMenu" unique_id=585554159 instance=ExtResource("7_xye5v")]
+layout_mode = 2
 
 [node name="PageLabel" type="Label" parent="ScoreToolMenu" unique_id=206585111]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("4_ijf4m")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 45
 text = "PAGE"
 horizontal_alignment = 1
 
@@ -516,7 +520,7 @@ layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("4_ijf4m")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 45
 text = "SCORE TYPE"
 horizontal_alignment = 1
 
