@@ -1,5 +1,7 @@
 extends Node2D
 
+enum ScoreType{ ALL, PLAYER, NPC }
+
 @onready var animation = $AnimationPlayer
 @onready var rank_info_label = $Content/MarginContainer/MenuContainer/RankInfo
 @onready var detail_info_label = $MarginContainer/VBoxContainer/DetailInfo
@@ -16,7 +18,9 @@ extends Node2D
 @export var view_page_size: int = 15
 @export var max_view_pages: int = 2
 
-var current_view_page: int = 1
+var pages = []
+var current_score_mode:ScoreType = ScoreType.ALL
+var current_view_page: int = 0
 var score_data: ScoreData
 var current_mode : GameData.GAMEMODE = GameData.GAMEMODE.A
 var rank_info_text: String = "You got %s place on the Score Rank\nPlease input your name to save your score\n"
@@ -25,8 +29,6 @@ var headers:Array[String] = ["NAME", "SCORE", "TIME", "SPELL\nCOUNT", "FAVORITE\
 
 var tween: Tween
 var current_player_name_label:Label = null
-
-enum MenuMode{ RECORD, VIEW }
 
 signal dismiss
 
@@ -168,16 +170,37 @@ func generate_score_label(text:String) -> Label:
 
 
 func start_view() -> void:
-	var pages = []
 	animation.play("enter_menu_mode")
+	current_mode = GameData.GAMEMODE.A
+	current_score_mode = ScoreType.ALL
 	content_record_box.visible = false
 	self.visible = true
 	board.columns = 5
 	add_board_headers(headers)
+	paginate_view()
+
+
+func paginate_view() -> void:
+	pages.clear()
+	var current_viewboard = {}
+	
+	match current_score_mode:
+		ScoreType.ALL:
+			current_viewboard = GameData.view_board 
+		ScoreType.PLAYER:
+			current_viewboard = GameData.game_data.score
+		ScoreType.NPC:
+			current_viewboard = GameData.pseudo_leaderboard_scores
+	
+	var current_view = current_viewboard[current_mode]
+	
 	for i in range(max_view_pages):
-		pages.append(GameData.view_board["A"].slice(i*view_page_size, view_page_size*(i+1)))
-	#TODO is ust showing 14 because there is just 14 stuff
-	#TODO Disable Page 2 if size is smaller than 15
+		var final_index = min(view_page_size*(i+1), current_view.size()-1)
+		pages.append(current_view.slice(i*view_page_size, final_index))
+	
+	if pages.size() > current_view_page:
+		current_view_page = pages.size() - 1
+	
 	populate_board(pages[current_view_page])
 
 
@@ -302,4 +325,25 @@ func _on_save_selected() -> void:
 
 
 func _on_skip_selected() -> void:
+	end_menu()
+
+
+func _on_score_spinner_update(value: Variant) -> void:
+	var new_score_subset = ScoreType.values()[value]
+	current_score_mode = new_score_subset
+	paginate_view()
+
+
+func _on_mode_spinner_update(value: Variant) -> void:
+	var new_mode = GameData.GAMEMODE.values()[value]
+	current_mode = new_mode
+	paginate_view()
+
+
+func _on_page_spinner_update(value: Variant) -> void:
+	current_view_page = value
+	populate_board(pages[current_view_page])
+
+
+func _on_back_selected() -> void:
 	end_menu()

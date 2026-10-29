@@ -7,6 +7,9 @@ extends HBoxContainer
 @export var options: Array[String]
 
 var current_index = 0
+var tween:Tween
+
+signal update(value)
 
 
 func _input(event: InputEvent) -> void:
@@ -37,9 +40,11 @@ func move_index(value:int) -> void:
 
 
 func update_spinner() -> void:
-	text_label.text = options[current_index]
+	var current_option = options[current_index]
+	text_label.text = current_option
 	left_icon.modulate.a = 0 if current_index == 0 else 1
 	right_icon.modulate.a = 0 if current_index == options.size()-1 else 1
+	update.emit(current_index)
 
 
 func _on_r_gui_input(event: InputEvent) -> void:
@@ -55,8 +60,16 @@ func _on_l_gui_input(event: InputEvent) -> void:
 
 
 func _on_focus_entered() -> void:
-	pass # Replace with function body.
+	var tween_duration = 1
+	tween = create_tween()
+	tween.tween_property(left_icon, "theme_override_color/font_outline_color", Color.RED, tween_duration)
+	tween.set_parallel().tween_property(right_icon, "theme_override_color/font_outline_color", Color.RED, tween_duration)
+	tween.tween_property(left_icon, "theme_override_color/font_outline_color", Color.WHITE, tween_duration)
+	tween.set_parallel().tween_property(right_icon, "theme_override_color/font_outline_color", Color.WHITE, tween_duration)
+	text_label.add_theme_color_override("font_color", Color.RED)
 
 
 func _on_focus_exited() -> void:
-	pass # Replace with function body.
+	tween.stop()
+	tween = null
+	text_label.add_theme_color_override("font_color", Color.WHITE)

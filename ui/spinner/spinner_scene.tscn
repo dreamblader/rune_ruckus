@@ -3,6 +3,22 @@
 [ext_resource type="Script" uid="uid://bgpyvce4seo86" path="res://ui/spinner/spinner_script.gd" id="1_j6t2o"]
 [ext_resource type="FontFile" uid="uid://qm41pjw6s1wh" path="res://font/Stick-Regular.ttf" id="1_wsp6t"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j6t2o"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 1)
+draw_center = false
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 1
+expand_margin_bottom = 2.0
+
 [node name="Spinner" type="HBoxContainer" unique_id=585554159]
 focus_mode = 2
 theme_override_constants/separation = 35
@@ -26,6 +42,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 20
 theme_override_fonts/font = ExtResource("1_wsp6t")
 theme_override_font_sizes/font_size = 35
+theme_override_styles/focus = SubResource("StyleBoxFlat_j6t2o")
 text = "TEST"
 horizontal_alignment = 1
 
